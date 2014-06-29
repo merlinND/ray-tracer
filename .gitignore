@@ -1,0 +1,23 @@
+# Compiled Object files
+bin/*
+*.slo
+*.lo
+*.o
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+
+# Compiled Static libraries
+*.lai
+*.la
+#*.a
+
+# Executables
+*.exe
+*.app
+
+# OS artifacts
+.~lock*
+.DS-Store
+*~
