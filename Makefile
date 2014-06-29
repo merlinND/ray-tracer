@@ -14,7 +14,7 @@ SRCDIR=src
 OUTPUTDIR=bin
 EXE=ray-tracer
 
-FILES=main.h
+FILES=main.h Camera.h Renderer.h Scene.h
 
 HEADERS=$(addprefix $(SRCDIR)/,$(FILES))
 OBJ=$(addprefix $(OUTPUTDIR)/,$(FILES:.h=.o))
