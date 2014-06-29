@@ -1,6 +1,6 @@
 COMPILER=g++
 CPPFLAGS=-w -Wall
-LINKER=@g++
+LINKER=g++
 LINKERFLAGS=
 
 INCPATH=
@@ -14,7 +14,7 @@ SRCDIR=src
 OUTPUTDIR=bin
 EXE=ray-tracer
 
-FILES=main.h
+FILES=main.h image_output.h
 
 HEADERS=$(addprefix $(SRCDIR)/,$(FILES))
 OBJ=$(addprefix $(OUTPUTDIR)/,$(FILES:.h=.o))
@@ -33,7 +33,7 @@ $(OUTPUTDIR)/%.o: $(SRCDIR)/%.cpp
 	$(COMPILER) $(CPPFLAGS) $(INCPATH) -o $@ -c $<
 
 # Explicit dependancies
-#$(OUTPUTDIR)/dep.o: $(SRCDIR)/dep1.h $(SRCDIR)/dep2.h
+$(OUTPUTDIR)/main.o: $(SRCDIR)/image_output.h
 
 run: $(OUTPUTDIR)/$(EXE)
 	$(ECHO)
