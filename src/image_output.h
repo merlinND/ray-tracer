@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "Color.h"
+#include "renderer/Color.h"
 
 typedef std::vector<Color> Image;
 

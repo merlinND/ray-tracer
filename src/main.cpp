@@ -2,15 +2,18 @@
 #include <time.h>
 using namespace std;
 
-#include "color.h"
 #include "types.h"
-
 #include "image_output.h"
+
 #include "scenes/TestScene.h"
-#include "Camera.h"
-#include "Renderer.h"
-#include "Ray.h"
+
+#include "renderer/Color.h"
+#include "renderer/Ray.h"
+#include "renderer/Camera.h"
+#include "renderer/Renderer.h"
+
 #include "lights/Light.h"
+
 #include "geometry/Cube.h"
 
 #include "main.h"

@@ -3,7 +3,7 @@
 
 #include "../types.h"
 
-#include "../Ray.h"
+#include "../renderer/Ray.h"
 #include "../materials/Material.h"
 
 class Object {

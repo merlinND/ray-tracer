@@ -2,8 +2,8 @@
 #define LIGHT_H
 
 #include "../types.h"
-#include "../Color.h"
-#include "../Ray.h"
+#include "../renderer/Color.h"
+#include "../renderer/Ray.h"
 
 /**
  * Abstract class, parent of all light types
