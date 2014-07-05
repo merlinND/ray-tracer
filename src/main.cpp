@@ -1,6 +1,8 @@
 #include <iostream>
+#include <time.h>
 using namespace std;
 
+#include "color.h"
 #include "image_output.h"
 #include "Scene.h"
 #include "Camera.h"
@@ -10,6 +12,9 @@ using namespace std;
 
 int main(int argc, char const *argv[])
 {
+  // ----- Init
+  srand(time(0));
+
   // ----- Setup scene
   Scene world;
 

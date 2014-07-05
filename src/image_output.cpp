@@ -1,12 +1,28 @@
 #include <iostream>
 #include <jpeglib.h>
-#include <time.h>
+
 using namespace std;
 
 #include "image_output.h"
 
+typedef vector<uint8_t> Buffer;
 uint const N_CHANNELS = 3;
 uint const BITDEPTH = 8 * N_CHANNELS;
+
+/**
+ * Convenience method to convert an image (made of colors)
+ * to a buffer of consecutive ints to be written as a file
+ */
+Buffer imageToBuffer(Image & image) {
+  Buffer b;
+  for(int i = 0; i < image.size(); ++i) {
+    Pixel p = colorToPixel(image[i]);
+    b.push_back(p[0]);
+    b.push_back(p[1]);
+    b.push_back(p[2]);
+  }
+  return b;
+}
 
 /**
  * Generate a random image and save it to `path` as JPG
@@ -15,13 +31,9 @@ uint const BITDEPTH = 8 * N_CHANNELS;
 void writeSampleImage(char const * path, uint width, uint height) {
   // Generate a random image
   Image buffer;
-
   // Image data
-  srand(clock());
   for(int i = 0; i < (width * height); ++i) {
-    buffer.push_back((uint8_t)rand());
-    buffer.push_back((uint8_t)rand());
-    buffer.push_back((uint8_t)rand());
+    buffer.push_back(getRandomColor());
   }
 
   writeImage(path, width, height, buffer);
@@ -32,13 +44,15 @@ void writeSampleImage(char const * path, uint width, uint height) {
  * @param path Path to output jpg image to
  * @see http://www.andrewewhite.net/wordpress/2008/09/02/very-simple-jpeg-writer-in-c-c/
  */
-void writeImage(char const * path, uint width, uint height, Image buffer) {
+void writeImage(char const * path, uint width, uint height, Image image) {
   // Open output file
   FILE* file = fopen(path, "wb");
   if (!file) {
     cout << "Error opening " << path << endl;
     return;
   }
+
+  Buffer buffer = imageToBuffer(image);
 
   // Setup libjpeg objects
   struct jpeg_compress_struct cinfo;

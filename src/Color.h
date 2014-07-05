@@ -2,12 +2,12 @@
 #define COLOR_H
 
 #include <Eigen/Core>
-#include <time.h>
 
 /** RGB colors, each component ranging from 0 to 1 */
 typedef Eigen::Vector3f Color;
 /** RGB colors, each component ranging from 0 to 255 */
-typedef Eigen::Vector3i Pixel;
+typedef Eigen::Matrix<uint8_t, 3, 1> Pixel;
+
 
 /**
  * Clip all components of the color to be within min and max
@@ -28,8 +28,11 @@ inline Color clip(Color & c, float min = 0, float max = 1) {
  * @TODO Use a better random generator
  */
 inline Color getRandomColor() {
-  srand(clock());
-  return Color((float)rand(), (float)rand(), (float)rand());
+  return Color(
+    (float)rand() / (float)RAND_MAX,
+    (float)rand() / (float)RAND_MAX,
+    (float)rand() / (float)RAND_MAX
+  );
 }
 
 /**
@@ -38,9 +41,9 @@ inline Color getRandomColor() {
 inline Pixel colorToPixel(Color & c) {
   Color clipped = clip(c);
   return Pixel(
-      (int)(clipped[0] * 255),
-      (int)(clipped[1] * 255),
-      (int)(clipped[2] * 255)
+      (uint8_t)(clipped[0] * 255),
+      (uint8_t)(clipped[1] * 255),
+      (uint8_t)(clipped[2] * 255)
     );
 }
 
