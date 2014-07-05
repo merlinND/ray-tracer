@@ -39,11 +39,6 @@ int main(int argc, char const *argv[])
   Renderer r(world, camera);
   r.render();
 
-  // ----- Testing
-  Cube c;
-  Ray ray(ORIGIN, Vec(1, 1, 1));
-  cout << "Intersection ? " << c.intersects(ray) << endl;
-
   // ----- Output image buffer to a file
   // TODO: write the actual result
   writeSampleImage("./bin/random.jpg");
