@@ -14,7 +14,7 @@ SRCDIR=src
 OUTPUTDIR=bin
 EXE=ray-tracer
 
-FILES=main.h Camera.h image_output.h Renderer.h Scene.h
+FILES=main.h Camera.h image_output.h Ray.h Renderer.h Scene.h
 
 HEADERS=$(addprefix $(SRCDIR)/,$(FILES))
 OBJ=$(addprefix $(OUTPUTDIR)/,$(FILES:.h=.o))
@@ -35,6 +35,7 @@ $(OUTPUTDIR)/%.o: $(SRCDIR)/%.cpp
 # Explicit dependancies
 $(OUTPUTDIR)/main.o: $(SRCDIR)/image_output.h $(SRCDIR)/Color.h
 $(OUTPUTDIR)/image_output.o: $(SRCDIR)/Color.h
+$(OUTPUTDIR)/ray.o: $(SRCDIR)/types.h
 
 run: $(OUTPUTDIR)/$(EXE)
 	$(ECHO)
