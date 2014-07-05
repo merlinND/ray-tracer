@@ -33,7 +33,7 @@ int main(int argc, char const *argv[])
 
   // ----- Testing
   Cube c;
-  Ray ray(Point(0, 0, 0), Vec(1, 1, 1));
+  Ray ray(ORIGIN, Vec(1, 1, 1));
   cout << "Intersection ? " << c.intersects(ray) << endl;
 
   // ----- Output image buffer to a file

@@ -6,4 +6,6 @@
 typedef Eigen::Vector3f Vec;
 typedef Vec Point;
 
+#define ORIGIN Point(0, 0, 0)
+
 #endif
