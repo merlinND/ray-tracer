@@ -1,9 +1,11 @@
 #include <iostream>
 using namespace std;
 
+#include "image_output.h"
 #include "Scene.h"
 #include "Camera.h"
 #include "Renderer.h"
+
 #include "main.h"
 
 int main(int argc, char const *argv[])
@@ -19,7 +21,8 @@ int main(int argc, char const *argv[])
   r.render();
 
   // ----- Output image buffer to a file
-  // TODO
+  // TODO: write the actual result
+  writeSampleImage("./bin/random.jpg");
 
   return 0;
 }
