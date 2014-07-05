@@ -14,16 +14,30 @@ SRCDIR=src
 OUTPUTDIR=bin
 EXE=ray-tracer
 
+
+# Header files that have an implementation to be compiled
 FILES=main.h Camera.h image_output.h Ray.h Renderer.h Scene.h
+FILES+=geometry/Cube.h geometry/Object.h
+FILES+=materials/Material.h
+
+# Headers that most classes depend on
+COMMONS=$(SRCDIR)/types.h $(SRCDIR)/Color.h
 
 HEADERS=$(addprefix $(SRCDIR)/,$(FILES))
 OBJ=$(addprefix $(OUTPUTDIR)/,$(FILES:.h=.o))
+# Subdirectories that output .o will be written to
+SRCDIRS=$(shell (cd src; ls -d */))
+OBJDIRS=$(addprefix $(OUTPUTDIR)/,$(SRCDIRS))
 
-.PHONY: $(CLEAN)
-ALL: $(EXE)
+.PHONY: $(CLEAN) before
+ALL: $(EXE) before
+
+# Make sure that all directories we'll write to are created
+before:
+	mkdir -p $(OBJDIRS)
 
 # Ouput executable
-$(OUTPUTDIR)/$(EXE): $(OBJ)
+$(OUTPUTDIR)/$(EXE): $(OBJ) $(SRCDIR)/types.h
 	$(ECHO) Linking $(EXE)...
 	$(LINKER) $(LINKERFLAGS) $(INCPATH) -o $(OUTPUTDIR)/$(EXE) $(OBJ) $(LIBS)
 
@@ -33,9 +47,8 @@ $(OUTPUTDIR)/%.o: $(SRCDIR)/%.cpp
 	$(COMPILER) $(CPPFLAGS) $(INCPATH) -o $@ -c $<
 
 # Explicit dependancies
-$(OUTPUTDIR)/main.o: $(SRCDIR)/image_output.h $(SRCDIR)/Color.h
-$(OUTPUTDIR)/image_output.o: $(SRCDIR)/Color.h
-$(OUTPUTDIR)/ray.o: $(SRCDIR)/types.h
+$(OUTPUTDIR)/main.o: $(SRCDIR)/image_output.h
+$(OUTPUTDIR)/geometry/Cube.o: $(SRCDIR)/Geometry/Object.h
 
 run: $(OUTPUTDIR)/$(EXE)
 	$(ECHO)
