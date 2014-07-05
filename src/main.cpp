@@ -25,6 +25,7 @@ int main(int argc, char const *argv[])
 
   // ----- Place camera
   Camera camera;
+  cout << camera.viewMatrix << endl;
 
   // ----- Start rendering
   Renderer r(world, camera);

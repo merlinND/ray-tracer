@@ -1,3 +1,5 @@
+#include <Eigen/Geometry>
+
 #include "Camera.h"
 
 float const Camera::DEFAULT_DISTANCE = 2;
@@ -16,5 +18,28 @@ Camera::~Camera() {
 }
 
 void Camera::computeViewMatrix() {
-  // TODO
+  // By default: identity matrix
+  this->viewMatrix = Eigen::Matrix4f::Identity();
+
+  // ----- Translation
+  this->viewMatrix.block<3, 1>(0, 3) = this->position;
+
+  // ----- Rotation
+  // TODO: Check we're not inverting axes in some cases
+  // Going out from the eyes of the camera to `lookAt`
+  Vec w = (this->lookAt - this->position);
+  Vec other = Vec(0, 0, 1);
+  if(w[0] == 0 && w[1] == 0)
+    other = Vec(-1, 0, 0);
+
+  // Towards the "hat" of the camera
+  Vec u = other.cross(w);
+  // Towards the right hand of the camera
+  Vec v = u.cross(w);
+  this->viewMatrix.block<3,1>(0, 0) = u.normalized();
+  this->viewMatrix.block<3,1>(0, 1) = v.normalized();
+  this->viewMatrix.block<3,1>(0, 2) = w.normalized();
+
+  // ----- Perspective
+  this->viewMatrix(3, 2) = (1 / this->d);
 }
