@@ -1,7 +1,7 @@
 #include "Cube.h"
 
 Cube::Cube()
-  : Object(Point(0, 0, 0), Material(Color(0.5, 0.5, 0.5))) {
+  : Object(ORIGIN, Material(Color(0.5, 0.5, 0.5))) {
 
 }
 

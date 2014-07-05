@@ -49,7 +49,8 @@ $(OUTPUTDIR)/%.o: $(SRCDIR)/%.cpp $(SRCDIR)/%.h
 	$(COMPILER) $(CPPFLAGS) $(INCPATH) -o $@ -c $<
 
 # Explicit dependancies
-$(OUTPUTDIR)/main.o: $(SRCDIR)/image_output.h
+$(OUTPUTDIR)/main.o: $(SRCDIR)/image_output.h $(SRCDIR)/Renderer.h $(SRCDIR)/Camera.h $(SRCDIR)/scenes/Scene.h
+$(OUTPUTDIR)/Renderer.o: $(SRCDIR)/Ray.h
 $(OUTPUTDIR)/geometry/Cube.o: $(SRCDIR)/Geometry/Object.h
 
 run: all
