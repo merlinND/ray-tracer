@@ -16,6 +16,8 @@ public:
   float d;
   /** Field of view of the camera (in radians) */
   float fov;
+  /** Aspect ratio: screen width divided by screen height */
+  float aspectRatio;
 
   /**
    * View matrix in homogeneous coordinates
@@ -26,10 +28,11 @@ public:
   Eigen::Matrix4f viewMatrix;
 
   /** Default parameters */
-  static float const DEFAULT_DISTANCE;
-  static float const DEFAULT_FOV;
   static Point const DEFAULT_POSITION;
   static Point const DEFAULT_LOOK_AT;
+  static float const DEFAULT_DISTANCE;
+  static float const DEFAULT_FOV;
+  static float const DEFAULT_ASPECT_RATIO;
 
   /**
    * @param p Position of the camera
@@ -38,10 +41,13 @@ public:
   Camera(Point const & p = DEFAULT_POSITION,
          Point const & l = DEFAULT_LOOK_AT,
          float distance = DEFAULT_DISTANCE,
-         float fieldOfView = DEFAULT_FOV);
-  virtual ~Camera();
+         float fieldOfView = DEFAULT_FOV,
+         float ratio = DEFAULT_ASPECT_RATIO);
 
 protected:
+  /** Screen dimensions (in meters) */
+  float screenWidth, screenHeight;
+
   /** Update `viewMatrix` based on
    * position, lookAt, distance to screen and field of view
    */

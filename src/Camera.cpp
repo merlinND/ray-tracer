@@ -2,15 +2,21 @@
 
 #include "Camera.h"
 
-float const Camera::DEFAULT_DISTANCE = 2;
-float const Camera::DEFAULT_FOV = 1.570796327;
 Point const Camera::DEFAULT_POSITION = Point();
 Point const Camera::DEFAULT_LOOK_AT = Point(0, 0, 1);
+float const Camera::DEFAULT_DISTANCE = 2;
+float const Camera::DEFAULT_FOV = 1.570796327;
+float const Camera::DEFAULT_ASPECT_RATIO = (16 / 9);
 
-Camera::Camera(Point const & p, Point const & l, float distance, float fieldOfView)
-  : position(p), lookAt(l), d(distance), fov(fieldOfView) {
+Camera::Camera(Point const & p, Point const & l, float distance, float fieldOfView, float ratio)
+  : position(p), lookAt(l),
+    d(distance), fov(fieldOfView), aspectRatio(ratio) {
 
   computeViewMatrix();
+
+  // In camera coordinates, screen is centered in (0, 0, d)
+  this->screenWidth = 2 * d * tan(this->fov / 2);
+  this->screenHeight = this->screenWidth / this->aspectRatio;
 }
 
 Camera::~Camera() {
