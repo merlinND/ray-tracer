@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "../Color.h"
+#include "../renderer/Color.h"
 #include "../lights/Light.h"
 #include "../geometry/Object.h"
 

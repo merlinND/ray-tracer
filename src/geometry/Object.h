@@ -3,7 +3,8 @@
 
 #include "../types.h"
 
-#include "../Ray.h"
+#include "../renderer/Ray.h"
+#include "../renderer/Color.h"
 #include "../materials/Material.h"
 
 class Object {
@@ -19,6 +20,8 @@ public:
    * @TODO Return the normal vector at point of intersection
    */
   virtual bool intersects(Ray const & ray) = 0;
+
+  Color getColor() const;
 
 protected:
   /**

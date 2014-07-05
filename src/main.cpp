@@ -2,15 +2,18 @@
 #include <time.h>
 using namespace std;
 
-#include "color.h"
 #include "types.h"
-
 #include "image_output.h"
+
 #include "scenes/TestScene.h"
-#include "Camera.h"
-#include "Renderer.h"
-#include "Ray.h"
+
+#include "renderer/Color.h"
+#include "renderer/Ray.h"
+#include "renderer/Camera.h"
+#include "renderer/Renderer.h"
+
 #include "lights/Light.h"
+
 #include "geometry/Cube.h"
 
 #include "main.h"
@@ -34,16 +37,12 @@ int main(int argc, char const *argv[])
 
   // ----- Start rendering
   Renderer r(world, camera);
-  r.render();
-
-  // ----- Testing
-  Cube c;
-  Ray ray(ORIGIN, Vec(1, 1, 1));
-  cout << "Intersection ? " << c.intersects(ray) << endl;
+  Image image;
+  r.render(image);
 
   // ----- Output image buffer to a file
   // TODO: write the actual result
-  writeSampleImage("./bin/random.jpg");
+  writeImage(image, "./bin/random.jpg");
 
   return 0;
 }

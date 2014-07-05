@@ -2,8 +2,8 @@
 #define AMBIENTLIGHT_H
 
 #include "../types.h"
-#include "../Color.h"
-#include "../Ray.h"
+#include "../renderer/Color.h"
+#include "../renderer/Ray.h"
 #include "Light.h"
 
 /**
