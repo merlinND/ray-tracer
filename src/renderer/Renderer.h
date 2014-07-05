@@ -9,7 +9,6 @@ class Renderer
 {
 public:
   Renderer(Scene & s, Camera & c);
-  virtual ~Renderer();
 
   /**
    * Render the `scene` from point of view `c`
@@ -22,6 +21,12 @@ protected:
   Scene & scene;
   Camera & camera;
 
+  /**
+   * Main algorithm
+   * Determine the color taken by a ray
+   * thrown in this scene
+   */
+  Color throwRay(Ray ray);
 };
 
 #endif
