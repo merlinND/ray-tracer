@@ -36,7 +36,7 @@ all: before $(OUTPUTDIR)/$(EXE)
 
 # Make sure that all directories we'll write to are created
 before:
-	mkdir -p $(OBJDIRS)
+	@mkdir -p $(OBJDIRS)
 
 # Ouput executable
 $(OUTPUTDIR)/$(EXE): $(OBJ) $(COMMONS)
@@ -44,7 +44,7 @@ $(OUTPUTDIR)/$(EXE): $(OBJ) $(COMMONS)
 	$(LINKER) $(LINKERFLAGS) $(INCPATH) -o $(OUTPUTDIR)/$(EXE) $(OBJ) $(LIBS)
 
 # Generic rule
-$(OUTPUTDIR)/%.o: $(SRCDIR)/%.cpp
+$(OUTPUTDIR)/%.o: $(SRCDIR)/%.cpp $(SRCDIR)/%.h
 	$(ECHO) Compiling $<...
 	$(COMPILER) $(CPPFLAGS) $(INCPATH) -o $@ -c $<
 
