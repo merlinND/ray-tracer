@@ -3,7 +3,7 @@ CPPFLAGS=-w -Wall
 LINKER=@g++
 LINKERFLAGS=
 
-INCPATH=
+INCPATH=-I ./lib
 LIBPATH=-L ./lib
 LIBS=-lm -ljpeg
 
