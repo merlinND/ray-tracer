@@ -1,6 +1,7 @@
 #ifndef COLOR_H
 #define COLOR_H
 
+#include <iostream>
 #include <Eigen/Core>
 
 /** RGB colors, each component ranging from 0 to 1 */
@@ -46,6 +47,14 @@ inline Pixel colorToPixel(Color & c) {
       (uint8_t)(clipped[1] * 255),
       (uint8_t)(clipped[2] * 255)
     );
+}
+
+/**
+ * Pretty printing of colors
+ */
+inline std::ostream& operator<<(std::ostream& os, Color const & c) {
+  os << "(" << c[0] << "," << c[1] << "," << c[2] << ")";
+  return os;
 }
 
 #endif

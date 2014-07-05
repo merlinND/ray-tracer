@@ -38,7 +38,7 @@ before:
 	mkdir -p $(OBJDIRS)
 
 # Ouput executable
-$(OUTPUTDIR)/$(EXE): $(OBJ) $(SRCDIR)/types.h
+$(OUTPUTDIR)/$(EXE): $(OBJ) $(COMMONS)
 	$(ECHO) Linking $(EXE)...
 	$(LINKER) $(LINKERFLAGS) $(INCPATH) -o $(OUTPUTDIR)/$(EXE) $(OBJ) $(LIBS)
 
