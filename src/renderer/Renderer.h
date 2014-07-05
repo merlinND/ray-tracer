@@ -26,7 +26,7 @@ protected:
    * Determine the color taken by a ray
    * thrown in this scene
    */
-  Color throwRay(Ray ray);
+  Color throwRay(Ray const & ray) const;
 };
 
 #endif

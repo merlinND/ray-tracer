@@ -26,7 +26,15 @@ void Renderer::render(Image & image) {
   }
 }
 
-Color Renderer::throwRay(Ray ray) {
-  // TODO
-  return Color(1, 0, 0);
+Color Renderer::throwRay(Ray const & ray) const {
+  for(int i = 0; i < this->scene.objects.size(); ++i) {
+    Object * o = this->scene.objects[i];
+    if(o->intersects(ray)) {
+      // TODO: actual color computation with lighting, etc
+      return o->getColor();
+    }
+    else {
+      return this->scene.background;
+    }
+  }
 }

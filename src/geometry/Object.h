@@ -4,6 +4,7 @@
 #include "../types.h"
 
 #include "../renderer/Ray.h"
+#include "../renderer/Color.h"
 #include "../materials/Material.h"
 
 class Object {
@@ -18,6 +19,8 @@ public:
    * @return Whether or not the ray crosses this object
    */
   virtual bool intersects(Ray const & ray) = 0;
+
+  Color getColor() const;
 
 protected:
 
