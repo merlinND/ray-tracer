@@ -34,6 +34,8 @@ $(OUTPUTDIR)/%.o: $(SRCDIR)/%.cpp
 
 # Explicit dependancies
 #$(OUTPUTDIR)/dep.o: $(SRCDIR)/dep1.h $(SRCDIR)/dep2.h
+$(OUTPUTDIR)/main.o: $(SRCDIR)/Color.h
+
 
 run: $(OUTPUTDIR)/$(EXE)
 	$(ECHO)
