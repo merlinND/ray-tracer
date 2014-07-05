@@ -1,5 +1,10 @@
 #include "Light.h"
 
-void Light::setColor(Color c) {
+Light::Light(Color const & c)
+  : color(c) {
+
+}
+
+void Light::setColor(Color const & c) {
   this->color = c;
 }

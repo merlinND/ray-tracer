@@ -1,8 +1,6 @@
 #ifndef LIGHT_H
 #define LIGHT_H
 
-#include <vector>
-
 #include "../types.h"
 #include "../Color.h"
 #include "../Ray.h"
@@ -12,11 +10,10 @@
  */
 class Light {
 public:
-  Point position;
   Color color;
 
   /** Constructor */
-  Light(Point p);
+  Light(Color const & c = Color(1, 1, 1));
 
 
   /**
@@ -24,7 +21,7 @@ public:
    */
   virtual bool intersects(Ray const & ray) = 0;
 
-  void setColor(Color c);
+  void setColor(Color const & c);
 
 protected:
 

@@ -19,7 +19,7 @@ EXE=ray-tracer
 FILES=main.h Camera.h image_output.h Ray.h Renderer.h Scene.h
 FILES+=geometry/Cube.h geometry/Object.h
 FILES+=materials/Material.h
-FILES+=lights/Light.h
+FILES+=lights/Light.h lights/AmbientLight.h
 
 # Headers that most classes depend on
 COMMONS=$(SRCDIR)/types.h $(SRCDIR)/Color.h
