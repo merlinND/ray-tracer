@@ -1,7 +1,7 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
-#include "Scene.h"
+#include "scenes/Scene.h"
 #include "Camera.h"
 
 class Renderer

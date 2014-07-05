@@ -1,19 +1,14 @@
 #include <iostream>
 using namespace std;
 
-#include "lights/AmbientLight.h"
-#include "geometry/Cube.h"
-
 #include "Scene.h"
 
 /**
  * Default constructor
  */
-Scene::Scene()
-  : title("Hello scene") {
+Scene::Scene(Color const & bg, string title)
+  : background(bg), title(title) {
 
-  addLightSource(new AmbientLight(Color(1, 0, 0)));
-  addObject(new Cube());
 }
 
 /**
@@ -33,8 +28,4 @@ void Scene::addObject(Object * object) {
 }
 void Scene::addLightSource(Light * light) {
   this->lightSources.push_back(light);
-}
-
-string Scene::getTitle() {
-  return this->title;
 }

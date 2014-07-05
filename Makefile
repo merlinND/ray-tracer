@@ -16,10 +16,11 @@ EXE=ray-tracer
 
 
 # Header files that have an implementation to be compiled
-FILES=main.h Camera.h image_output.h Ray.h Renderer.h Scene.h
+FILES=main.h Camera.h image_output.h Ray.h Renderer.h
 FILES+=geometry/Cube.h geometry/Object.h
 FILES+=materials/Material.h
 FILES+=lights/Light.h lights/AmbientLight.h
+FILES+=scenes/Scene.h scenes/TestScene.h
 
 # Headers that most classes depend on
 COMMONS=$(SRCDIR)/types.h $(SRCDIR)/Color.h

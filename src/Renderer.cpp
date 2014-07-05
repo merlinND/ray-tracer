@@ -22,7 +22,8 @@ Renderer::~Renderer() {
  * @TODO: return an image
  */
 void Renderer::render() {
-  cout << "Rendering scene " << this->scene.getTitle() << endl;
+  cout << "Rendering scene " << this->scene.title << endl;
+  cout << "> background color " << this->scene.background << endl;
   for(int i = 0; i < scene.lightSources.size(); ++i) {
     cout << "> light of color " << scene.lightSources[0]->color << endl;
   }

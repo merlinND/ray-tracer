@@ -4,24 +4,24 @@
 #include <string>
 #include <vector>
 
-#include "lights/Light.h"
-#include "geometry/Object.h"
+#include "../Color.h"
+#include "../lights/Light.h"
+#include "../geometry/Object.h"
 
-class Scene
-{
+class Scene {
 public:
+  std::string title;
+  Color background;
   std::vector<Light *> lightSources;
   std::vector<Object *> objects;
 
-  Scene();
+  Scene(Color const & bg, std::string title);
   virtual ~Scene();
 
   void addObject(Object * object);
   void addLightSource(Light * light);
-  std::string getTitle();
 
 protected:
-  std::string title;
 };
 
 #endif
