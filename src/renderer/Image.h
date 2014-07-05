@@ -3,7 +3,6 @@
 
 #include <vector>
 
-#include "Camera.h"
 #include "Color.h"
 
 typedef std::vector<uint8_t> Buffer;
@@ -21,7 +20,7 @@ public:
   static float const DEFAULT_ASPECT_RATIO;
 
   Image(uint w = DEFAULT_WIDTH,
-        float ratio = Camera::DEFAULT_ASPECT_RATIO);
+        float ratio = DEFAULT_ASPECT_RATIO);
   Image(uint w, uint h);
   ~Image();
 

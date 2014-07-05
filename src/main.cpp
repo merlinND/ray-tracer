@@ -37,11 +37,12 @@ int main(int argc, char const *argv[])
 
   // ----- Start rendering
   Renderer r(world, camera);
-  r.render();
+  Image image;
+  r.render(image);
 
   // ----- Output image buffer to a file
   // TODO: write the actual result
-  writeSampleImage("./bin/random.jpg");
+  writeImage(image, "./bin/random.jpg");
 
   return 0;
 }

@@ -1,4 +1,10 @@
+#include "Camera.h"
+
 #include "Image.h"
+
+uint const Image::DEFAULT_WIDTH = 100;
+uint const Image::DEFAULT_HEIGHT = 100;
+float const Image::DEFAULT_ASPECT_RATIO = Camera::DEFAULT_ASPECT_RATIO;
 
 Image::Image(uint w, float ratio)
   : width(w), aspectRatio(ratio) {

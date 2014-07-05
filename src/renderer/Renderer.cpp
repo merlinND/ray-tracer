@@ -19,9 +19,8 @@ Renderer::~Renderer() {
 
 /**
  * Render the `this->scene` from the `this->camera` point of view
- * @TODO: return an image
  */
-void Renderer::render() {
+void Renderer::render(Image & image) {
   cout << "Rendering scene " << this->scene.title << endl;
   cout << "> background color " << this->scene.background << endl;
   for(int i = 0; i < scene.lightSources.size(); ++i) {
@@ -30,4 +29,7 @@ void Renderer::render() {
   for(int i = 0; i < scene.objects.size(); ++i) {
     cout << "> object of color " << scene.objects[0]->material.color << endl;
   }
+
+  // TODO: throw rays and write resulting colors to the image
+  // TODO: antialiasing by oversampling
 }
