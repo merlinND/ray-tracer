@@ -3,7 +3,7 @@
 
 #include <Eigen/Core>
 
-#include "types.h"
+#include "../types.h"
 #include "Ray.h"
 
 class Camera

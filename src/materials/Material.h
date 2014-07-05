@@ -1,7 +1,7 @@
 #ifndef MATERIAL_H
 #define MATERIAL_H
 
-#include "../Color.h"
+#include "../renderer/Color.h"
 
 /**
  * Abstract parent class for all materials
