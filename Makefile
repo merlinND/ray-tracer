@@ -30,8 +30,8 @@ OBJ=$(addprefix $(OUTPUTDIR)/,$(FILES:.h=.o))
 SRCDIRS=$(shell (cd src; ls -d */))
 OBJDIRS=$(addprefix $(OUTPUTDIR)/,$(SRCDIRS))
 
-.PHONY: $(CLEAN) before
-ALL: $(EXE) before
+.PHONY: $(CLEAN) before all
+all: before $(OUTPUTDIR)/$(EXE)
 
 # Make sure that all directories we'll write to are created
 before:
@@ -51,7 +51,7 @@ $(OUTPUTDIR)/%.o: $(SRCDIR)/%.cpp
 $(OUTPUTDIR)/main.o: $(SRCDIR)/image_output.h
 $(OUTPUTDIR)/geometry/Cube.o: $(SRCDIR)/Geometry/Object.h
 
-run: $(OUTPUTDIR)/$(EXE)
+run: all
 	$(ECHO)
 	@./bin/$(EXE)
 
