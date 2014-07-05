@@ -1,4 +1,5 @@
 #include <Eigen/Geometry>
+#include <cmath>
 
 #include "Camera.h"
 
@@ -19,8 +20,18 @@ Camera::Camera(Point const & p, Point const & l, float distance, float fieldOfVi
   this->screenHeight = this->screenWidth / this->aspectRatio;
 }
 
-Camera::~Camera() {
+Ray Camera::getRay(float rx, float ry) {
+  // We start by working in camera coordinates
+  float x = - (this->screenWidth / 2) + (rx * this->screenWidth);
+  float y = (this->screenHeight / 2) - (ry * this->screenHeight);
+  VecH target = VecH(x, y, this->d, 1);
 
+  // Go back to world coordinates
+  VecH d = this->viewMatrix * target;
+  // Apply homogeneous coordinate
+  Vec direction = d.block<3, 1>(0, 0) / d[3];
+
+  return Ray(this->position, direction.normalized());
 }
 
 void Camera::computeViewMatrix() {

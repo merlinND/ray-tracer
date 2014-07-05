@@ -4,6 +4,7 @@
 #include <Eigen/Core>
 
 #include "types.h"
+#include "Ray.h"
 
 class Camera
 {
@@ -43,6 +44,16 @@ public:
          float distance = DEFAULT_DISTANCE,
          float fieldOfView = DEFAULT_FOV,
          float ratio = DEFAULT_ASPECT_RATIO);
+
+  /**
+   * Obtain the ray going from the camera to the point on the screen.
+   * The point is designated in percentage of width and height
+   * to allow easy oversampling.
+   * Origin of the screen is in the TOP-LEFT corner
+   * @param rx Horizontal position 0..1 (as percentage of the screen width)
+   * @param ry Vertical position 0..1 (as percentage of the screen height)
+   */
+  Ray getRay(float rx, float ry);
 
 protected:
   /** Screen dimensions (in meters) */
