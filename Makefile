@@ -3,7 +3,7 @@ CPPFLAGS=-w -Wall
 LINKER=g++
 LINKERFLAGS=
 
-INCPATH=
+INCPATH=-I ./lib
 LIBPATH=-L ./lib
 LIBS=-lm -ljpeg
 
@@ -14,7 +14,7 @@ SRCDIR=src
 OUTPUTDIR=bin
 EXE=ray-tracer
 
-FILES=main.h image_output.h
+FILES=main.h Camera.h image_output.h Renderer.h Scene.h
 
 HEADERS=$(addprefix $(SRCDIR)/,$(FILES))
 OBJ=$(addprefix $(OUTPUTDIR)/,$(FILES:.h=.o))
@@ -33,7 +33,7 @@ $(OUTPUTDIR)/%.o: $(SRCDIR)/%.cpp
 	$(COMPILER) $(CPPFLAGS) $(INCPATH) -o $@ -c $<
 
 # Explicit dependancies
-$(OUTPUTDIR)/main.o: $(SRCDIR)/image_output.h
+$(OUTPUTDIR)/main.o: $(SRCDIR)/image_output.h $(SRCDIR)/Color.h
 
 run: $(OUTPUTDIR)/$(EXE)
 	$(ECHO)
