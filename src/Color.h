@@ -8,6 +8,7 @@ typedef Eigen::Vector3f Color;
 /** RGB colors, each component ranging from 0 to 255 */
 typedef Eigen::Matrix<uint8_t, 3, 1> Pixel;
 
+// TODO: make available an enum of often used colors
 
 /**
  * Clip all components of the color to be within min and max
