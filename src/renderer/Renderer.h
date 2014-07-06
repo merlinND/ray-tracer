@@ -40,7 +40,7 @@ protected:
    */
   Color computeColor(Ray const & ray,
                      Object const & object,
-                     //Intersection const & intersection,
+                     Intersection const & intersection,
                      float intensity) const;
 };
 
