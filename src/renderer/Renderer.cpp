@@ -20,7 +20,7 @@ void Renderer::render(Image & image) {
   // TODO: antialiasing by oversampling
   for(int x = 0; x < image.width; ++x) {
     for(int y = 0; y < image.height; ++y) {
-      Ray r = this->camera.getRay( (x / image.width), (y / image.height) );
+      Ray r = this->camera.getRay( (x / (float)image.width), (y / (float)image.height) );
       image.set(x, y, throwRay(r));
     }
   }

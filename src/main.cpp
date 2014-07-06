@@ -27,7 +27,7 @@ int main(int argc, char const *argv[])
   TestScene world;
 
   // ----- Place camera
-  Camera camera;
+  Camera camera(Point(0.1, 0.1, 0.1), Point(0, 0, 1));
   cout << camera.viewMatrix << endl << endl;
   cout << "Top left: " << camera.getRay(0, 0) << endl;
   cout << "Top right: " << camera.getRay(1, 0) << endl << endl;

@@ -4,17 +4,23 @@
 #include "../types.h"
 #include "Object.h"
 
+// TODO: generalize to any parallelepipoid
 class Cube : public Object {
 public:
-  // TODO: properties for corners (AABB)
+  /** Length of a side */
+  float side;
 
-  /** Default constructor */
-  Cube();
+  /**
+   * @param p Position at which the cube is centered
+   * @param s Length of the side of the cube
+   */
+  Cube(Point const & p, float s);
 
   virtual bool intersects(Ray const & ray);
 
 protected:
-
+  float minBounds[3];
+  float maxBounds[3];
 };
 
 #endif

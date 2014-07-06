@@ -17,12 +17,18 @@ public:
 
   /**
    * @return Whether or not the ray crosses this object
+   * @TODO Return the normal vector at point of intersection
    */
   virtual bool intersects(Ray const & ray) = 0;
 
   Color getColor() const;
 
 protected:
+  /**
+   * Value that we consider "close enough to zero"
+   * when computing intersections
+   */
+  static float const EPSILON;
 
 };
 
