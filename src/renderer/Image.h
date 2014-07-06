@@ -19,8 +19,7 @@ public:
   static uint const DEFAULT_HEIGHT;
   static float const DEFAULT_ASPECT_RATIO;
 
-  Image(uint w = DEFAULT_WIDTH,
-        float ratio = DEFAULT_ASPECT_RATIO);
+  Image(uint w = DEFAULT_WIDTH);
   Image(uint w, uint h);
   ~Image();
 
