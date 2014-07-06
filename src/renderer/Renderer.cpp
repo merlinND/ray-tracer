@@ -2,6 +2,8 @@
 using namespace std;
 
 #include "Renderer.h"
+#include "../geometry/Object.h"
+#include "../geometry/Intersection.h"
 
 // TODO: tweak value
 float const Renderer::MIN_INTENSITY = 0.05;
@@ -37,7 +39,9 @@ Color Renderer::castRay(Ray const & ray, float intensity) const {
 
   for(int i = 0; i < this->scene.objects.size(); ++i) {
     Object * o = this->scene.objects[i];
-    if(o->intersects(ray)) {
+    Intersection intersection(*o, ray);
+
+    if(o->intersects(ray, &intersection)) {
       return computeColor(ray, *o, intensity);
     }
     else {
