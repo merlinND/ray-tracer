@@ -10,10 +10,10 @@
  */
 class Light {
 public:
-  Color color;
+  static Color const DEFAULT_COLOR;
 
   /** Constructor */
-  Light(Color const & c = Color(1, 1, 1));
+  Light(float i = 1, Color const & c = DEFAULT_COLOR);
 
 
   /**
@@ -21,10 +21,12 @@ public:
    */
   virtual bool intersects(Ray const & ray) = 0;
 
+  Color getColor() const;
   void setColor(Color const & c);
 
 protected:
-
+  Color color;
+  float intensity;
 };
 
 #endif

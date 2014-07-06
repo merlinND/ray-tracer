@@ -7,7 +7,7 @@ using namespace std;
  * Default constructor
  */
 Scene::Scene(Color const & bg, string title)
-  : background(bg), title(title) {
+  : background(bg), title(title), ambientLight(0.1) {
 
 }
 
@@ -26,6 +26,6 @@ Scene::~Scene() {
 void Scene::addObject(Object * object) {
   this->objects.push_back(object);
 }
-void Scene::addLightSource(Light * light) {
+void Scene::addLightSource(PunctualLight * light) {
   this->lightSources.push_back(light);
 }
