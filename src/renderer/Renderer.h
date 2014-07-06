@@ -26,7 +26,16 @@ protected:
    * Determine the color taken by a ray
    * thrown in this scene
    */
-  Color throwRay(Ray const & ray) const;
+  Color castRay(Ray const & ray, float intensity) const;
+
+  /**
+   * Compute the light color at a point of intersection
+   * between a Ray and an Object
+   */
+  Color computeColor(Ray const & ray,
+                     Object const & object,
+                     Intersection const & intersection,
+                     float intensity) const;
 };
 
 #endif
