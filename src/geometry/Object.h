@@ -6,7 +6,11 @@
 #include "../renderer/Ray.h"
 #include "../renderer/Color.h"
 #include "../materials/Material.h"
+#include "Intersection.h"
 
+// TODO: allow for rotations
+// TODO: compute object -> scene coordinates matrix
+// TODO: handle intersections computation in object coordinates
 class Object {
 public:
   Point position;
@@ -16,10 +20,11 @@ public:
   Object(Point const & pos, Material const & m);
 
   /**
+   * @param ray
+   * @param *intersection Object to write the intersection info to
    * @return Whether or not the ray crosses this object
-   * @TODO Return the normal vector at point of intersection
    */
-  virtual bool intersects(Ray const & ray) = 0;
+  virtual bool intersects(Ray const & ray, Intersection * intersection) = 0;
 
   Color getColor() const;
 
