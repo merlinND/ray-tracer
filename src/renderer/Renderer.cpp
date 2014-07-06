@@ -24,11 +24,22 @@ void Renderer::render(Image & image) {
     cout << "> object of color " << scene.objects[0]->material.color << endl;
   }
 
-  // TODO: antialiasing by oversampling
   for(int x = 0; x < image.width; ++x) {
     for(int y = 0; y < image.height; ++y) {
-      Ray r = this->camera.getRay( (x / (float)image.width), (y / (float)image.height) );
-      image.set(x, y, castRay(r, 1));
+      // TODO: adaptative oversampling
+      int nSamples = 5;
+      float ix = (x / (float)image.width),
+            iy = (y / (float)image.height),
+            dx = (1 / (float)image.width) / (float)nSamples,
+            dy = (1 / (float)image.height) / (float)nSamples;
+      Color accumulator(0, 0, 0);
+
+      for(int i = 0; i < nSamples; ++i) {
+        Ray r = this->camera.getRay(ix + i * dx, iy + i * dy);
+        accumulator += castRay(r, 1);
+      }
+
+      image.set(x, y, accumulator / nSamples);
     }
   }
 }
