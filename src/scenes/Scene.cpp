@@ -7,7 +7,7 @@ using namespace std;
  * Default constructor
  */
 Scene::Scene(Color const & bg, string title)
-  : background(bg), title(title), ambientLight(0.1) {
+  : background(bg), title(title) {
 
 }
 

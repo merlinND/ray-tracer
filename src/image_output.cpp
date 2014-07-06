@@ -53,9 +53,8 @@ void writeImage(Image const & image, char const * path) {
   cinfo.input_components = N_CHANNELS; // RGB channels
   cinfo.in_color_space = JCS_RGB;
   jpeg_set_defaults(&cinfo);
+  jpeg_set_quality (&cinfo, 100, (boolean)false);
   jpeg_start_compress(&cinfo, (boolean)true);
-  // Default quality is 100
-  //jpeg_set_quality (&cinfo, 75, true);
 
   // Points to a row of the image
   JSAMPROW row_pointer;
