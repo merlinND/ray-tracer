@@ -38,8 +38,7 @@ Color Renderer::castRay(Ray const & ray, float intensity) const {
   for(int i = 0; i < this->scene.objects.size(); ++i) {
     Object * o = this->scene.objects[i];
     if(o->intersects(ray)) {
-      // TODO: actual color computation with lighting, etc
-      return o->getColor();
+      return computeColor(ray, *o, intensity);
     }
     else {
       return this->scene.background;
@@ -49,7 +48,40 @@ Color Renderer::castRay(Ray const & ray, float intensity) const {
 
 Color Renderer::computeColor(Ray const & ray,
                              Object const & object,
-                             Intersection const & intersection,
+                             //Intersection const & intersection,
                              float intensity) const {
+  // ----- Light sources
+  Color lightColor = object.getColor();
+  /*
+  foreach(this->scene->lightSources) {
+    // Ray from intersection point to light source
+    Ray toLight(intersection.position, lightSource.position - intersection.position);
+    if(!this->scene.isInterrupted(toLight)) {
+      if(ray.direction.angle(toLight.direction) > (PI / 2)) {
+        result += diffuse and specular reflexion;
+      }
+      else {
+        result += diffuse and specular transmission;
+      }
+    }
+  }
+  */
 
+  // ----- Refraction (e.g. glass)
+  /*
+  Ray refractionRay(intersection.position, ???);
+  Color transmissionColor;
+  if(!total reflection) {
+    float t = object.getTransmissionCoefficient()
+    transmissionColor = t * castRay(refractionRay, t * intensity);
+  }
+  */
+  // ----- Reflection (e.g. mirror)
+  /*
+  Ray reflectionRay(intersection.position, ???);
+  float r = object.getReflectionCoefficient();
+  Color reflectionColor = r * castRay(reflectionRay, r * intensity);
+  */
+
+  return lightColor; // + transmissionColor + reflectionColor;
 }

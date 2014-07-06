@@ -22,6 +22,12 @@ protected:
   Camera & camera;
 
   /**
+   * Value of intensity under which we stop considering
+   * a ray's contribution to the color.
+   */
+  static float const MIN_INTENSITY;
+
+  /**
    * Main algorithm
    * Determine the color taken by a ray
    * thrown in this scene
@@ -34,7 +40,7 @@ protected:
    */
   Color computeColor(Ray const & ray,
                      Object const & object,
-                     Intersection const & intersection,
+                     //Intersection const & intersection,
                      float intensity) const;
 };
 
