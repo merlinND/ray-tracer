@@ -7,6 +7,9 @@
 #include "../renderer/Color.h"
 #include "../materials/Material.h"
 
+// TODO: allow for rotations
+// TODO: compute object -> scene coordinates matrix
+// TODO: handle intersections computation in object coordinates
 class Object {
 public:
   Point position;

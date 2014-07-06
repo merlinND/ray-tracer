@@ -7,7 +7,8 @@ Point const Camera::DEFAULT_POSITION = Point();
 Point const Camera::DEFAULT_LOOK_AT = Point(0, 0, 1);
 float const Camera::DEFAULT_DISTANCE = 2;
 float const Camera::DEFAULT_FOV = 1.570796327;
-float const Camera::DEFAULT_ASPECT_RATIO = (16 / 9);
+// TODO: fix bug when aspect ratio is not square
+float const Camera::DEFAULT_ASPECT_RATIO = 1; //(16.f / 9.f)
 
 Camera::Camera(Point const & p, Point const & l, float distance, float fieldOfView, float ratio)
   : position(p), lookAt(l),
