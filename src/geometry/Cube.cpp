@@ -12,13 +12,15 @@ Cube::Cube(Point const & p, float s)
   }
 }
 
-bool Cube::intersects(Ray const & ray) {
+bool Cube::intersects(Ray const & ray, Intersection * intersection) {
   float tNear = FLT_MIN;
   float tFar = FLT_MAX;
   // Closest point of intersection of a bounding plane with the ray
   float t1;
   // Furthest point of intersection of a bounding plane with the ray
   float t2;
+  // Remember along which axis the collision happened
+  uint axis;
 
   for(int i = 0; i < 3; ++i) {
     float min = this->minBounds[i];
@@ -38,10 +40,14 @@ bool Cube::intersects(Ray const & ray) {
         t2 = t1;
         t1 = temp;
       }
-      if(t1 > tNear)
+      if(t1 > tNear) {
         tNear = t1;
-      if(t2 < tFar)
+        axis = i;
+      }
+      if(t2 < tFar) {
         tFar = t2;
+        axis = i;
+      }
 
       if(tNear > tFar || tFar < Object::EPSILON) {
         return false;
@@ -50,5 +56,25 @@ bool Cube::intersects(Ray const & ray) {
   }
 
   // We've passed all the tests, there must be an intersection
+  float t;
+  if(tNear > Object::EPSILON)
+    t = tNear;
+  else
+    t = tFar;
+
+  // Point of intersection
+  intersection->position = ray.from + (t * ray.direction);
+
+  // Normal vector at this point
+  intersection->normal = Vec(0, 0, 0);
+  intersection->normal[axis] = 1;
+  // Make sure the normal vector points outwards
+  // cos(theta) >= 0
+  // TODO: check that this is correct
+  Vec toI = (this->position - intersection->position);
+  if(toI.normalized().dot(intersection->normal) >= 0) {
+    intersection->normal[axis] = -1;
+  }
+
   return true;
 }

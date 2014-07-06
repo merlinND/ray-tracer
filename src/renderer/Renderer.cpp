@@ -2,6 +2,8 @@
 using namespace std;
 
 #include "Renderer.h"
+#include "../geometry/Object.h"
+#include "../geometry/Intersection.h"
 
 Renderer::Renderer(Scene & s, Camera & c)
   : scene(s), camera(c) {
@@ -29,7 +31,9 @@ void Renderer::render(Image & image) {
 Color Renderer::throwRay(Ray const & ray) const {
   for(int i = 0; i < this->scene.objects.size(); ++i) {
     Object * o = this->scene.objects[i];
-    if(o->intersects(ray)) {
+    Intersection intersection(*o, ray);
+
+    if(o->intersects(ray, &intersection)) {
       // TODO: actual color computation with lighting, etc
       return o->getColor();
     }
