@@ -21,3 +21,8 @@ For now, all computations are done on CPU, but future versions may leverage GPU 
   - Arbitrary parallelepiped
 - Directed lighting
 - Materials system
+
+## Dependencies
+
+- [`eigein` 3.2.1](http://eigen.tuxfamily.org/) for linear algebra data structures and operations
+- [`libjpeg`](http://www.ijg.org/) for JPEG output
