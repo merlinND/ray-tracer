@@ -1,3 +1,5 @@
+#include <iostream>
+using namespace std;
 #include <cfloat>
 
 #include "Cube.h"
@@ -26,11 +28,13 @@ bool Cube::intersects(Ray const & ray, Intersection * intersection) {
     float min = this->minBounds[i];
     float max = this->maxBounds[i];
 
-    if(ray.direction[i] == 0) {
-      if(ray.direction[i] <= min || ray.direction[i] >= max) {
+    // Ray parallel to this axis
+    if(abs(ray.direction[i]) < Object::EPSILON) {
+      if(ray.from[i] < min || ray.from[i] > max) {
         return false;
       }
     }
+    // Ray not parallel
     else {
       t1 = (min - ray.from[i]) / ray.direction[i];
       t2 = (max - ray.from[i]) / ray.direction[i];
@@ -71,8 +75,6 @@ bool Cube::intersects(Ray const & ray, Intersection * intersection) {
     t = tFar;
     axis = axisFar;
   }
-  // TODO: stop doing random hacks
-  axis = (axis + 1) % 3;
 
   // Point of intersection
   intersection->position = ray.from + (t * ray.direction);
@@ -80,9 +82,9 @@ bool Cube::intersects(Ray const & ray, Intersection * intersection) {
   // Normal vector at this point
   intersection->normal = Vec(0, 0, 0);
   intersection->normal[axis] = 1;
-  // Make sure the normal vector points outwards
+  // Make sure the normal vector is on the same side as the origin of the ray
   // TODO: check that this is correct
-  if(ray.direction.dot(intersection->position) < 0) {
+  if((-ray.direction).dot(intersection->normal) < 0) {
     intersection->normal[axis] = -1;
   }
 
