@@ -69,12 +69,19 @@ Color Renderer::computeColor(Intersection const & intersection,
   Material const & mat = object->getMaterial();
 
   /**
+   * Angle made by the vector pointing towards the observer
+   * and the normal at the point of intersection
+   */
+  float cosTheta = intersection.normal.dot(-ray->direction);
+
+  /**
    * Vector symmetric to the direction of observation
    * relative to the normal at the point of intersection.
    * It corresponds to the "preferred" direction of reflection
    * according to Descartes' laws
    */
-  Vec symmetric = 2 * (intersection.normal.dot(-ray->direction) * intersection.normal) + ray->direction;
+  Vec symmetric = (2 * cosTheta * intersection.normal) + ray->direction;
+
 
   // ----- Ambient light
   Color lightColor = mat.ambientLight
@@ -89,14 +96,14 @@ Color Renderer::computeColor(Intersection const & intersection,
     Vec toLight = (light->position - intersection.position).normalized();
     Ray lightRay(intersection.position, toLight);
 
+    float cosPhi = (-ray->direction).dot(toLight);
     if(!this->scene.isObstructed(lightRay, light->position)) {
       // TODO: support attenuation with distance
       // TODO: support directed lights
       Color diffuse = object->getColor();
       Color specular(0, 0, 0);
 
-      float cosPhi = ray->direction.dot(toLight);
-      if(cosPhi < 0) {
+      if(cosPhi > 0) {
         // ----- Reflection
         diffuse *= mat.diffuseReflection
                    * toLight.dot(intersection.normal);
@@ -107,26 +114,36 @@ Color Renderer::computeColor(Intersection const & intersection,
       }
       else {
         // ----- Transmission
+        // TODO: should this fix shadows through glass?
+        // TODO: check for correctness
         diffuse *= mat.diffuseTransmission
                    * -toLight.dot(intersection.normal);
 
         // TODO: support specular transmission (depends on the refraction indices of the mediums)
+
       }
 
       lightColor += light->getColor().cwiseProduct(diffuse + specular);
     }
   }
 
-
   // ----- Ideal transmission (e.g. glass)
   Color transmissionColor(0, 0, 0);
-  if(false) { // if(!total reflection)
-    // TODO: compute ideal transmission direction (depending on the medium's index)
-    Vec transmissionDirection;
-    Ray transmissionRay(intersection.position, transmissionDirection);
+
+  // TODO: support rays coming from a medium different than air
+  float nn = (1 / mat.refractionIndex);
+  float radical = (1 + nn*nn * (cosTheta * cosTheta - 1));
+
+  if(radical > 0) {
+    float tau = nn * cosTheta - sqrt(radical);
+    Vec trans = nn * ray->direction
+                + tau * intersection.normal;
+    Ray transmissionRay(intersection.position, trans);
+
     float t = mat.idealTransmission;
     transmissionColor = t * castRay(transmissionRay, t * intensity);
   }
+  // Otherwise, there's total reflection
 
   // ----- Ideal reflection (e.g. mirror)
   Ray reflectionRay(intersection.position, symmetric);
