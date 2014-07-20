@@ -1,5 +1,4 @@
-#include <cfloat>
-
+#include "../types.h"
 #include "Sphere.h"
 
 Sphere::Sphere(Point const & p, float r)
@@ -33,6 +32,11 @@ bool Sphere::intersects(Ray const & ray, Intersection * intersection) {
   }
 
   // There's an intersection
+  // Allow to skip the computation of the intersection point
+  if(intersection == NULL) {
+    return true;
+  }
+
   // Parameter corresponding to the intersection point
   float t;
   if(isInside)
