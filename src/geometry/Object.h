@@ -15,7 +15,7 @@ class Object {
 public:
   Point position;
   Color color;
-  Material const & material;
+  Material const * material;
 
   // Default values
   static Color const DEFAULT_COLOR;
@@ -41,6 +41,8 @@ public:
 
   Color getColor() const;
   void setColor(Color const & color);
+  Material const & getMaterial() const;
+  void setMaterial(Material const & material);
 
 protected:
 
