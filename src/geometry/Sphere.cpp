@@ -46,9 +46,9 @@ bool Sphere::intersects(Ray const & ray, Intersection * intersection) {
 
   intersection->position = (ray.from + t * ray.direction);
   if(isInside)
-    intersection->normal = (this->position - intersection->position);
+    intersection->normal = (this->position - intersection->position).normalized();
   else
-    intersection->normal = (intersection->position - this->position);
+    intersection->normal = (intersection->position - this->position).normalized();
 
   return true;
 }
