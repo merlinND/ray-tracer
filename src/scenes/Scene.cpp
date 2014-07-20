@@ -29,3 +29,35 @@ void Scene::addObject(Object * object) {
 void Scene::addLightSource(PunctualLight * light) {
   this->lightSources.push_back(light);
 }
+
+bool Scene::intersects(Ray const & ray, Intersection * intersection) const {
+  // Distance to the closest intersection encountered so far
+  float minD2 = -1;
+
+  // For each object of the scene
+  for(uint i = 0; i < this->objects.size(); ++i) {
+    Object * o = this->objects[i];
+
+    // If we're not interested in intersection data, return immediately
+    if(intersection == NULL && o->intersects(ray, NULL)) {
+      return true;
+    }
+    else {
+      Intersection data(o, &ray);
+      if(o->intersects(ray, &data)) {
+        // Remember the closest intersection only
+        float d2 = (data.position - ray.from).squaredNorm();
+        if(d2 < minD2 || minD2 < Object::EPSILON) {
+          minD2 = d2;
+          *intersection = data;
+        }
+      }
+    }
+
+  }
+
+  if(minD2 < Object::EPSILON) {
+    return false;
+  }
+  return true;
+}

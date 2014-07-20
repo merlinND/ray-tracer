@@ -19,7 +19,7 @@ TestScene::TestScene()
   Point p(0, 0.7, 2);
   Object * o;
 
-  o = new Cube(p, 0.5);
+  o = new Cube(p, 0.8);
   o->setColor(Color(0.7, 0.2, 0.2));
   addObject(o);
 

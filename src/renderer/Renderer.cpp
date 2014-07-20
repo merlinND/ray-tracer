@@ -50,29 +50,14 @@ Color Renderer::castRay(Ray const & ray, float intensity) const {
     return Color(0, 0, 0);
   }
 
-  Intersection closestIntersection;
-  float minD2 = -1;
+  Intersection intersection;
+  bool intersects = this->scene.intersects(ray, &intersection);
 
-  // For each object of the scene
-  for(uint i = 0; i < this->scene.objects.size(); ++i) {
-    Object * o = this->scene.objects[i];
-    Intersection intersection(o, &ray);
-
-    if(o->intersects(ray, &intersection)) {
-      // Remember the closest intersection only
-      float d2 = (intersection.position - ray.from).squaredNorm();
-      if(d2 < minD2 || minD2 < Object::EPSILON) {
-        minD2 = d2;
-        closestIntersection = intersection;
-      }
-    }
-  }
-
-  if(minD2 < Object::EPSILON) {
-    return this->scene.background;
+  if(intersects) {
+    return computeColor(intersection, intensity);
   }
   else {
-    return computeColor(closestIntersection, intensity);
+    return this->scene.background;
   }
 }
 
