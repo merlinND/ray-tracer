@@ -4,6 +4,7 @@
 #include "../lights/AmbientLight.h"
 #include "../lights/PunctualLight.h"
 #include "../geometry/Cube.h"
+#include "../geometry/Sphere.h"
 
 TestScene::TestScene()
   : Scene(getRandomColor(), "Hello test scene") {
@@ -15,7 +16,7 @@ TestScene::TestScene()
   addLightSource(light);
 
   // Objects
-  Point p(0, 0, 1);
+  Point p(0, 0, 3);
   addObject(new Cube(p, 0.5));
   p << 0, 0.5, 1;
   addObject(new Sphere(p, 0.4));

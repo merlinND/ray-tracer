@@ -56,6 +56,11 @@ bool Cube::intersects(Ray const & ray, Intersection * intersection) {
   }
 
   // We've passed all the tests, there must be an intersection
+  // Allow to skip the computation of the intersection point
+  if(intersection == NULL) {
+    return true;
+  }
+
   float t;
   uint axis;
   if(tNear > Object::EPSILON) {
