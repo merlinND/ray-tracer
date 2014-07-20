@@ -7,14 +7,8 @@ using namespace std;
 
 #include "scenes/TestScene.h"
 
-#include "renderer/Color.h"
-#include "renderer/Ray.h"
 #include "renderer/Camera.h"
 #include "renderer/Renderer.h"
-
-#include "lights/Light.h"
-
-#include "geometry/Cube.h"
 
 #include "main.h"
 

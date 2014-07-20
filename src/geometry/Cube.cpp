@@ -5,7 +5,7 @@ using namespace std;
 #include "Cube.h"
 
 Cube::Cube(Point const & p, float s)
-  : Object(p, Material(Color(1, 1, 1))), side(s) {
+  : Object(p), side(s) {
 
   float h = (s / 2);
   for(int i = 0; i < 3; ++i) {

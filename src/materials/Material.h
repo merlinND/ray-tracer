@@ -8,10 +8,11 @@
  */
 class Material {
 public:
-  Color color;
+  /** Basic materials */
+  static Material const PLASTIC;
 
   /** Constructor */
-  Material(Color const & c);
+  Material();
 
 protected:
 

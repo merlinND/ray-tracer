@@ -1,6 +1,7 @@
 #include "Material.h"
 
-Material::Material(Color const & c)
-  : color(c) {
+Material::Material() {
 
 }
+
+Material const Material::PLASTIC = Material();

@@ -22,7 +22,7 @@ void Renderer::render(Image & image) {
     cout << "> light source of color " << scene.lightSources[i]->getColor() << endl;
   }
   for(int i = 0; i < scene.objects.size(); ++i) {
-    cout << "> object of color " << scene.objects[i]->material.color << endl;
+    cout << "> object of color " << scene.objects[i]->getColor() << endl;
   }
 
   for(int x = 0; x < image.width; ++x) {
