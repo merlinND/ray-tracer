@@ -16,6 +16,12 @@ public:
   Point position;
   Material material;
 
+  /**
+   * Value that we consider "close enough to zero"
+   * when computing intersections
+   */
+  static float const EPSILON;
+
   /** Constructor */
   Object(Point const & pos, Material const & m);
 
@@ -29,11 +35,6 @@ public:
   Color getColor() const;
 
 protected:
-  /**
-   * Value that we consider "close enough to zero"
-   * when computing intersections
-   */
-  static float const EPSILON;
 
 };
 

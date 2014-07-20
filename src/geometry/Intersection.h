@@ -13,13 +13,15 @@ extern class Object;
  */
 class Intersection {
 public:
-  Object const & object;
-  Ray const & ray;
+  Object const * object;
+  Ray const * ray;
+  /** Point of intersection */
   Point position;
   /** Normal vector computed at the point of intersection */
   Vec normal;
 
-  Intersection(Object const & object, Ray const & ray);
+  Intersection();
+  Intersection(Object const * object, Ray const * ray);
 
 protected:
 };

@@ -38,9 +38,7 @@ protected:
    * Compute the light color at a point of intersection
    * between a Ray and an Object
    */
-  Color computeColor(Ray const & ray,
-                     Object const & object,
-                     Intersection const & intersection,
+  Color computeColor(Intersection const & intersection,
                      float intensity) const;
 };
 

@@ -50,23 +50,37 @@ Color Renderer::castRay(Ray const & ray, float intensity) const {
     return Color(0, 0, 0);
   }
 
-  for(int i = 0; i < this->scene.objects.size(); ++i) {
+  Intersection closestIntersection;
+  float minD2 = -1;
+
+  // For each object of the scene
+  for(uint i = 0; i < this->scene.objects.size(); ++i) {
     Object * o = this->scene.objects[i];
-    Intersection intersection(*o, ray);
+    Intersection intersection(o, &ray);
 
     if(o->intersects(ray, &intersection)) {
-      return computeColor(ray, *o, intersection, intensity);
+      // Remember the closest intersection only
+      float d2 = (intersection.position - ray.from).squaredNorm();
+      if(d2 < minD2 || minD2 < Object::EPSILON) {
+        minD2 = d2;
+        closestIntersection = intersection;
+      }
     }
-    else {
-      return this->scene.background;
-    }
+  }
+
+  if(minD2 < Object::EPSILON) {
+    return this->scene.background;
+  }
+  else {
+    return computeColor(closestIntersection, intensity);
   }
 }
 
-Color Renderer::computeColor(Ray const & ray,
-                             Object const & object,
-                             Intersection const & intersection,
+Color Renderer::computeColor(Intersection const & intersection,
                              float intensity) const {
+  Ray const * ray = intersection.ray;
+  Object const * object = intersection.object;
+
   // ----- Light sources
   // TODO: support ambient light
   Color lightColor(0, 0, 0);
@@ -78,12 +92,12 @@ Color Renderer::computeColor(Ray const & ray,
     // TODO: support shadows by computing light obstruction
     if(true) { // !this->scene.isInterrupted(toLight)
 
-      Color diffuse = object.getColor().cwiseProduct(light->getColor());
+      Color diffuse = object->getColor().cwiseProduct(light->getColor());
       // TODO: support attenuation with distance
       // TODO: support directed lights
 
       // TODO: check for correctness
-      float cosPhi = ray.direction.dot(toLight);
+      float cosPhi = ray->direction.dot(toLight);
 
       // Reflection
       if(cosPhi < 0) {
