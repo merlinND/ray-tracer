@@ -22,7 +22,7 @@ void Renderer::render(Image & image) {
     cout << "> light source of color " << scene.lightSources[i]->getColor() << endl;
   }
   for(int i = 0; i < scene.objects.size(); ++i) {
-    cout << "> object of color " << scene.objects[i]->material.color << endl;
+    cout << "> object of color " << scene.objects[i]->getColor() << endl;
   }
 
   for(int x = 0; x < image.width; ++x) {
@@ -66,10 +66,11 @@ Color Renderer::computeColor(Intersection const & intersection,
                              float intensity) const {
   Ray const * ray = intersection.ray;
   Object const * object = intersection.object;
+  Material const & mat = object->getMaterial();
 
   // ----- Ambient light
-  // TODO: add ambient reflection parameter (material)
-  Color lightColor = 1 * this->scene.ambientLight.getColor()
+  Color lightColor = mat.ambientLight
+                    * this->scene.ambientLight.getColor()
                       .cwiseProduct(object->getColor());
 
   // ----- Light sources
@@ -91,21 +92,24 @@ Color Renderer::computeColor(Intersection const & intersection,
       float cosPhi = ray->direction.dot(toLight);
       if(cosPhi < 0) {
         // ----- Reflection
-        diffuse *= 1 * toLight.dot(intersection.normal);
+        diffuse *= mat.diffuseReflection
+                   * toLight.dot(intersection.normal);
 
         /**
          * Vector symetric to the direction of observation
          * relative to the normal at the point of intersection.
-         * It corresponds to the "preferred" direction of reflexion
+         * It corresponds to the "preferred" direction of reflection
          * according to Descartes' laws
          */
         Vec symetric = 2 * (intersection.normal.dot(-ray->direction) * intersection.normal) + ray->direction;
         float cosAlpha = toLight.dot(symetric);
-        specular = 0.4 * Color(1, 1, 1) * pow(cosAlpha, 5);
+        specular = mat.specularReflection * Color(1, 1, 1)
+                    * pow(cosAlpha, mat.specularExponent);
       }
       else {
         // ----- Transmission
-        diffuse *= 1 * -toLight.dot(intersection.normal);
+        diffuse *= mat.diffuseTransmission
+                   * -toLight.dot(intersection.normal);
 
         // TODO: support specular transmission (depends on the refraction indices of the mediums)
       }
