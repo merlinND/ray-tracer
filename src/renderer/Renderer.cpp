@@ -17,11 +17,12 @@ Renderer::Renderer(Scene & s, Camera & c)
 void Renderer::render(Image & image) {
   cout << "Rendering scene " << this->scene.title << endl;
   cout << "> background color " << this->scene.background << endl;
+  cout << "> ambient light of color " << this->scene.ambientLight.getColor() << endl;
   for(int i = 0; i < scene.lightSources.size(); ++i) {
-    cout << "> light of color " << scene.lightSources[0]->getColor() << endl;
+    cout << "> light source of color " << scene.lightSources[i]->getColor() << endl;
   }
   for(int i = 0; i < scene.objects.size(); ++i) {
-    cout << "> object of color " << scene.objects[0]->material.color << endl;
+    cout << "> object of color " << scene.objects[i]->material.color << endl;
   }
 
   for(int x = 0; x < image.width; ++x) {
@@ -66,9 +67,12 @@ Color Renderer::computeColor(Intersection const & intersection,
   Ray const * ray = intersection.ray;
   Object const * object = intersection.object;
 
+  // ----- Ambient light
+  // TODO: add ambient reflection parameter (material)
+  Color lightColor = 1 * this->scene.ambientLight.getColor()
+                      .cwiseProduct(object->getColor());
+
   // ----- Light sources
-  // TODO: support ambient light
-  Color lightColor(0, 0, 0);
   for(int i = 0; i < this->scene.lightSources.size(); ++i) {
     PunctualLight * light = this->scene.lightSources[i];
 
