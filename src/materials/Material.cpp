@@ -15,7 +15,7 @@ Material::Material(float dr, float sr, float se,
 
 // TODO: tweak coefficients
 Material const Material::PLASTIC = Material();
-Material const Material::SHINY_PLASTIC = Material(1, 1, 10);
+Material const Material::MARBLE = Material(1, 1, 20);
 Material const Material::GLASS = Material(1, 0.5, 5,
                                           0.5, 0.5,
                                           0.2, 0.8);
