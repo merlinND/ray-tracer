@@ -26,6 +26,6 @@ Scene::~Scene() {
 void Scene::addObject(Object * object) {
   this->objects.push_back(object);
 }
-void Scene::addLightSource(Light * light) {
+void Scene::addLightSource(PunctualLight * light) {
   this->lightSources.push_back(light);
 }

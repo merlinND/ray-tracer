@@ -27,18 +27,13 @@ int main(int argc, char const *argv[])
   TestScene world;
 
   // ----- Place camera
-  Camera camera(Point(1, 0.1, 0.1), Point(0, 0, 1));
+  Camera camera(Point(-0.7, 0, 0.5), Point(0, 0, 1));
   cout << camera.viewMatrix << endl << endl;
-  cout << "Top left: " << camera.getRay(0, 0) << endl;
-  cout << "Top right: " << camera.getRay(1, 0) << endl << endl;
-  cout << "Middle: " << camera.getRay(0.5, 0.5) << endl << endl;
-  cout << "Bottom left: " << camera.getRay(0, 1) << endl;
-  cout << "Bottom right: " << camera.getRay(1, 1) << endl << endl;
 
   // ----- Start rendering
   Renderer r(world, camera);
-  cout << "Camera default aspect ratio: " << Camera::DEFAULT_ASPECT_RATIO << endl;
-  Image image;
+  cout << "Camera default aspect ratio: " << Camera::DEFAULT_ASPECT_RATIO << endl << endl;
+  Image image(200, 200);
   r.render(image);
 
   // ----- Output image buffer to a file
