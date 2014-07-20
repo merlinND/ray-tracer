@@ -19,7 +19,7 @@ Material const Material::MARBLE = Material(1, 1, 20);
 Material const Material::GLASS = Material(1, 0.5, 5,
                                           0.5, 0.5,
                                           0.2, 0.8);
-Material const Material::MIRROR = Material(0.1, 0.1, 5,
+Material const Material::MIRROR = Material(0.3, 0.3, 5,
                                            0.1, 0.1,
-                                           1, 0,
+                                           0.8, 0,
                                            0);

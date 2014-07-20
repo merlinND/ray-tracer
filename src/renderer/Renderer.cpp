@@ -28,7 +28,8 @@ void Renderer::render(Image & image) {
   for(int x = 0; x < image.width; ++x) {
     for(int y = 0; y < image.height; ++y) {
       // TODO: adaptative oversampling
-      int nSamples = 5;
+      // TODO: fix, this is only sampling on a diagonal
+      int nSamples = 3;
       float ix = (x / (float)image.width),
             iy = (y / (float)image.height),
             dx = (1 / (float)image.width) / (float)nSamples,
@@ -47,7 +48,6 @@ void Renderer::render(Image & image) {
 
 Color Renderer::castRay(Ray const & ray, float intensity) const {
   if(intensity < Renderer::MIN_INTENSITY) {
-    // TODO: is this the correct neutral color?
     return Color(0, 0, 0);
   }
 
@@ -68,6 +68,14 @@ Color Renderer::computeColor(Intersection const & intersection,
   Object const * object = intersection.object;
   Material const & mat = object->getMaterial();
 
+  /**
+   * Vector symmetric to the direction of observation
+   * relative to the normal at the point of intersection.
+   * It corresponds to the "preferred" direction of reflection
+   * according to Descartes' laws
+   */
+  Vec symmetric = 2 * (intersection.normal.dot(-ray->direction) * intersection.normal) + ray->direction;
+
   // ----- Ambient light
   Color lightColor = mat.ambientLight
                     * this->scene.ambientLight.getColor()
@@ -81,11 +89,9 @@ Color Renderer::computeColor(Intersection const & intersection,
     Vec toLight = (light->position - intersection.position).normalized();
     Ray lightRay(intersection.position, toLight);
 
-    // Intersection data;
     if(!this->scene.isObstructed(lightRay, light->position)) {
       // TODO: support attenuation with distance
       // TODO: support directed lights
-      // TODO: support different coefficients per material
       Color diffuse = object->getColor();
       Color specular(0, 0, 0);
 
@@ -95,14 +101,7 @@ Color Renderer::computeColor(Intersection const & intersection,
         diffuse *= mat.diffuseReflection
                    * toLight.dot(intersection.normal);
 
-        /**
-         * Vector symetric to the direction of observation
-         * relative to the normal at the point of intersection.
-         * It corresponds to the "preferred" direction of reflection
-         * according to Descartes' laws
-         */
-        Vec symetric = 2 * (intersection.normal.dot(-ray->direction) * intersection.normal) + ray->direction;
-        float cosAlpha = toLight.dot(symetric);
+        float cosAlpha = toLight.dot(symmetric);
         specular = mat.specularReflection * Color(1, 1, 1)
                     * pow(cosAlpha, mat.specularExponent);
       }
@@ -119,21 +118,20 @@ Color Renderer::computeColor(Intersection const & intersection,
   }
 
 
-  // ----- Refraction (e.g. glass)
-  /*
-  Ray refractionRay(intersection.position, ???);
-  Color transmissionColor;
-  if(!total reflection) {
-    float t = object.getTransmissionCoefficient()
-    transmissionColor = t * castRay(refractionRay, t * intensity);
+  // ----- Ideal transmission (e.g. glass)
+  Color transmissionColor(0, 0, 0);
+  if(false) { // if(!total reflection)
+    // TODO: compute ideal transmission direction (depending on the medium's index)
+    Vec transmissionDirection;
+    Ray transmissionRay(intersection.position, transmissionDirection);
+    float t = mat.idealTransmission;
+    transmissionColor = t * castRay(transmissionRay, t * intensity);
   }
-  */
-  // ----- Reflection (e.g. mirror)
-  /*
-  Ray reflectionRay(intersection.position, ???);
-  float r = object.getReflectionCoefficient();
-  Color reflectionColor = r * castRay(reflectionRay, r * intensity);
-  */
 
-  return lightColor; // + transmissionColor + reflectionColor;
+  // ----- Ideal reflection (e.g. mirror)
+  Ray reflectionRay(intersection.position, symmetric);
+  float r = mat.idealReflection;
+  Color reflectionColor = r * castRay(reflectionRay, r * intensity);
+
+  return lightColor + transmissionColor + reflectionColor;
 }
