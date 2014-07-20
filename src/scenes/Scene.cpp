@@ -61,3 +61,16 @@ bool Scene::intersects(Ray const & ray, Intersection * intersection) const {
   }
   return true;
 }
+
+bool Scene::isObstructed(Ray const & ray, Point destination) const {
+  Intersection data;
+  bool hasIntersection = intersects(ray, &data);
+  if(!hasIntersection) {
+    return false;
+  }
+
+  // The intersection could still happen further than `destination`
+  float dToDestination = (destination - ray.from).squaredNorm();
+  float dToIntersection = (data.position - ray.from).squaredNorm();
+  return (dToDestination > dToIntersection);
+}

@@ -31,6 +31,10 @@ public:
    * @return Whether or not there's any intersection
    */
   bool intersects(Ray const & ray, Intersection * intersection) const;
+  /**
+   * @return Whether or not this ray is obstructed by an object up to `destination`
+   */
+  bool isObstructed(Ray const & ray, Point destination) const;
 
 protected:
 };

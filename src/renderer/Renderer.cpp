@@ -74,13 +74,14 @@ Color Renderer::computeColor(Intersection const & intersection,
 
     // Ray from intersection point to light source
     Vec toLight = (light->position - intersection.position).normalized();
-    // TODO: support shadows by computing light obstruction
-    if(true) { // !this->scene.isInterrupted(toLight)
+    Ray lightRay(intersection.position, toLight);
+
+    // Intersection data;
+    if(!this->scene.isObstructed(lightRay, light->position)) {
       // TODO: support attenuation with distance
       // TODO: support directed lights
       // TODO: support different coefficients per material
       Color diffuse = object->getColor();
-
       Color specular(0, 0, 0);
 
       float cosPhi = ray->direction.dot(toLight);
