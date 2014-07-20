@@ -26,6 +26,7 @@ TestScene::TestScene()
   p << 0, -0.7, 2;
   o = new Sphere(p, 0.4);
   o->setColor(Color(0.2, 0.7, 0.2));
+  o->setMaterial(Material::SHINY_PLASTIC);
   addObject(o);
 
   p << 0, 0, 0;

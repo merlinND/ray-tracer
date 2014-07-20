@@ -21,6 +21,9 @@ public:
 
   /** Basic materials */
   static Material const PLASTIC;
+  static Material const SHINY_PLASTIC;
+  static Material const GLASS;
+  static Material const MIRROR;
 
   /** Constructor */
   Material(float dr = 1, float sr = 0.5, float se = 5,
