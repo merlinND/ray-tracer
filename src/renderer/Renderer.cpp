@@ -91,30 +91,36 @@ Color Renderer::computeColor(Intersection const & intersection,
     Vec toLight = (light->position - intersection.position).normalized();
     // TODO: support shadows by computing light obstruction
     if(true) { // !this->scene.isInterrupted(toLight)
-
-      Color diffuse = object->getColor().cwiseProduct(light->getColor());
       // TODO: support attenuation with distance
       // TODO: support directed lights
+      // TODO: support different coefficients per material
+      Color diffuse = object->getColor();
 
-      // TODO: check for correctness
+      Color specular(0, 0, 0);
+
       float cosPhi = ray->direction.dot(toLight);
-
-      // Reflection
       if(cosPhi < 0) {
-        // TODO: support diffuseReflectionCoefficient (different materials)
-        diffuse *= toLight.dot(intersection.normal);
+        // ----- Reflection
+        diffuse *= 1 * toLight.dot(intersection.normal);
 
-        // TODO: add specular reflection
-        lightColor += diffuse;
+        /**
+         * Vector symetric to the direction of observation
+         * relative to the normal at the point of intersection.
+         * It corresponds to the "preferred" direction of reflexion
+         * according to Descartes' laws
+         */
+        Vec symetric = 2 * (intersection.normal.dot(-ray->direction) * intersection.normal) + ray->direction;
+        float cosAlpha = toLight.dot(symetric);
+        specular = 0.4 * Color(1, 1, 1) * pow(cosAlpha, 5);
       }
-      // Transmission
       else {
-        // TODO: support diffuseTransmissionCoefficient (different materials)
-        diffuse *= -toLight.dot(intersection.normal);
+        // ----- Transmission
+        diffuse *= 1 * -toLight.dot(intersection.normal);
 
-        // TODO: add specular transmission
-        lightColor += diffuse;
+        // TODO: support specular transmission (depends on the refraction indices of the mediums)
       }
+
+      lightColor += light->getColor().cwiseProduct(diffuse + specular);
     }
   }
 
