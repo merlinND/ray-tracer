@@ -1,8 +1,14 @@
 #include "Light.h"
 
-Light::Light(Color const & c)
-  : color(c) {
+Color const Light::DEFAULT_COLOR = Color(1, 1, 1);
 
+Light::Light(float i, Color const & c)
+  : intensity(i), color(c) {
+
+}
+
+Color Light::getColor() const {
+  return this->intensity * this->color;
 }
 
 void Light::setColor(Color const & c) {

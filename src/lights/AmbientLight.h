@@ -12,8 +12,7 @@
 class AmbientLight : public Light {
 public:
   /** Constructors */
-  AmbientLight();
-  AmbientLight(Color const & c);
+  AmbientLight(float i = 1, Color const & c = Light::DEFAULT_COLOR);
 
   /**
    * Ambient light is omnipresent, therefore it intersects with everything
@@ -21,7 +20,6 @@ public:
   virtual bool intersects(Ray const & ray);
 
 protected:
-
 };
 
 #endif

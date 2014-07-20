@@ -3,7 +3,7 @@
 #include "Cube.h"
 
 Cube::Cube(Point const & p, float s)
-  : Object(p, Material(Color(0.5, 0.5, 0.5))), side(s) {
+  : Object(p, Material(Color(1, 1, 1))), side(s) {
 
   float h = (s / 2);
   for(int i = 0; i < 3; ++i) {
@@ -20,7 +20,7 @@ bool Cube::intersects(Ray const & ray, Intersection * intersection) {
   // Furthest point of intersection of a bounding plane with the ray
   float t2;
   // Remember along which axis the collision happened
-  uint axis;
+  uint axisNear, axisFar;
 
   for(int i = 0; i < 3; ++i) {
     float min = this->minBounds[i];
@@ -42,11 +42,11 @@ bool Cube::intersects(Ray const & ray, Intersection * intersection) {
       }
       if(t1 > tNear) {
         tNear = t1;
-        axis = i;
+        axisNear = i;
       }
       if(t2 < tFar) {
         tFar = t2;
-        axis = i;
+        axisFar = i;
       }
 
       if(tNear > tFar || tFar < Object::EPSILON) {
@@ -56,11 +56,23 @@ bool Cube::intersects(Ray const & ray, Intersection * intersection) {
   }
 
   // We've passed all the tests, there must be an intersection
+  // Allow to skip the computation of the intersection point
+  if(intersection == NULL) {
+    return true;
+  }
+
   float t;
-  if(tNear > Object::EPSILON)
+  uint axis;
+  if(tNear > Object::EPSILON) {
     t = tNear;
-  else
+    axis = axisNear;
+  }
+  else {
     t = tFar;
+    axis = axisFar;
+  }
+  // TODO: stop doing random hacks
+  axis = (axis + 1) % 3;
 
   // Point of intersection
   intersection->position = ray.from + (t * ray.direction);
@@ -69,10 +81,8 @@ bool Cube::intersects(Ray const & ray, Intersection * intersection) {
   intersection->normal = Vec(0, 0, 0);
   intersection->normal[axis] = 1;
   // Make sure the normal vector points outwards
-  // cos(theta) >= 0
   // TODO: check that this is correct
-  Vec toI = (this->position - intersection->position);
-  if(toI.normalized().dot(intersection->normal) >= 0) {
+  if(ray.direction.dot(intersection->position) < 0) {
     intersection->normal[axis] = -1;
   }
 

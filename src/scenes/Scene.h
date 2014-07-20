@@ -5,21 +5,23 @@
 #include <vector>
 
 #include "../renderer/Color.h"
-#include "../lights/Light.h"
+#include "../lights/AmbientLight.h"
+#include "../lights/PunctualLight.h"
 #include "../geometry/Object.h"
 
 class Scene {
 public:
   std::string title;
   Color background;
-  std::vector<Light *> lightSources;
+  AmbientLight ambientLight;
+  std::vector<PunctualLight *> lightSources;
   std::vector<Object *> objects;
 
   Scene(Color const & bg, std::string title);
   virtual ~Scene();
 
   void addObject(Object * object);
-  void addLightSource(Light * light);
+  void addLightSource(PunctualLight * light);
 
 protected:
 };
