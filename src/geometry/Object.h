@@ -33,6 +33,7 @@ public:
   virtual bool intersects(Ray const & ray, Intersection * intersection) = 0;
 
   Color getColor() const;
+  void setColor(Color const & color);
 
 protected:
 

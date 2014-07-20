@@ -10,3 +10,8 @@ Object::Object(Point const & pos, Material const & m)
 Color Object::getColor() const {
   return this->material.color;
 }
+
+
+void Object::setColor(Color const & color) {
+  this->material.color = color;
+}

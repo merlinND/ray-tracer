@@ -11,15 +11,25 @@ TestScene::TestScene()
 
   // Lighting
   PunctualLight * light = new PunctualLight(Point(0, 0, 0),
-                                            0.5,
-                                            Color(0.3, 1, 1));
+                                            1,
+                                            Color(1, 1, 1));
   addLightSource(light);
 
   // Objects
   Point p(0, 0.7, 2);
-  addObject(new Cube(p, 0.5));
+  Object * o;
+
+  o = new Cube(p, 0.5);
+  o->setColor(Color(0.7, 0.2, 0.2));
+  addObject(o);
+
   p << 0, -0.7, 2;
-  addObject(new Sphere(p, 0.4));
+  o = new Sphere(p, 0.4);
+  o->setColor(Color(0.2, 0.7, 0.2));
+  addObject(o);
+
   p << 0, 0, 0;
-  addObject(new Cube(p, 10));
+  o = new Cube(p, 10);
+  o->setColor(Color(1, 1, 1));
+  addObject(o);
 }
