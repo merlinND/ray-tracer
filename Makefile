@@ -17,7 +17,7 @@ EXE=ray-tracer
 
 # Header files that have an implementation to be compiled
 FILES=main.h image_output.h
-FILES+=geometry/Cube.h geometry/Intersection.h geometry/Object.h
+FILES+=geometry/Cube.h geometry/Intersection.h geometry/Object.h geometry/Sphere.h
 FILES+=materials/Material.h
 FILES+=lights/AmbientLight.h lights/Light.h lights/PunctualLight.h
 FILES+=renderer/Camera.h renderer/Image.h renderer/Ray.h renderer/Renderer.h
