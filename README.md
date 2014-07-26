@@ -10,17 +10,20 @@ For now, all computations are done on CPU, but future versions may leverage GPU 
 - Camera view matrix
 - Basic scene data structure
 - Basic lights representations
-- Cube intersections
+- Cube & sphere (intersections and normal vectors)
 - Diffuse lighting
+- Materials
 
 ## TODO
 
 - Specular lighting
 - More geometric figures
-  - Sphere
   - Arbitrary parallelepiped
+  - Pyramid
+- Arbitrary rotation of objects
 - Directed lighting
-- Materials system
+- Attenuation of light with distance
+- Refraction (supporting arbitrary indices for all rays)
 
 ## Dependencies
 
