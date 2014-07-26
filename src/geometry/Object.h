@@ -45,7 +45,11 @@ public:
   void setMaterial(Material const & material);
 
 protected:
-
+  /**
+   * Amount to which by push back intersection points
+   * in the direction of the normal.
+   */
+  static float const PUSH_BACK;
 };
 
 #endif
