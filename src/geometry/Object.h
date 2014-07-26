@@ -36,7 +36,11 @@ public:
   void setColor(Color const & color);
 
 protected:
-
+  /**
+   * Amount to which by push back intersection points
+   * in the direction of the normal.
+   */
+  static float const PUSH_BACK;
 };
 
 #endif

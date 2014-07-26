@@ -39,21 +39,21 @@ bool Cube::intersects(Ray const & ray, Intersection * intersection) {
       t1 = (min - ray.from[i]) / ray.direction[i];
       t2 = (max - ray.from[i]) / ray.direction[i];
 
-      if(t1 > t2) {
+      if(t1 - t2 > Object::EPSILON) {
         float temp = t2;
         t2 = t1;
         t1 = temp;
       }
-      if(t1 > tNear) {
+      if(t1 - tNear > Object::EPSILON) {
         tNear = t1;
         axisNear = i;
       }
-      if(t2 < tFar) {
+      if(t2 - tFar < Object::EPSILON) {
         tFar = t2;
         axisFar = i;
       }
 
-      if(tNear > tFar || tFar < Object::EPSILON) {
+      if(tNear - tFar > Object::EPSILON || tFar < Object::EPSILON) {
         return false;
       }
     }
@@ -83,10 +83,12 @@ bool Cube::intersects(Ray const & ray, Intersection * intersection) {
   intersection->normal = Vec(0, 0, 0);
   intersection->normal[axis] = 1;
   // Make sure the normal vector is on the same side as the origin of the ray
-  // TODO: check that this is correct
   if((-ray.direction).dot(intersection->normal) < 0) {
     intersection->normal[axis] = -1;
   }
+
+  // Push back the intersection point so as to avoid self-intersection
+  intersection->position += Object::PUSH_BACK * intersection->normal;
 
   return true;
 }
