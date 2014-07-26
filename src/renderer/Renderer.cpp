@@ -25,6 +25,9 @@ void Renderer::render(Image & image) {
     cout << "> object of color " << scene.objects[i]->getColor() << endl;
   }
 
+  float progress = 0;
+  cout << endl << "Casting rays" << flush;
+
   for(int x = 0; x < image.width; ++x) {
     for(int y = 0; y < image.height; ++y) {
       // TODO: adaptative oversampling
@@ -43,7 +46,14 @@ void Renderer::render(Image & image) {
 
       image.set(x, y, accumulator / nSamples);
     }
+
+    float currentProgress = (x / (float)image.width);
+    if(currentProgress >= progress + 0.05) {
+      cout << "." << flush;
+      progress = currentProgress;
+    }
   }
+  cout << ".done" << endl;
 }
 
 Color Renderer::castRay(Ray const & ray, float intensity) const {
