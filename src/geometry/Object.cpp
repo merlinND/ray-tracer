@@ -3,16 +3,24 @@
 float const Object::EPSILON = 0.0000000001f;
 float const Object::PUSH_BACK = 0.000005f;
 
-Object::Object(Point const & pos, Material const & m)
-  : position(pos), material(m) {
+Color const Object::DEFAULT_COLOR = Color(1, 1, 1);
+Material const & Object::DEFAULT_MATERIAL = Material::PLASTIC;
+
+Object::Object(Point const & pos, Color const & c, Material const & m)
+  : position(pos), color(c), material(&m) {
 
 }
 
 Color Object::getColor() const {
-  return this->material.color;
+  return this->color;
+}
+void Object::setColor(Color const & color) {
+  this->color = color;
 }
 
-
-void Object::setColor(Color const & color) {
-  this->material.color = color;
+Material const & Object::getMaterial() const {
+  return *(this->material);
+}
+void Object::setMaterial(Material const & material) {
+  this->material = &material;
 }

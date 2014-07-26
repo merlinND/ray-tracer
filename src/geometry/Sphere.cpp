@@ -5,7 +5,7 @@ using namespace std;
 #include "Sphere.h"
 
 Sphere::Sphere(Point const & p, float r)
-  : Object(p, Material(Color(1, 1, 1))), radius(r) {
+  : Object(p), radius(r) {
 
 }
 bool Sphere::intersects(Ray const & ray, Intersection * intersection) {

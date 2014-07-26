@@ -53,6 +53,9 @@ $(OUTPUTDIR)/%.o: $(SRCDIR)/%.cpp $(SRCDIR)/%.h
 $(OUTPUTDIR)/main.o: $(SRCDIR)/image_output.h $(SRCDIR)/renderer/Renderer.h $(SRCDIR)/renderer/Camera.h $(SRCDIR)/scenes/Scene.h
 $(OUTPUTDIR)/Renderer.o: $(SRCDIR)/renderer/Ray.h $(SRCDIR)/renderer/Image.h
 $(OUTPUTDIR)/image_output.o: $(SRCDIR)/renderer/Image.h
+
+$(OUTPUTDIR)/geometry/Object.o: $(SRCDIR)/materials/Material.h
+$(OUTPUTDIR)/geometry/Sphere.o: $(SRCDIR)/Geometry/Object.h
 $(OUTPUTDIR)/geometry/Cube.o: $(SRCDIR)/Geometry/Object.h
 
 run: all

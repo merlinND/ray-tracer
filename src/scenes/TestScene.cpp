@@ -11,7 +11,7 @@ TestScene::TestScene()
 
   // Lighting
   PunctualLight * light = new PunctualLight(Point(0, 0, 0),
-                                            1,
+                                            0.6,
                                             Color(1, 1, 1));
   addLightSource(light);
 
@@ -19,13 +19,14 @@ TestScene::TestScene()
   Point p(0, 0.7, 2);
   Object * o;
 
-  o = new Cube(p, 0.5);
+  o = new Cube(p, 0.8);
   o->setColor(Color(0.7, 0.2, 0.2));
   addObject(o);
 
   p << 0, -0.7, 2;
-  o = new Sphere(p, 0.4);
-  o->setColor(Color(0.2, 0.7, 0.2));
+  o = new Sphere(p, 0.5);
+  o->setColor(Color(1, 1, 1));
+  o->setMaterial(Material::MIRROR);
   addObject(o);
 
   p << 0, 0, 0;

@@ -7,14 +7,8 @@ using namespace std;
 
 #include "scenes/TestScene.h"
 
-#include "renderer/Color.h"
-#include "renderer/Ray.h"
 #include "renderer/Camera.h"
 #include "renderer/Renderer.h"
-
-#include "lights/Light.h"
-
-#include "geometry/Cube.h"
 
 #include "main.h"
 
@@ -37,7 +31,6 @@ int main(int argc, char const *argv[])
   r.render(image);
 
   // ----- Output image buffer to a file
-  // TODO: write the actual result
   writeImage(image, "./bin/random.jpg");
 
   return 0;

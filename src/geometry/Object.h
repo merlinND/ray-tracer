@@ -9,12 +9,17 @@
 #include "Intersection.h"
 
 // TODO: allow for rotations
-// TODO: compute object -> scene coordinates matrix
+// TODO: compute object coordinates to scene coordinates matrix
 // TODO: handle intersections computation in object coordinates
 class Object {
 public:
   Point position;
-  Material material;
+  Color color;
+  Material const * material;
+
+  // Default values
+  static Color const DEFAULT_COLOR;
+  static Material const & DEFAULT_MATERIAL;
 
   /**
    * Value that we consider "close enough to zero"
@@ -23,7 +28,9 @@ public:
   static float const EPSILON;
 
   /** Constructor */
-  Object(Point const & pos, Material const & m);
+  Object(Point const & pos,
+         Color const & c = Object::DEFAULT_COLOR,
+         Material const & m = Object::DEFAULT_MATERIAL);
 
   /**
    * @param ray
@@ -34,6 +41,8 @@ public:
 
   Color getColor() const;
   void setColor(Color const & color);
+  Material const & getMaterial() const;
+  void setMaterial(Material const & material);
 
 protected:
   /**
