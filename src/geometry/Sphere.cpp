@@ -1,3 +1,6 @@
+#include <iostream>
+using namespace std;
+
 #include "../types.h"
 #include "Sphere.h"
 
@@ -10,7 +13,7 @@ bool Sphere::intersects(Ray const & ray, Intersection * intersection) {
 
   // Determine if the origin of the ray is inside the sphere
   Vec toSphere = (this->position - ray.from);
-  bool isInside = (toSphere.squaredNorm() < r2);
+  bool isInside = ((toSphere.squaredNorm() - r2) < Object::EPSILON);
 
   // Parameter corresponding to the orthogonal projection
   // of the sphere's center on the ray
@@ -49,6 +52,9 @@ bool Sphere::intersects(Ray const & ray, Intersection * intersection) {
     intersection->normal = (this->position - intersection->position).normalized();
   else
     intersection->normal = (intersection->position - this->position).normalized();
+
+  // Push back the intersection point so as to avoid self-intersection
+  intersection->position += Object::PUSH_BACK * intersection->normal;
 
   return true;
 }
