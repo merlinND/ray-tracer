@@ -31,7 +31,6 @@ int main(int argc, char const *argv[])
   r.render(image);
 
   // ----- Output image buffer to a file
-  // TODO: write the actual result
   writeImage(image, "./bin/random.jpg");
 
   return 0;

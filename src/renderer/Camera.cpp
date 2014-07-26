@@ -43,7 +43,7 @@ void Camera::computeViewMatrix() {
   this->viewMatrix.block<3, 1>(0, 3) = this->position;
 
   // ----- Rotation
-  // TODO: Check we're not inverting axes in some cases
+  // TODO: check that we're not inverting axes in some cases
   // Going out from the eyes of the camera to `lookAt`
   Vec w = (this->lookAt - this->position);
   // Towards the "hat" of the camera

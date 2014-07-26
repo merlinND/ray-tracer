@@ -9,6 +9,8 @@ using namespace std;
 
 // TODO: tweak value
 float const Renderer::MIN_INTENSITY = 0.05;
+uint const Renderer::OVERSAMPLING_PERIOD = 2;
+uint const Renderer::OVERSAMPLING_PERIOD2 = Renderer::OVERSAMPLING_PERIOD * Renderer::OVERSAMPLING_PERIOD;
 
 Renderer::Renderer(Scene & s, Camera & c)
   : scene(s), camera(c) {
@@ -28,23 +30,24 @@ void Renderer::render(Image & image) {
   float progress = 0;
   cout << endl << "Casting rays" << flush;
 
+  // TODO: adaptative oversampling
+  float dx = (1 / (float)image.width) / (float)Renderer::OVERSAMPLING_PERIOD,
+        dy = (1 / (float)image.height) / (float)Renderer::OVERSAMPLING_PERIOD;
+
   for(int x = 0; x < image.width; ++x) {
     for(int y = 0; y < image.height; ++y) {
-      // TODO: adaptative oversampling
-      // TODO: fix, this is only sampling on a diagonal
-      int nSamples = 3;
       float ix = (x / (float)image.width),
-            iy = (y / (float)image.height),
-            dx = (1 / (float)image.width) / (float)nSamples,
-            dy = (1 / (float)image.height) / (float)nSamples;
+            iy = (y / (float)image.height);
       Color accumulator(0, 0, 0);
 
-      for(int i = 0; i < nSamples; ++i) {
-        Ray r = this->camera.getRay(ix + i * dx, iy + i * dy);
-        accumulator += castRay(r, 1);
+      for(int i = 0; i < Renderer::OVERSAMPLING_PERIOD; ++i) {
+        for(int j = 0; j < Renderer::OVERSAMPLING_PERIOD; ++j) {
+          Ray r = this->camera.getRay(ix + i * dx, iy + j * dy);
+          accumulator += castRay(r, 1);
+        }
       }
 
-      image.set(x, y, accumulator / nSamples);
+      image.set(x, y, accumulator / Renderer::OVERSAMPLING_PERIOD2);
     }
 
     float currentProgress = (x / (float)image.width);
@@ -129,7 +132,7 @@ Color Renderer::computeColor(Intersection const & intersection,
         diffuse *= mat.diffuseTransmission
                    * -toLight.dot(intersection.normal);
 
-        // TODO: support specular transmission (depends on the refraction indices of the mediums)
+        // TODO: support specular transmission (depends on the refractive indices of the mediums)
 
       }
 

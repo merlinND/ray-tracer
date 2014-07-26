@@ -4,7 +4,6 @@
 #include "../types.h"
 #include "Object.h"
 
-// TODO
 class Sphere : public Object {
 public:
   /** Radius (in meters) */
