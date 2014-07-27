@@ -109,13 +109,13 @@ Color Renderer::computeColor(Intersection const & intersection,
     Vec toLight = (light->position - intersection.position).normalized();
     Ray lightRay(intersection.position, toLight);
 
-    float cosPhi = (-ray->direction).dot(toLight);
     if(!this->scene.isObstructed(lightRay, light->position)) {
       // TODO: support attenuation with distance
       // TODO: support directed lights
       Color diffuse = object->getColor();
       Color specular(0, 0, 0);
 
+      float cosPhi = (-ray->direction).dot(toLight);
       if(cosPhi > 0) {
         // ----- Reflection
         diffuse *= mat.diffuseReflection
@@ -130,7 +130,7 @@ Color Renderer::computeColor(Intersection const & intersection,
         // TODO: should this fix shadows through glass?
         // TODO: check for correctness
         diffuse *= mat.diffuseTransmission
-                   * -toLight.dot(intersection.normal);
+                  * -toLight.dot(intersection.normal);
 
         // TODO: support specular transmission (depends on the refractive indices of the mediums)
 
