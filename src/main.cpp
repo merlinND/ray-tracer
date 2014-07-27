@@ -5,7 +5,7 @@ using namespace std;
 #include "types.h"
 #include "image_output.h"
 
-#include "scenes/CoordinatesTestScene.h"
+#include "scenes/TestScene.h"
 
 #include "renderer/Camera.h"
 #include "renderer/Renderer.h"
@@ -18,7 +18,7 @@ int main(int argc, char const *argv[])
   srand(time(0));
 
   // ----- Setup scene
-  CoordinatesTestScene world;
+  TestScene world;
 
   // ----- Place camera
   Camera camera(Point(4, 4, 4), Point(0, 0, 0));
