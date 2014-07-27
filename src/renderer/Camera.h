@@ -22,9 +22,8 @@ public:
 
   /**
    * View matrix in homogeneous coordinates
-   * Allows to go from scene coordinates to camera coordinates
-   * by left matrix multiplication
-   * @TODO check that it's not the other way around...
+   * Allows to go from camera coordinates to scene coordinates
+   * by left-side matrix multiplication
    */
   Eigen::Matrix4f viewMatrix;
 
@@ -59,7 +58,8 @@ protected:
   /** Screen dimensions (in meters) */
   float screenWidth, screenHeight;
 
-  /** Update `viewMatrix` based on
+  /**
+   * Update `viewMatrix` based on
    * position, lookAt, distance to screen and field of view
    */
   void computeViewMatrix();
