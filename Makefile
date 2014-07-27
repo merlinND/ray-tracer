@@ -21,7 +21,7 @@ FILES+=geometry/Cube.h geometry/Intersection.h geometry/Object.h geometry/Sphere
 FILES+=materials/Material.h
 FILES+=lights/AmbientLight.h lights/Light.h lights/PunctualLight.h
 FILES+=renderer/Camera.h renderer/Image.h renderer/Ray.h renderer/Renderer.h
-FILES+=scenes/Scene.h scenes/TestScene.h
+FILES+=scenes/CoordinatesTestScene.h scenes/Scene.h scenes/TestScene.h
 
 # Headers that most classes depend on
 COMMONS=$(SRCDIR)/types.h $(SRCDIR)/renderer/Color.h

@@ -1,7 +1,7 @@
 #include "Object.h"
 
 float const Object::EPSILON = 0.0000000001f;
-float const Object::PUSH_BACK = 0.000005f;
+float const Object::PUSH_BACK = 0.00005f;
 
 Color const Object::DEFAULT_COLOR = Color(1, 1, 1);
 Material const & Object::DEFAULT_MATERIAL = Material::PLASTIC;

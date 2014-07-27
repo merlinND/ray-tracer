@@ -18,7 +18,7 @@ void writeSampleImage(char const * path, uint width, uint height) {
   // Image data
   for(int x = 0; x < width; ++x) {
     for(int y = 0; y < height; ++y) {
-      image.set(x, y, Color(0, 1, 1)); // getRandomColor()
+      image.set(x, y, getRandomColor());
     }
   }
 
@@ -37,7 +37,6 @@ void writeImage(Image const & image, char const * path) {
     cout << "Error opening " << path << endl;
     return;
   }
-
 
   // Setup libjpeg objects
   struct jpeg_compress_struct cinfo;

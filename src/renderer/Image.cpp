@@ -34,8 +34,8 @@ Image::~Image() {
 
 Buffer Image::toBuffer() const {
   Buffer b;
-  for(int x = 0; x < this->width; ++x) {
-    for(int y = 0; y < this->height; ++y) {
+  for(uint y = 0; y < this->height; ++y) {
+    for(uint x = 0; x < this->width; ++x) {
       Pixel p = colorToPixel(this->colors[x][y]);
       b.push_back(p[0]);
       b.push_back(p[1]);
