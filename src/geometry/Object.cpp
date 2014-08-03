@@ -11,8 +11,19 @@ Object::Object(Point const & pos, Color const & c, Material const & m)
 
 }
 
+void Object::moveTo(Point const & pos) {
+  this->position = pos;
+
+  // TODO: update world matrix
+}
+
+void Object::rotate(float rx, float ry, float rz) {
+  // TODO: update world matrix
+}
+
+
 Color Object::getColor() const {
-  return this->color;
+  return this->material.color;
 }
 void Object::setColor(Color const & color) {
   this->color = color;

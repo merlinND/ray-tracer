@@ -8,9 +8,6 @@
 #include "../materials/Material.h"
 #include "Intersection.h"
 
-// TODO: allow for rotations
-// TODO: compute object coordinates to scene coordinates matrix
-// TODO: handle intersections computation in object coordinates
 class Object {
 public:
   Point position;
@@ -32,11 +29,16 @@ public:
          Color const & c = Object::DEFAULT_COLOR,
          Material const & m = Object::DEFAULT_MATERIAL);
 
+  /** Positioning */
+  void moveTo(Point const & pos);
+  void rotate(float rx, float ry, float rz);
+
   /**
    * @param ray
    * @param *intersection Object to write the intersection info to
    * @return Whether or not the ray crosses this object
    */
+  // TODO: handle intersections computation in object coordinates
   virtual bool intersects(Ray const & ray, Intersection * intersection) = 0;
 
   Color getColor() const;
@@ -50,6 +52,12 @@ protected:
    * in the direction of the normal.
    */
   static float const PUSH_BACK;
+
+  /**
+   * Transformation matrix
+   * used to convert world coordinates to object coordinates
+   */
+  Eigen::Matrix4f worldMatrix;
 };
 
 #endif
