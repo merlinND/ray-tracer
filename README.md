@@ -15,6 +15,7 @@ For now, all computations are done on CPU, but future versions may leverage GPU 
 - Cube & sphere (intersections and normal vectors)
 - Diffuse lighting
 - Materials
+- Basic oversampling
 
 ## TODO
 
@@ -24,8 +25,14 @@ For now, all computations are done on CPU, but future versions may leverage GPU 
   - Pyramid
 - Arbitrary rotation of objects
 - Directed lighting
+- Spherical light sources
+- Softer shadows
 - Attenuation of light with distance
 - Refraction (supporting arbitrary indices for all rays)
+- Adaptative oversampling
+- Depth of field
+- Textures
+- Bumpmaps
 
 ## Dependencies
 
