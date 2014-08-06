@@ -23,6 +23,10 @@ For now, all computations are done on CPU, but future versions may leverage GPU 
 - More geometric figures
   - Arbitrary parallelepiped
   - Pyramid
+  - Cone
+  - Cylinder
+  - Dome (half-sphere)
+  - Polygon
 - Arbitrary rotation of objects
 - Directed lighting
 - Spherical light sources
