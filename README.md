@@ -12,7 +12,11 @@ For now, all computations are done on CPU, but future versions may leverage GPU 
 - Camera view matrix
 - Basic scene data structure
 - Basic lights representations
-- Cube & sphere (intersections and normal vectors)
+- Geometric objects:
+  - Cube
+  - Sphere
+  - Plane
+- Arbitrary rotation of objects
 - Diffuse lighting
 - Materials
 - Basic oversampling
@@ -27,7 +31,6 @@ For now, all computations are done on CPU, but future versions may leverage GPU 
   - Cylinder
   - Dome (half-sphere)
   - Polygon
-- Arbitrary rotation of objects
 - Directed lighting
 - Spherical light sources
 - Softer shadows
