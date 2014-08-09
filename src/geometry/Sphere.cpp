@@ -8,11 +8,11 @@ Sphere::Sphere(Point const & p, float r)
   : Object(p), radius(r) {
 
 }
-bool Sphere::intersects(Ray const & ray, Intersection * intersection) {
+bool Sphere::computeIntersection(Ray const & ray, Intersection * intersection) {
   float r2 = (this->radius * this->radius);
 
   // Determine if the origin of the ray is inside the sphere
-  Vec toSphere = (this->position - ray.from);
+  Vec toSphere = - ray.from;
   bool isInside = ((toSphere.squaredNorm() - r2) < Object::EPSILON);
 
   // Parameter corresponding to the orthogonal projection
@@ -48,10 +48,9 @@ bool Sphere::intersects(Ray const & ray, Intersection * intersection) {
     t = tProjection - sqrt(tToProjection2);
 
   intersection->position = (ray.from + t * ray.direction);
+  intersection->normal = intersection->position.normalized();
   if(isInside)
-    intersection->normal = (this->position - intersection->position).normalized();
-  else
-    intersection->normal = (intersection->position - this->position).normalized();
+    intersection->normal *= -1;
 
   // Push back the intersection point so as to avoid self-intersection
   intersection->position += Object::PUSH_BACK * intersection->normal;

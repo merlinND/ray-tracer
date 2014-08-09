@@ -15,9 +15,8 @@ public:
    */
   Sphere(Point const & p, float r);
 
-  virtual bool intersects(Ray const & ray, Intersection * intersection);
-
 protected:
+  virtual bool computeIntersection(Ray const & ray, Intersection * intersection);
 };
 
 #endif
