@@ -23,7 +23,7 @@ void Object::rotate(float rx, float ry, float rz) {
 
 
 Color Object::getColor() const {
-  return this->material.color;
+  return this->color;
 }
 void Object::setColor(Color const & color) {
   this->color = color;

@@ -4,6 +4,8 @@ ray-tracer
 A simple 3D renderer based on ray-tracing algorithm.
 For now, all computations are done on CPU, but future versions may leverage GPU computing power via OpenGL shaders.
 
+![Render example](renders/such-coordinates.jpg)
+
 ## Currently implemented
 
 - JPEG output
@@ -13,6 +15,7 @@ For now, all computations are done on CPU, but future versions may leverage GPU 
 - Cube & sphere (intersections and normal vectors)
 - Diffuse lighting
 - Materials
+- Basic oversampling
 
 ## TODO
 
@@ -20,10 +23,20 @@ For now, all computations are done on CPU, but future versions may leverage GPU 
 - More geometric figures
   - Arbitrary parallelepiped
   - Pyramid
+  - Cone
+  - Cylinder
+  - Dome (half-sphere)
+  - Polygon
 - Arbitrary rotation of objects
 - Directed lighting
+- Spherical light sources
+- Softer shadows
 - Attenuation of light with distance
 - Refraction (supporting arbitrary indices for all rays)
+- Adaptative oversampling
+- Depth of field
+- Textures
+- Bumpmaps
 
 ## Dependencies
 
