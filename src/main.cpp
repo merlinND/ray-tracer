@@ -22,6 +22,7 @@ int main(int argc, char const *argv[])
 
   // ----- Place camera
   Camera camera(Point(4, 4, 4), Point(0, 0, 0));
+  cout << "Camera view matrix:" << endl;
   cout << camera.viewMatrix << endl << endl;
 
   // ----- Start rendering
