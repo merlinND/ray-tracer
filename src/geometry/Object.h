@@ -31,6 +31,11 @@ public:
 
   /** Positioning */
   void moveTo(Point const & pos);
+  /**
+   * @param rx Rotation around the x axis (in radians)
+   * @param ry Rotation around the y axis (in radians)
+   * @param rz Rotation around the z axis (in radians)
+   */
   void rotate(float rx, float ry = 0, float rz = 0);
 
   /**
@@ -56,7 +61,17 @@ protected:
    * Transformation matrix
    * used to convert world coordinates to object coordinates
    */
-  Eigen::Matrix3f worldMatrix;
+  Eigen::Matrix3f rotationMatrix;
+  /**
+   * A transposed copy of the rotation matrix,
+   * pre-computed for performance.
+   */
+  Eigen::Matrix3f rotationMatrixT;
+  /**
+   * A simple flag which enables us to skip some matrix
+   * multiplications if there's no rotation applied to this object.
+   */
+  bool hasRotation;
 
   /**
    * Actual intersection algorithm.
