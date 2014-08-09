@@ -14,7 +14,7 @@ Cube::Cube(Point const & p, float s)
   }
 }
 
-bool Cube::intersects(Ray const & ray, Intersection * intersection) {
+bool Cube::computeIntersection(Ray const & ray, Intersection * intersection) {
   float tNear = FLT_MIN;
   float tFar = FLT_MAX;
   // Closest point of intersection of a bounding plane with the ray

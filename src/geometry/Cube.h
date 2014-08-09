@@ -16,11 +16,11 @@ public:
    */
   Cube(Point const & p, float s);
 
-  virtual bool intersects(Ray const & ray, Intersection * intersection);
-
 protected:
   float minBounds[3];
   float maxBounds[3];
+
+  virtual bool computeIntersection(Ray const & ray, Intersection * intersection);
 };
 
 #endif

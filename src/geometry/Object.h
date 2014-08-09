@@ -31,15 +31,14 @@ public:
 
   /** Positioning */
   void moveTo(Point const & pos);
-  void rotate(float rx, float ry, float rz);
+  void rotate(float rx, float ry = 0, float rz = 0);
 
   /**
    * @param ray
    * @param *intersection Object to write the intersection info to
    * @return Whether or not the ray crosses this object
    */
-  // TODO: handle intersections computation in object coordinates
-  virtual bool intersects(Ray const & ray, Intersection * intersection) = 0;
+  bool intersects(Ray const & ray, Intersection * intersection);
 
   Color getColor() const;
   void setColor(Color const & color);
@@ -57,7 +56,13 @@ protected:
    * Transformation matrix
    * used to convert world coordinates to object coordinates
    */
-  Eigen::Matrix4f worldMatrix;
+  Eigen::Matrix3f worldMatrix;
+
+  /**
+   * Actual intersection algorithm.
+   * Needs to be implemented by each geometric object.
+   */
+   virtual bool computeIntersection(Ray const & ray, Intersection * intersection) = 0;
 };
 
 #endif

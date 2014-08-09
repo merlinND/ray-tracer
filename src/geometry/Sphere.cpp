@@ -8,7 +8,7 @@ Sphere::Sphere(Point const & p, float r)
   : Object(p), radius(r) {
 
 }
-bool Sphere::intersects(Ray const & ray, Intersection * intersection) {
+bool Sphere::computeIntersection(Ray const & ray, Intersection * intersection) {
   float r2 = (this->radius * this->radius);
 
   // Determine if the origin of the ray is inside the sphere
