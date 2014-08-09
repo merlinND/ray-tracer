@@ -17,11 +17,11 @@ EXE=ray-tracer
 
 # Header files that have an implementation to be compiled
 FILES=main.h image_output.h
-FILES+=geometry/Cube.h geometry/Intersection.h geometry/Object.h geometry/Sphere.h
+FILES+=geometry/Cube.h geometry/Intersection.h geometry/Object.h geometry/Plane.h geometry/Sphere.h
 FILES+=materials/Material.h
 FILES+=lights/AmbientLight.h lights/Light.h lights/PunctualLight.h
 FILES+=renderer/Camera.h renderer/Image.h renderer/Ray.h renderer/Renderer.h
-FILES+=scenes/CoordinatesTestScene.h scenes/Scene.h scenes/TestScene.h
+FILES+=scenes/CoordinatesTestScene.h scenes/Scene.h scenes/ShadowsTestScene.h scenes/TestScene.h
 
 # Headers that most classes depend on
 COMMONS=$(SRCDIR)/types.h $(SRCDIR)/renderer/Color.h
@@ -57,6 +57,7 @@ $(OUTPUTDIR)/image_output.o: $(SRCDIR)/renderer/Image.h
 $(OUTPUTDIR)/geometry/Object.o: $(SRCDIR)/materials/Material.h
 $(OUTPUTDIR)/geometry/Sphere.o: $(SRCDIR)/Geometry/Object.h
 $(OUTPUTDIR)/geometry/Cube.o: $(SRCDIR)/Geometry/Object.h
+$(OUTPUTDIR)/geometry/Plane.o: $(SRCDIR)/Geometry/Object.h
 
 run: all
 	$(ECHO)
