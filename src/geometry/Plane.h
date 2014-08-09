@@ -15,7 +15,6 @@ public:
    */
   Plane(Point const & p, Vec const & n);
 
-
 protected:
   virtual bool computeIntersection(Ray const & ray, Intersection * intersection);
 };
