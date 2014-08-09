@@ -74,8 +74,10 @@ protected:
   bool hasRotation;
 
   /**
-   * Actual intersection algorithm.
+   * Actual intersection detection algorithm.
    * Needs to be implemented by each geometric object.
+   * The computation is done in object space, i.e. it can be
+   * assumed that the object is positioned at (0, 0, 0).
    */
    virtual bool computeIntersection(Ray const & ray, Intersection * intersection) = 0;
 };

@@ -1,5 +1,3 @@
-#include <iostream>
-using namespace std;
 #include <cfloat>
 
 #include "Cube.h"
@@ -9,8 +7,8 @@ Cube::Cube(Point const & p, float s)
 
   float h = (s / 2);
   for(int i = 0; i < 3; ++i) {
-    this->minBounds[i] = this->position[i] - h;
-    this->maxBounds[i] = this->position[i] + h;
+    this->minBounds[i] = - h;
+    this->maxBounds[i] = + h;
   }
 }
 
@@ -29,7 +27,7 @@ bool Cube::computeIntersection(Ray const & ray, Intersection * intersection) {
     float max = this->maxBounds[i];
 
     // Ray parallel to this axis
-    if(abs(ray.direction[i]) < Object::EPSILON) {
+    if(std::abs(ray.direction[i]) < Object::EPSILON) {
       if(ray.from[i] < min || ray.from[i] > max) {
         return false;
       }
