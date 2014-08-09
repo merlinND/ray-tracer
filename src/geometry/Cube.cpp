@@ -3,16 +3,16 @@
 #include "Cube.h"
 
 Cube::Cube(Point const & p, float s)
-  : Object(p, Material(Color(1, 1, 1))), side(s) {
+  : Object(p), side(s) {
 
   float h = (s / 2);
   for(int i = 0; i < 3; ++i) {
-    this->minBounds[i] = this->position[i] - h;
-    this->maxBounds[i] = this->position[i] + h;
+    this->minBounds[i] = - h;
+    this->maxBounds[i] = + h;
   }
 }
 
-bool Cube::intersects(Ray const & ray, Intersection * intersection) {
+bool Cube::computeIntersection(Ray const & ray, Intersection * intersection) {
   float tNear = FLT_MIN;
   float tFar = FLT_MAX;
   // Closest point of intersection of a bounding plane with the ray
@@ -27,7 +27,7 @@ bool Cube::intersects(Ray const & ray, Intersection * intersection) {
     float max = this->maxBounds[i];
 
     // Ray parallel to this axis
-    if(abs(ray.direction[i]) < Object::EPSILON) {
+    if(std::abs(ray.direction[i]) < Object::EPSILON) {
       if(ray.from[i] < min || ray.from[i] > max) {
         return false;
       }

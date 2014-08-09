@@ -8,13 +8,15 @@
 #include "../materials/Material.h"
 #include "Intersection.h"
 
-// TODO: allow for rotations
-// TODO: compute object -> scene coordinates matrix
-// TODO: handle intersections computation in object coordinates
 class Object {
 public:
   Point position;
-  Material material;
+  Color color;
+  Material const * material;
+
+  // Default values
+  static Color const DEFAULT_COLOR;
+  static Material const & DEFAULT_MATERIAL;
 
   /**
    * Value that we consider "close enough to zero"
@@ -23,17 +25,30 @@ public:
   static float const EPSILON;
 
   /** Constructor */
-  Object(Point const & pos, Material const & m);
+  Object(Point const & pos,
+         Color const & c = Object::DEFAULT_COLOR,
+         Material const & m = Object::DEFAULT_MATERIAL);
+
+  /** Positioning */
+  void moveTo(Point const & pos);
+  /**
+   * @param rx Rotation around the x axis (in radians)
+   * @param ry Rotation around the y axis (in radians)
+   * @param rz Rotation around the z axis (in radians)
+   */
+  void rotate(float rx, float ry = 0, float rz = 0);
 
   /**
    * @param ray
    * @param *intersection Object to write the intersection info to
    * @return Whether or not the ray crosses this object
    */
-  virtual bool intersects(Ray const & ray, Intersection * intersection) = 0;
+  bool intersects(Ray const & ray, Intersection * intersection);
 
   Color getColor() const;
   void setColor(Color const & color);
+  Material const & getMaterial() const;
+  void setMaterial(Material const & material);
 
 protected:
   /**
@@ -41,6 +56,30 @@ protected:
    * in the direction of the normal.
    */
   static float const PUSH_BACK;
+
+  /**
+   * Transformation matrix
+   * used to convert world coordinates to object coordinates
+   */
+  Eigen::Matrix3f rotationMatrix;
+  /**
+   * A transposed copy of the rotation matrix,
+   * pre-computed for performance.
+   */
+  Eigen::Matrix3f rotationMatrixT;
+  /**
+   * A simple flag which enables us to skip some matrix
+   * multiplications if there's no rotation applied to this object.
+   */
+  bool hasRotation;
+
+  /**
+   * Actual intersection detection algorithm.
+   * Needs to be implemented by each geometric object.
+   * The computation is done in object space, i.e. it can be
+   * assumed that the object is positioned at (0, 0, 0).
+   */
+   virtual bool computeIntersection(Ray const & ray, Intersection * intersection) = 0;
 };
 
 #endif

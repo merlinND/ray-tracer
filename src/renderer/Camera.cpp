@@ -5,10 +5,9 @@
 
 Point const Camera::DEFAULT_POSITION = Point();
 Point const Camera::DEFAULT_LOOK_AT = Point(0, 0, 1);
-float const Camera::DEFAULT_DISTANCE = 2;
-float const Camera::DEFAULT_FOV = 1.570796327;
-// TODO: fix bug when aspect ratio is not square
-float const Camera::DEFAULT_ASPECT_RATIO = 1; //(16.f / 9.f)
+float const Camera::DEFAULT_DISTANCE = 100;
+float const Camera::DEFAULT_FOV = 0.785398163;
+float const Camera::DEFAULT_ASPECT_RATIO = (16.f / 9.f);
 
 Camera::Camera(Point const & p, Point const & l, float distance, float fieldOfView, float ratio)
   : position(p), lookAt(l),
@@ -22,9 +21,12 @@ Camera::Camera(Point const & p, Point const & l, float distance, float fieldOfVi
 }
 
 Ray Camera::getRay(float rx, float ry) {
+  // rx == 0 => left
+  // ry == 0 => top
+
   // We start by working in camera coordinates
-  float x = - (this->screenWidth / 2) + (rx * this->screenWidth);
-  float y = (this->screenHeight / 2) - (ry * this->screenHeight);
+  float x = (this->screenWidth / 2.f) - (rx * this->screenWidth);
+  float y = (this->screenHeight / 2.f) - (ry * this->screenHeight);
   VecH target = VecH(x, y, this->d, 1);
 
   // Go back to world coordinates
@@ -43,21 +45,17 @@ void Camera::computeViewMatrix() {
   this->viewMatrix.block<3, 1>(0, 3) = this->position;
 
   // ----- Rotation
-  // TODO: Check we're not inverting axes in some cases
   // Going out from the eyes of the camera to `lookAt`
   Vec w = (this->lookAt - this->position);
-  // Towards the "hat" of the camera
+  // Towards the left hand of the camera
   Vec u;
-  // Towards the right hand of the camera
+  // Towards the "hat" of the camera
   Vec v;
-  if(w[0] != 0 && w[1] != 0) {
-    u = Vec(0, 0, 1).cross(w);
-    v = u.cross(w);
-  }
-  else {
-    u = Vec(0, 1, 0).cross(w);
-    v = - u.cross(w);
-  }
+  if(w[0] != 0 || w[1] != 0)
+    u = - w.cross(Vec(0, 0, 1));
+  else
+    u = - w.cross(Vec(0, 1, 0));
+  v = w.cross(u);
 
   this->viewMatrix.block<3,1>(0, 0) = u.normalized();
   this->viewMatrix.block<3,1>(0, 1) = v.normalized();

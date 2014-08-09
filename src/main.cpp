@@ -5,16 +5,10 @@ using namespace std;
 #include "types.h"
 #include "image_output.h"
 
-#include "scenes/TestScene.h"
+#include "scenes/CoordinatesTestScene.h"
 
-#include "renderer/Color.h"
-#include "renderer/Ray.h"
 #include "renderer/Camera.h"
 #include "renderer/Renderer.h"
-
-#include "lights/Light.h"
-
-#include "geometry/Cube.h"
 
 #include "main.h"
 
@@ -24,20 +18,22 @@ int main(int argc, char const *argv[])
   srand(time(0));
 
   // ----- Setup scene
-  TestScene world;
+  CoordinatesTestScene world;
 
   // ----- Place camera
-  Camera camera(Point(-0.7, 0, 0.5), Point(0, 0, 1));
+  Camera camera(Point(4, 4, 4), Point(0, 0, 0));
+  cout << "Camera view matrix:" << endl;
   cout << camera.viewMatrix << endl << endl;
 
   // ----- Start rendering
   Renderer r(world, camera);
   cout << "Camera default aspect ratio: " << Camera::DEFAULT_ASPECT_RATIO << endl << endl;
-  Image image(200, 200);
+  Image image(160, 90);
+  // Image image(320, 180);
+  // Image image(711, 400);
   r.render(image);
 
   // ----- Output image buffer to a file
-  // TODO: write the actual result
   writeImage(image, "./bin/random.jpg");
 
   return 0;

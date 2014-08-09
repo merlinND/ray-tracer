@@ -4,7 +4,6 @@
 #include "../types.h"
 #include "Object.h"
 
-// TODO
 class Sphere : public Object {
 public:
   /** Radius (in meters) */
@@ -16,9 +15,8 @@ public:
    */
   Sphere(Point const & p, float r);
 
-  virtual bool intersects(Ray const & ray, Intersection * intersection);
-
 protected:
+  virtual bool computeIntersection(Ray const & ray, Intersection * intersection);
 };
 
 #endif

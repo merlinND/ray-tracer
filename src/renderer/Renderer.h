@@ -26,6 +26,15 @@ protected:
    * a ray's contribution to the color.
    */
   static float const MIN_INTENSITY;
+  /**
+   * Oversampling period: number of rays to cast per pixel, per axis
+   * E.g. a period of 3 will generate 9 samples per pixel
+   */
+  static uint const OVERSAMPLING_PERIOD;
+  /** Square of OVERSAMPLING_PERIOD
+   * (computed only once for efficiency)
+   */
+  static uint const OVERSAMPLING_PERIOD2;
 
   /**
    * Main algorithm
