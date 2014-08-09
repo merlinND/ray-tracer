@@ -3,6 +3,7 @@
 #include "../renderer/Color.h"
 #include "../lights/AmbientLight.h"
 #include "../lights/PunctualLight.h"
+#include "../geometry/Plane.h"
 #include "../geometry/Cube.h"
 #include "../geometry/Sphere.h"
 
@@ -20,10 +21,16 @@ CoordinatesTestScene::CoordinatesTestScene()
   Object * o;
   float const PI_OVER_4 = 0.785398163;
 
+  p << 0, 0, -1;
+  o = new Plane(p, Vec(0, 0, 1));
+  o->setColor(Color(0, 0.25, 0.5));
+  o->setMaterial(Material::MARBLE);
+  addObject(o);
+
   p << 0, 0, 0;
   o = new Sphere(p, 0.35);
   o->setColor(Color(1, 1, 1));
-  o->setMaterial(Material::MIRROR);
+  o->setMaterial(Material::MARBLE);
   addObject(o);
 
   p << 1, 0, 0;

@@ -15,9 +15,9 @@ public:
    */
   Plane(Point const & p, Vec const & n);
 
-  virtual bool intersects(Ray const & ray, Intersection * intersection);
 
 protected:
+  virtual bool computeIntersection(Ray const & ray, Intersection * intersection);
 };
 
 #endif

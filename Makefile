@@ -57,6 +57,7 @@ $(OUTPUTDIR)/image_output.o: $(SRCDIR)/renderer/Image.h
 $(OUTPUTDIR)/geometry/Object.o: $(SRCDIR)/materials/Material.h
 $(OUTPUTDIR)/geometry/Sphere.o: $(SRCDIR)/Geometry/Object.h
 $(OUTPUTDIR)/geometry/Cube.o: $(SRCDIR)/Geometry/Object.h
+$(OUTPUTDIR)/geometry/Plane.o: $(SRCDIR)/Geometry/Object.h
 
 run: all
 	$(ECHO)

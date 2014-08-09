@@ -1,10 +1,10 @@
 #include "Plane.h"
 
 Plane::Plane(Point const & p, Vec const & n)
-  : Object(p, Material(Color(1, 1, 1))), normal(n) {
+  : Object(p), normal(n) {
 }
 
-bool Plane::intersects(Ray const & ray, Intersection * intersection) {
+bool Plane::computeIntersection(Ray const & ray, Intersection * intersection) {
   // TODO
   return false;
 }
