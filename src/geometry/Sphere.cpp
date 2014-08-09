@@ -48,9 +48,12 @@ bool Sphere::computeIntersection(Ray const & ray, Intersection * intersection) {
     t = tProjection - sqrt(tToProjection2);
 
   intersection->position = (ray.from + t * ray.direction);
-  intersection->normal = intersection->position.normalized();
-  if(isInside)
-    intersection->normal *= -1;
+  if(isInside) {
+    intersection->normal = -intersection->position.normalized();
+  }
+  else {
+    intersection->normal = intersection->position.normalized();
+  }
 
   // Push back the intersection point so as to avoid self-intersection
   intersection->position += Object::PUSH_BACK * intersection->normal;

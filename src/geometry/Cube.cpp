@@ -81,7 +81,7 @@ bool Cube::computeIntersection(Ray const & ray, Intersection * intersection) {
   intersection->normal = Vec(0, 0, 0);
   intersection->normal[axis] = 1;
   // Make sure the normal vector is on the same side as the origin of the ray
-  if((-ray.direction).dot(intersection->normal) < 0) {
+  if(ray.direction.dot(intersection->normal) > 0) {
     intersection->normal[axis] = -1;
   }
 
