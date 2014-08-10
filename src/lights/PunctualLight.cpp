@@ -1,3 +1,4 @@
+#include "../scenes/Scene.h"
 #include "PunctualLight.h"
 
 PunctualLight::PunctualLight(Point const & p, float i, Color const & c)

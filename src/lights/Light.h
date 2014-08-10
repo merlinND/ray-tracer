@@ -2,9 +2,11 @@
 #define LIGHT_H
 
 #include "../types.h"
-#include "../scenes/Scene.h"
 #include "../renderer/Color.h"
 #include "../renderer/Ray.h"
+
+// Forward declaration to avoid circular dependencies
+class Scene;
 
 /**
  * Abstract class, parent of all light types
