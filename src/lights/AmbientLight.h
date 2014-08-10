@@ -17,7 +17,7 @@ public:
   /**
    * Ambient light is omnipresent, therefore it intersects with everything
    */
-  virtual bool intersects(Ray const & ray);
+  virtual float getParticipation(Scene const & scene, Ray const & lightRay);
 
 protected:
 };

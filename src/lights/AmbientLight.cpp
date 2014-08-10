@@ -1,3 +1,4 @@
+#include "../scenes/Scene.h"
 #include "AmbientLight.h"
 
 AmbientLight::AmbientLight(float i, Color const & c)
@@ -5,6 +6,6 @@ AmbientLight::AmbientLight(float i, Color const & c)
 
 }
 
-bool AmbientLight::intersects(Ray const & ray) {
-  return true;
+float AmbientLight::getParticipation(Scene const & scene, Ray const & lightRay) {
+  return 1;
 }

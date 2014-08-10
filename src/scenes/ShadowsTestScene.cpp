@@ -1,8 +1,7 @@
 #include "ShadowsTestScene.h"
 
 #include "../renderer/Color.h"
-#include "../lights/AmbientLight.h"
-#include "../lights/PunctualLight.h"
+#include "../lights/AreaLight.h"
 #include "../geometry/Plane.h"
 #include "../geometry/Cube.h"
 #include "../geometry/Sphere.h"
@@ -11,9 +10,10 @@ ShadowsTestScene::ShadowsTestScene()
   : Scene(Color(0.5, 0.5, 0.5), "Shadows test scene") {
 
   // Lighting
-  PunctualLight * light = new PunctualLight(Point(2.5, -2.5, 2.5),
-                                            0.8,
-                                            Color(1, 1, 1));
+  AreaLight * light = new AreaLight(Point(0.5, -0.5, 3.5),
+                                    1.5,
+                                    0.8,
+                                    Color(1, 1, 1));
   addLightSource(light);
 
   // Objects

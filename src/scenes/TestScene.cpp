@@ -1,7 +1,6 @@
 #include "TestScene.h"
 
 #include "../renderer/Color.h"
-#include "../lights/AmbientLight.h"
 #include "../lights/PunctualLight.h"
 #include "../geometry/Cube.h"
 #include "../geometry/Sphere.h"

@@ -5,12 +5,14 @@ using namespace std;
 #include "types.h"
 #include "image_output.h"
 
-#include "scenes/CoordinatesTestScene.h"
+#include "scenes/ShadowsTestScene.h"
 
 #include "renderer/Camera.h"
 #include "renderer/Renderer.h"
 
 #include "main.h"
+
+// TODO: rename constructor parameters to use more explicit names
 
 int main(int argc, char const *argv[])
 {
@@ -18,7 +20,7 @@ int main(int argc, char const *argv[])
   srand(time(0));
 
   // ----- Setup scene
-  CoordinatesTestScene world;
+  ShadowsTestScene world;
 
   // ----- Place camera
   Camera camera(Point(4, 4, 4), Point(0, 0, 0));
