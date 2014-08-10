@@ -1,7 +1,6 @@
 #include "ShadowsTestScene.h"
 
 #include "../renderer/Color.h"
-#include "../lights/AmbientLight.h"
 #include "../lights/PunctualLight.h"
 #include "../geometry/Plane.h"
 #include "../geometry/Cube.h"

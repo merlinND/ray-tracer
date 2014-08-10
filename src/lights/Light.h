@@ -2,6 +2,7 @@
 #define LIGHT_H
 
 #include "../types.h"
+#include "../scenes/Scene.h"
 #include "../renderer/Color.h"
 #include "../renderer/Ray.h"
 
@@ -11,15 +12,19 @@
 class Light {
 public:
   static Color const DEFAULT_COLOR;
+  /** Minimal value of light participation */
+  static float const EPSILON;
 
   /** Constructor */
   Light(float i = 1, Color const & c = DEFAULT_COLOR);
 
 
   /**
-   * @return Whether or not the ray gets to the light source
+   * @param scene
+   * @param target
+   * @return How much of this light source is visible at this point
    */
-  virtual bool intersects(Ray const & ray) = 0;
+  virtual float getParticipation(Scene const & scene, Ray const & lightRay) = 0;
 
   Color getColor() const;
   void setColor(Color const & c);

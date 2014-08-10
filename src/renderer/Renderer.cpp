@@ -109,7 +109,8 @@ Color Renderer::computeColor(Intersection const & intersection,
     Vec toLight = (light->position - intersection.position).normalized();
     Ray lightRay(intersection.position, toLight);
 
-    if(!this->scene.isObstructed(lightRay, light->position)) {
+    float participation = light->getParticipation(this->scene, lightRay);
+    if(participation > Light::EPSILON) {
       // TODO: support attenuation with distance
       // TODO: support directed lights
       Color diffuse = object->getColor();
@@ -136,7 +137,7 @@ Color Renderer::computeColor(Intersection const & intersection,
 
       }
 
-      lightColor += light->getColor().cwiseProduct(diffuse + specular);
+      lightColor += participation * (light->getColor().cwiseProduct(diffuse + specular));
     }
   }
 

@@ -55,9 +55,13 @@ $(OUTPUTDIR)/Renderer.o: $(SRCDIR)/renderer/Ray.h $(SRCDIR)/renderer/Image.h
 $(OUTPUTDIR)/image_output.o: $(SRCDIR)/renderer/Image.h
 
 $(OUTPUTDIR)/geometry/Object.o: $(SRCDIR)/materials/Material.h
-$(OUTPUTDIR)/geometry/Sphere.o: $(SRCDIR)/Geometry/Object.h
-$(OUTPUTDIR)/geometry/Cube.o: $(SRCDIR)/Geometry/Object.h
-$(OUTPUTDIR)/geometry/Plane.o: $(SRCDIR)/Geometry/Object.h
+$(OUTPUTDIR)/geometry/Sphere.o: $(SRCDIR)/geometry/Object.h
+$(OUTPUTDIR)/geometry/Cube.o: $(SRCDIR)/geometry/Object.h
+$(OUTPUTDIR)/geometry/Plane.o: $(SRCDIR)/geometry/Object.h
+
+$(OUTPUTDIR)/lights/AmbientLight.o: $(SRCDIR)/lights/Light.h
+$(OUTPUTDIR)/lights/PunctualLight.o: $(SRCDIR)/lights/Light.h
+
 
 run: all
 	$(ECHO)
