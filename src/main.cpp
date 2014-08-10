@@ -3,6 +3,7 @@
 using namespace std;
 
 #include "types.h"
+#include "util/mersenneTwister.h"
 #include "image_output.h"
 
 #include "scenes/ShadowsTestScene.h"
@@ -17,7 +18,7 @@ using namespace std;
 int main(int argc, char const *argv[])
 {
   // ----- Init
-  srand(time(0));
+  init_genrand(time(0));
 
   // ----- Setup scene
   ShadowsTestScene world;

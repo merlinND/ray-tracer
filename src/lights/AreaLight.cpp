@@ -1,12 +1,9 @@
-#include <iostream>
-using namespace std;
-
-#include "../scenes/Scene.h"
+#include "../util/mersenneTwister.h"
 #include "../scenes/Scene.h"
 #include "AreaLight.h"
 
 // TODO: tweak value
-float const AreaLight::SAMPLING_DENSITY = 4;
+float const AreaLight::SAMPLING_DENSITY = 9;
 
 AreaLight::AreaLight(Point const & p, float s, float i, Color const & c)
   : PunctualLight(p, i, c), side(s) {
@@ -37,8 +34,8 @@ float AreaLight::getParticipation(Scene const & scene, Ray const & lightRay) {
   for(int i = 0; i < grid; ++i) {
     for(int j = 0; j < grid; ++j) {
       // TODO: use a better random number generator
-      Vec offset = Vec((j + rand() / (float)RAND_MAX) * stride,
-                       (i + rand() / (float)RAND_MAX) * stride,
+      Vec offset = Vec((j + mt_random()) * stride,
+                       (i + mt_random()) * stride,
                        0);
       target = corner + offset;
 

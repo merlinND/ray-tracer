@@ -11,7 +11,7 @@ ShadowsTestScene::ShadowsTestScene()
 
   // Lighting
   AreaLight * light = new AreaLight(Point(0.5, -0.5, 3.5),
-                                    1.5,
+                                    0.5,
                                     0.8,
                                     Color(1, 1, 1));
   addLightSource(light);

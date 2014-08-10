@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <Eigen/Core>
+#include "../util/mersenneTwister.h"
 
 /** RGB colors, each component ranging from 0 to 1 */
 typedef Eigen::Vector3f Color;
@@ -30,11 +31,7 @@ inline Color clip(Color & c, float min = 0, float max = 1) {
  * @TODO use a better random generator
  */
 inline Color getRandomColor() {
-  return Color(
-    (float)rand() / (float)RAND_MAX,
-    (float)rand() / (float)RAND_MAX,
-    (float)rand() / (float)RAND_MAX
-  );
+  return Color(mt_random(), mt_random(), mt_random());
 }
 
 /**
