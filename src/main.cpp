@@ -12,6 +12,8 @@ using namespace std;
 
 #include "main.h"
 
+// TODO: rename constructor parameters to use more explicit names
+
 int main(int argc, char const *argv[])
 {
   // ----- Init

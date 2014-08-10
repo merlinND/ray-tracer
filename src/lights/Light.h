@@ -26,6 +26,7 @@ public:
    * @param target
    * @return How much of this light source is visible at this point
    */
+  // TODO: replace `ray` by a simple point of origin
   virtual float getParticipation(Scene const & scene, Ray const & lightRay) = 0;
 
   Color getColor() const;
