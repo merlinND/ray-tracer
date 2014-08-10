@@ -19,7 +19,7 @@ EXE=ray-tracer
 FILES=main.h image_output.h
 FILES+=geometry/Cube.h geometry/Intersection.h geometry/Object.h geometry/Plane.h geometry/Sphere.h
 FILES+=materials/Material.h
-FILES+=lights/AmbientLight.h lights/Light.h lights/PunctualLight.h
+FILES+=lights/AmbientLight.h lights/AreaLight.h lights/Light.h lights/PunctualLight.h
 FILES+=renderer/Camera.h renderer/Image.h renderer/Ray.h renderer/Renderer.h
 FILES+=scenes/CoordinatesTestScene.h scenes/Scene.h scenes/ShadowsTestScene.h scenes/TestScene.h
 
@@ -60,6 +60,7 @@ $(OUTPUTDIR)/geometry/Cube.o: $(SRCDIR)/geometry/Object.h
 $(OUTPUTDIR)/geometry/Plane.o: $(SRCDIR)/geometry/Object.h
 
 $(OUTPUTDIR)/lights/AmbientLight.o: $(SRCDIR)/lights/Light.h
+$(OUTPUTDIR)/lights/AreaLight.o: $(SRCDIR)/lights/Light.h
 $(OUTPUTDIR)/lights/PunctualLight.o: $(SRCDIR)/lights/Light.h
 
 
