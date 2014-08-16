@@ -5,12 +5,23 @@
 #include <Eigen/Core>
 #include "../util/mersenneTwister.h"
 
-/** RGB colors, each component ranging from 0 to 1 */
-typedef Eigen::Vector3f Color;
 /** RGB colors, each component ranging from 0 to 255 */
 typedef Eigen::Matrix<uint8_t, 3, 1> Pixel;
+/** RGB colors, each component ranging from 0 to 1 */
+typedef Eigen::Vector3f Color;
 
-// TODO: make available an enum of often used colors
+namespace Colors {
+  static Color const BLACK = Color(0, 0, 0),
+                     WHITE = Color(1, 1, 1),
+                     DARK_GREY = Color(0.25, 0.25, 0.25),
+                     GREY = Color(0.5, 0.5, 0.5),
+                     LIGHT_GREY = Color(0.75, 0.75, 0.75),
+                     RED = Color(1, 0, 0),
+                     GREEN = Color(0, 1, 0),
+                     BLUE = Color(0, 0, 1);
+
+};
+
 
 /**
  * Clip all components of the color to be within min and max

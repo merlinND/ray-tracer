@@ -6,7 +6,7 @@
 float const Object::EPSILON = 0.0000000001f;
 float const Object::PUSH_BACK = 0.00005f;
 
-Color const Object::DEFAULT_COLOR = Color(1, 1, 1);
+Color const Object::DEFAULT_COLOR = Colors::WHITE;
 Material const & Object::DEFAULT_MATERIAL = Material::PLASTIC;
 
 Object::Object(Point const & pos, Color const & c, Material const & m)

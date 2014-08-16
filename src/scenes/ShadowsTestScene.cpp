@@ -13,7 +13,7 @@ ShadowsTestScene::ShadowsTestScene()
   AreaLight * light = new AreaLight(Point(0.5, -0.5, 3.5),
                                     0.5,
                                     0.8,
-                                    Color(1, 1, 1));
+                                    Colors::WHITE);
   addLightSource(light);
 
   // Objects
@@ -34,7 +34,7 @@ ShadowsTestScene::ShadowsTestScene()
 
   p << 0.5, -0.5, 0.5;
   o = new Sphere(p, 0.35);
-  o->setColor(Color(1, 1, 1));
+  o->setColor(Colors::WHITE);
   o->setMaterial(Material::MARBLE);
   addObject(o);
 
