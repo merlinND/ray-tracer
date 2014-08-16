@@ -18,8 +18,8 @@ RefractionTestScene::RefractionTestScene()
   Object * o;
 
   // Walls
-  p << 0.5, -1, -0.5;
-  o = new Cube(p, 10);
+  p << 0.5, -3, -2.5;
+  o = new Cube(p, 20);
   o->setColor(Color(0.5, 0.75, 0.5));
   o->setMaterial(Material::PLASTIC);
   addObject(o);
@@ -27,8 +27,14 @@ RefractionTestScene::RefractionTestScene()
   // Objects
   p = ORIGIN;
   o = new Sphere(p, 1);
-  o->setColor(Colors::BLUE);
+  o->setColor(Colors::BLACK);
   o->setMaterial(Material::GLASS);
-  o->rotate(0, 0.628318531, 0.628318531);
+  // o->rotate(0, 0.628318531, 0.628318531);
+  addObject(o);
+
+  p << -3, -1.5, -1.5;
+  o = new Cube(p, 1);
+  o->setColor(Color(0.5, 0.75, 1));
+  o->setMaterial(Material::PLASTIC);
   addObject(o);
 }
