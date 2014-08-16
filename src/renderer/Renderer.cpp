@@ -43,6 +43,8 @@ void Renderer::render(Image & image) {
       for(int i = 0; i < Renderer::OVERSAMPLING_PERIOD; ++i) {
         for(int j = 0; j < Renderer::OVERSAMPLING_PERIOD; ++j) {
           Ray r = this->camera.getRay(ix + i * dx, iy + j * dy);
+
+          // TODO: cast rays in worker threads
           accumulator += castRay(r, 1);
         }
       }
