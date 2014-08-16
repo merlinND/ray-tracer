@@ -144,15 +144,17 @@ Color Renderer::computeColor(Intersection const & intersection,
   // ----- Ideal transmission (e.g. glass)
   Color transmissionColor(0, 0, 0);
 
-  // TODO: support rays coming from a medium different than air
-  float nn = (1 / mat.refractionIndex);
+  float nn = (ray->refractionIndex / mat.refractionIndex);
   float radical = (1 + nn*nn * (cosTheta * cosTheta - 1));
 
   if(radical > 0) {
     float tau = nn * cosTheta - sqrt(radical);
     Vec trans = nn * ray->direction
                 + tau * intersection.normal;
-    Ray transmissionRay(intersection.position, trans);
+    Ray transmissionRay(intersection.position, trans, mat.refractionIndex);
+    // Push the transmission ray to the other side of the medium's frontier
+    // so that it doesn't get stuck inside
+    transmissionRay.from = transmissionRay.from - (2 * Object::PUSH_BACK * intersection.normal);
 
     float t = mat.idealTransmission;
     transmissionColor = t * castRay(transmissionRay, t * intensity);
