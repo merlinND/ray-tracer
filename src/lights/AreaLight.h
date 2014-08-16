@@ -7,8 +7,8 @@
 /**
  * A light which has a position and an area (square).
  */
-//TODO: support different shapes
-//TODO: support rotation
+// TODO: support different shapes
+// TODO: support rotation
 class AreaLight : public PunctualLight {
 public:
   /** Lenght of a side in meters */
@@ -31,12 +31,23 @@ public:
   virtual float getParticipation(Scene const & scene, Ray const & lightRay);
 
 protected:
-
   /**
    * Density of samples to evaluate per unit of area (samples / m^2)
    * Can rapidly become very costly!
    */
   static float const SAMPLING_DENSITY;
+
+  /**
+   * Side of the sampling grid (in number of points).
+   * There will be `grid * grid` samples taken.
+   */
+  int grid;
+  /** Total number of samples taken */
+  int n;
+  /** Side of a cell from the sampling grid (in meters) */
+  float stride;
+  /** Top-left corner of the lighting area */
+  Point corner;
 
 };
 
