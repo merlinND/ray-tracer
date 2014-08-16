@@ -1,6 +1,6 @@
 #include "Light.h"
 
-Color const Light::DEFAULT_COLOR = Color(1, 1, 1);
+Color const Light::DEFAULT_COLOR = Colors::WHITE;
 // TODO: tweak value
 float const Light::EPSILON = 0.001;
 

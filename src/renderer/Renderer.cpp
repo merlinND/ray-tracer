@@ -7,7 +7,7 @@ using namespace std;
 
 #include "Renderer.h"
 
-// TODO: tweak value
+// TODO: tweak values
 float const Renderer::MIN_INTENSITY = 0.05;
 uint const Renderer::OVERSAMPLING_PERIOD = 2;
 uint const Renderer::OVERSAMPLING_PERIOD2 = Renderer::OVERSAMPLING_PERIOD * Renderer::OVERSAMPLING_PERIOD;
@@ -61,7 +61,7 @@ void Renderer::render(Image & image) {
 
 Color Renderer::castRay(Ray const & ray, float intensity) const {
   if(intensity < Renderer::MIN_INTENSITY) {
-    return Color(0, 0, 0);
+    return Colors::BLACK;
   }
 
   Intersection intersection;
@@ -123,7 +123,7 @@ Color Renderer::computeColor(Intersection const & intersection,
                    * toLight.dot(intersection.normal);
 
         float cosAlpha = toLight.dot(symmetric);
-        specular = mat.specularReflection * Color(1, 1, 1)
+        specular = mat.specularReflection * Colors::WHITE
                     * pow(cosAlpha, mat.specularExponent);
       }
       else {

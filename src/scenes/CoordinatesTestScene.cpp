@@ -7,12 +7,12 @@
 #include "../geometry/Sphere.h"
 
 CoordinatesTestScene::CoordinatesTestScene()
-  : Scene(Color(0.5, 0.5, 0.5), "Coordinates test scene") {
+  : Scene(Colors::GREY, "Coordinates test scene") {
 
   // Lighting
   PunctualLight * light = new PunctualLight(Point(1.5, 0, 4.5),
                                             0.8,
-                                            Color(1, 1, 1));
+                                            Colors::WHITE);
   addLightSource(light);
 
   // Objects
@@ -22,7 +22,7 @@ CoordinatesTestScene::CoordinatesTestScene()
 
   p << 0, 0, 0;
   o = new Sphere(p, 0.35);
-  o->setColor(Color(1, 1, 1));
+  o->setColor(Colors::WHITE);
   o->setMaterial(Material::MARBLE);
   addObject(o);
 

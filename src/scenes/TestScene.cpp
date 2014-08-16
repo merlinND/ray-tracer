@@ -9,9 +9,9 @@ TestScene::TestScene()
   : Scene(getRandomColor(), "Hello test scene") {
 
   // Lighting
-  PunctualLight * light = new PunctualLight(Point(0, 0, 0),
+  PunctualLight * light = new PunctualLight(ORIGIN,
                                             0.6,
-                                            Color(1, 1, 1));
+                                            Colors::WHITE);
   addLightSource(light);
 
   // Objects
@@ -24,12 +24,12 @@ TestScene::TestScene()
 
   p << 0, -0.7, 2;
   o = new Sphere(p, 0.5);
-  o->setColor(Color(1, 1, 1));
+  o->setColor(Colors::WHITE);
   o->setMaterial(Material::MIRROR);
   addObject(o);
 
   p << 0, 0, 0;
   o = new Cube(p, 10);
-  o->setColor(Color(1, 1, 1));
+  o->setColor(Colors::WHITE);
   addObject(o);
 }

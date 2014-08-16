@@ -8,6 +8,8 @@ class Sphere : public Object {
 public:
   /** Radius (in meters) */
   float radius;
+  /** Radius squared */
+  float r2;
 
   /**
    * @param p Position at which the sphere is centered
