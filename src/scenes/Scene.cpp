@@ -53,7 +53,6 @@ bool Scene::intersects(Ray const & ray, Intersection * intersection) const {
         }
       }
     }
-
   }
 
   if(minD2 < Object::EPSILON) {

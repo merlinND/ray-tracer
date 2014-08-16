@@ -34,7 +34,7 @@ Ray Camera::getRay(float rx, float ry) {
   // Apply homogeneous coordinate
   Vec direction = d.block<3, 1>(0, 0) / d[3];
 
-  return Ray(this->position, direction.normalized());
+  return Ray(this->position, direction);
 }
 
 void Camera::computeViewMatrix() {
@@ -45,7 +45,7 @@ void Camera::computeViewMatrix() {
   this->viewMatrix.block<3, 1>(0, 3) = this->position;
 
   // ----- Rotation
-  // Going out from the eyes of the camera to `lookAt`
+  // Going out from the eyes of the camera towards `lookAt`
   Vec w = (this->lookAt - this->position);
   // Towards the left hand of the camera
   Vec u;

@@ -9,7 +9,7 @@ TestScene::TestScene()
   : Scene(getRandomColor(), "Hello test scene") {
 
   // Lighting
-  PunctualLight * light = new PunctualLight(Point(0, 0, 0),
+  PunctualLight * light = new PunctualLight(ORIGIN,
                                             0.6,
                                             Color(1, 1, 1));
   addLightSource(light);

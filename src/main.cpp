@@ -24,7 +24,7 @@ int main(int argc, char const *argv[])
   ShadowsTestScene world;
 
   // ----- Place camera
-  Camera camera(Point(4, 4, 4), Point(0, 0, 0));
+  Camera camera(Point(4, 4, 4), ORIGIN);
   cout << "Camera view matrix:" << endl;
   cout << camera.viewMatrix << endl << endl;
 

@@ -1,19 +1,14 @@
-#include <iostream>
-using namespace std;
-
 #include "../types.h"
 #include "Sphere.h"
 
 Sphere::Sphere(Point const & p, float r)
-  : Object(p), radius(r) {
+  : Object(p), radius(r), r2(r * r) {
 
 }
 bool Sphere::computeIntersection(Ray const & ray, Intersection * intersection) {
-  float r2 = (this->radius * this->radius);
-
   // Determine if the origin of the ray is inside the sphere
   Vec toSphere = - ray.from;
-  bool isInside = ((toSphere.squaredNorm() - r2) < Object::EPSILON);
+  bool isInside = ((toSphere.squaredNorm() - this->r2) < Object::EPSILON);
 
   // Parameter corresponding to the orthogonal projection
   // of the sphere's center on the ray
@@ -28,7 +23,7 @@ bool Sphere::computeIntersection(Ray const & ray, Intersection * intersection) {
 
   // Length of the portion of ray from the intersection point
   // to the sphere's center projection
-  float tToProjection2 = (r2 - dProjection2);
+  float tToProjection2 = (this->r2 - dProjection2);
 
   if(tToProjection2 < Object::EPSILON) {
     return false;

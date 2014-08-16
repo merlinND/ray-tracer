@@ -26,7 +26,6 @@ void writeSampleImage(char const * path, uint width, uint height) {
 }
 
 /**
- *
  * @param path Path to output jpg image to
  * @see http://www.andrewewhite.net/wordpress/2008/09/02/very-simple-jpeg-writer-in-c-c/
  */

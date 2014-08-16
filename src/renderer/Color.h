@@ -28,7 +28,6 @@ inline Color clip(Color & c, float min = 0, float max = 1) {
 
 /**
  * @return A randomly generated color.
- * @TODO use a better random generator
  */
 inline Color getRandomColor() {
   return Color(mt_random(), mt_random(), mt_random());

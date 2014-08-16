@@ -31,7 +31,6 @@ bool Plane::computeIntersection(Ray const & ray, Intersection * intersection) {
   }
 
   float t = (- ray.from.dot(normal) / cosDirection);
-  //cout << t << endl;
   intersection->position = (ray.from + t * ray.direction);
   intersection->normal = normal;
 

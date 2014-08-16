@@ -7,7 +7,7 @@ using namespace std;
 
 #include "Renderer.h"
 
-// TODO: tweak value
+// TODO: tweak values
 float const Renderer::MIN_INTENSITY = 0.05;
 uint const Renderer::OVERSAMPLING_PERIOD = 2;
 uint const Renderer::OVERSAMPLING_PERIOD2 = Renderer::OVERSAMPLING_PERIOD * Renderer::OVERSAMPLING_PERIOD;
