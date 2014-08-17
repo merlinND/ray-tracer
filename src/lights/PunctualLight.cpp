@@ -6,6 +6,6 @@ PunctualLight::PunctualLight(Point const & p, float i, Color const & c)
 
 }
 
-float PunctualLight::getParticipation(Scene const & scene, Ray const & lightRay) {
+float PunctualLight::computeParticipation(Scene const & scene, Ray const & lightRay) {
   return (scene.isObstructed(lightRay, this->position) ? 0 : 1);
 }

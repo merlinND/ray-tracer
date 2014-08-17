@@ -9,6 +9,10 @@ Light::Light(float i, Color const & c)
 
 }
 
+float Light::getParticipation(Scene const & scene, Ray const & lightRay) {
+  return this->computeParticipation(scene, lightRay);
+}
+
 Color Light::getColor() const {
   return this->intensity * this->color;
 }

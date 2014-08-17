@@ -16,14 +16,12 @@ public:
                 float i = 1,
                 Color const & c = Light::DEFAULT_COLOR);
 
+protected:
   /**
    * A punctual light is either fully visible or fully obstructed.
    * This is not the case for surface lighting.
    */
-  virtual float getParticipation(Scene const & scene, Ray const & lightRay);
-
-protected:
-
+  virtual float computeParticipation(Scene const & scene, Ray const & lightRay);
 };
 
 #endif
