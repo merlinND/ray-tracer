@@ -31,10 +31,18 @@ protected:
    * E.g. a period of 3 will generate 9 samples per pixel
    */
   static uint const OVERSAMPLING_PERIOD;
-  /** Square of OVERSAMPLING_PERIOD
+  /**
+   * Square of OVERSAMPLING_PERIOD
    * (computed only once for efficiency)
    */
   static uint const OVERSAMPLING_PERIOD2;
+  /**
+   * Minimal squared difference in color between two adjacent pixels
+   * that will trigger oversampling.
+   */
+  static float const OVERSAMPLING_THRESHOLD;
+
+  bool shouldOversample(Color const & c1, Color const & c2);
 
   /**
    * Main algorithm

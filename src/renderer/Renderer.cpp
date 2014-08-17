@@ -11,33 +11,61 @@ using namespace std;
 float const Renderer::MIN_INTENSITY = 0.05;
 uint const Renderer::OVERSAMPLING_PERIOD = 2;
 uint const Renderer::OVERSAMPLING_PERIOD2 = Renderer::OVERSAMPLING_PERIOD * Renderer::OVERSAMPLING_PERIOD;
+// Good range for this threshold: between 0.0001 and 0.000001
+float const Renderer::OVERSAMPLING_THRESHOLD = 0.0001;
 
 Renderer::Renderer(Scene & s, Camera & c)
   : scene(s), camera(c) {
 }
 
+bool Renderer::shouldOversample(Color const & c1, Color const & c2) {
+  return (c2 - c1).squaredNorm() > Renderer::OVERSAMPLING_THRESHOLD;
+}
+
 void Renderer::render(Image & image) {
   float progress = 0;
+  float oversamplingCount = 0;
   cout << endl << "Casting rays" << flush;
 
-  // TODO: adaptative oversampling
   float dx = (1 / (float)image.width) / (float)Renderer::OVERSAMPLING_PERIOD,
         dy = (1 / (float)image.height) / (float)Renderer::OVERSAMPLING_PERIOD;
 
+  Color accumulator, previous;
+  int previousX, previousY;
   for(int x = 0; x < image.width; ++x) {
     for(int y = 0; y < image.height; ++y) {
       float ix = (x / (float)image.width),
             iy = (y / (float)image.height);
-      Color accumulator(0, 0, 0);
 
-      for(int i = 0; i < Renderer::OVERSAMPLING_PERIOD; ++i) {
-        for(int j = 0; j < Renderer::OVERSAMPLING_PERIOD; ++j) {
-          Ray r = this->camera.getRay(ix + i * dx, iy + j * dy);
-          accumulator += castRay(r, 1);
+      Ray r = this->camera.getRay(ix, iy);
+      accumulator = castRay(r, 1);
+      image.set(x, y, accumulator);
+
+      if(x != 0 || y != 0) {
+        // Find the closest previously computed pixel
+        // (with preference for the one directly to the next)
+        // TODO: compute previousX and previousY along the loops
+        // TODO: aren't x and y swapped?
+        previousX = (x > 0) ? (x - 1) : 0;
+        previousY = (x > 0) ? y : (y - 1);
+        previous = image.get(previousX, previousY);
+
+        // If we realize there was a large gap between this color
+        // and the previous one, we go back and oversample in between
+        if(shouldOversample(previous, accumulator)) {
+          oversamplingCount++;
+
+          // TODO: no need to recast the corner ray
+          accumulator << 0, 0, 0;
+          for(int i = 0; i < Renderer::OVERSAMPLING_PERIOD; ++i) {
+            for(int j = 0; j < Renderer::OVERSAMPLING_PERIOD; ++j) {
+              Ray r = this->camera.getRay(ix - i * dx, iy + j * dy);
+              accumulator += castRay(r, 1);
+            }
+          }
+          image.set(previousX, previousY, accumulator / Renderer::OVERSAMPLING_PERIOD2);
         }
       }
-
-      image.set(x, y, accumulator / Renderer::OVERSAMPLING_PERIOD2);
     }
 
     float currentProgress = (x / (float)image.width);
@@ -47,6 +75,7 @@ void Renderer::render(Image & image) {
     }
   }
   cout << ".done" << endl;
+  cout << "Oversampled " << oversamplingCount << " pixels." << endl;
 }
 
 Color Renderer::castRay(Ray const & ray, float intensity) const {
