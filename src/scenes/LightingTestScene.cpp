@@ -32,21 +32,21 @@ LightingTestScene::LightingTestScene()
   o->setMaterial(Material::MARBLE);
   addObject(o);
 
-  p << -4, 0, 0.5;
-  o = new Sphere(p, 0.35);
-  o->setColor(Colors::BLUE);
-  o->setMaterial(Material::MARBLE);
-  addObject(o);
-
   p << -10, 0, 0.5;
   o = new Sphere(p, 0.35);
-  o->setColor(Colors::GREEN);
+  o->setColor(Colors::WHITE);
   o->setMaterial(Material::MARBLE);
   addObject(o);
 
   p << -30, 0, 0.5;
   o = new Sphere(p, 0.35);
-  o->setColor(Colors::RED);
+  o->setColor(Colors::WHITE);
+  o->setMaterial(Material::MARBLE);
+  addObject(o);
+
+  p << -60, 0, 0.5;
+  o = new Sphere(p, 0.35);
+  o->setColor(Colors::WHITE);
   o->setMaterial(Material::MARBLE);
   addObject(o);
 }
