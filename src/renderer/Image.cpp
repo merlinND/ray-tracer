@@ -1,5 +1,7 @@
-#include "Camera.h"
+#include <vector>
+using namespace std;
 
+#include "Camera.h"
 #include "Image.h"
 
 uint const Image::DEFAULT_WIDTH = 100;
@@ -45,8 +47,22 @@ Buffer Image::toBuffer() const {
   return b;
 }
 
-Color Image::get(uint x, uint y) {
+Color Image::get(uint x, uint y) const {
   return this->colors[x][y];
+}
+vector<Color *> Image::getNeighbors(uint x, uint y) const {
+  vector<Color *> neighbors;
+
+  if(x > 0)
+    neighbors.push_back(&(this->colors[x-1][y]));
+  if(y > 0)
+    neighbors.push_back(&(this->colors[x][y-1]));
+  if(x < this->width - 1)
+    neighbors.push_back(&(this->colors[x+1][y]));
+  if(y < this->height - 1)
+    neighbors.push_back(&(this->colors[x][y+1]));
+
+  return neighbors;
 }
 void Image::set(uint x, uint y, Color c) {
   this->colors[x][y] = c;

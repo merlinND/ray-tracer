@@ -41,8 +41,19 @@ protected:
    * that will trigger oversampling.
    */
   static float const OVERSAMPLING_THRESHOLD;
+  /**
+   * Figure out if any neighboring pixel is too different
+   * from the one at `x`, `y` (i.e. their difference
+   * goes above the oversampling threshold).
+   */
+  bool shouldOversample(Image const & image, int x, int y);
 
-  bool shouldOversample(Color const & c1, Color const & c2);
+  /**
+   * After a first pass with primary rays only, go through the
+   * image again and detect differences (edges, etc).
+   * At these pixels, oversample to attenuate the differences.
+   */
+  void oversamplingPass(Image & image);
 
   /**
    * Main algorithm
