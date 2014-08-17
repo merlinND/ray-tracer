@@ -44,8 +44,6 @@ void Renderer::render(Image & image) {
       if(x != 0 || y != 0) {
         // Find the closest previously computed pixel
         // (with preference for the one directly to the next)
-        // TODO: compute previousX and previousY along the loops
-        // TODO: aren't x and y swapped?
         previousX = (x > 0) ? (x - 1) : 0;
         previousY = (x > 0) ? y : (y - 1);
         previous = image.get(previousX, previousY);
@@ -56,11 +54,14 @@ void Renderer::render(Image & image) {
           oversamplingCount++;
 
           // TODO: no need to recast the corner ray
-          accumulator << 0, 0, 0;
+          accumulator = previous;
           for(int i = 0; i < Renderer::OVERSAMPLING_PERIOD; ++i) {
             for(int j = 0; j < Renderer::OVERSAMPLING_PERIOD; ++j) {
-              Ray r = this->camera.getRay(ix - i * dx, iy + j * dy);
-              accumulator += castRay(r, 1);
+              // No need to recast the corner ray
+              if((i < Renderer::OVERSAMPLING_PERIOD - 1) || (j > 0)) {
+                Ray r = this->camera.getRay(ix - i * dx, iy + j * dy);
+                accumulator += castRay(r, 1);
+              }
             }
           }
           image.set(previousX, previousY, accumulator / Renderer::OVERSAMPLING_PERIOD2);

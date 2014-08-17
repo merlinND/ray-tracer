@@ -16,9 +16,6 @@ using namespace std;
 // TODO: rename constructor parameters to use more explicit names
 
 void printInfo(Camera const & camera, Scene const & scene) {
-  cout << "Camera view matrix:" << endl;
-  cout << camera.viewMatrix << endl << endl;
-
   cout << "Rendering scene " << scene.title << endl;
   cout << "> background color " << scene.background << endl;
   cout << "> ambient light of color " << scene.ambientLight.getColor() << endl;
