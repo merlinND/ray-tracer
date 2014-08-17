@@ -68,6 +68,7 @@ void Renderer::oversamplingPass(Image & image) {
   // Stride when oversampling around a pixel
   float dx = (1 / (float)image.width) / (float)Renderer::OVERSAMPLING_PERIOD,
         dy = (1 / (float)image.height) / (float)Renderer::OVERSAMPLING_PERIOD;
+  int middle = (Renderer::OVERSAMPLING_PERIOD / 2);
 
   Color accumulator;
   for(int x = 0; x < image.width; ++x) {
@@ -79,14 +80,17 @@ void Renderer::oversamplingPass(Image & image) {
       if(shouldOversample(image, x, y)) {
         oversamplingCount++;
 
-        accumulator << 0, 0, 0;
+        // This color corresponds to the center of the pixel
+        // (as computed during the first pass)
+        accumulator = image.get(x, y);
 
         for(int i = 0; i < Renderer::OVERSAMPLING_PERIOD; ++i) {
           for(int j = 0; j < Renderer::OVERSAMPLING_PERIOD; ++j) {
-            // TODO: no need to recast the center ray
-
-            Ray r = this->camera.getRay(ix + i * dx, iy + j * dy);
-            accumulator += castRay(r, 1);
+            // No need to recast the center ray
+            if(i != middle || j != middle) {
+              Ray r = this->camera.getRay(ix + i * dx, iy + j * dy);
+              accumulator += castRay(r, 1);
+            }
           }
         }
         image.set(x, y, accumulator / Renderer::OVERSAMPLING_PERIOD2);
