@@ -52,16 +52,19 @@ $(OUTPUTDIR)/%.o: $(SRCDIR)/%.cpp $(SRCDIR)/%.h
 
 # Explicit dependancies
 $(OUTPUTDIR)/main.o: $(SRCDIR)/image_output.h $(SRCDIR)/renderer/Renderer.h $(SRCDIR)/renderer/Camera.h $(SRCDIR)/scenes/Scene.h
-$(OUTPUTDIR)/Renderer.o: $(SRCDIR)/renderer/Ray.h $(SRCDIR)/renderer/Image.h
 $(OUTPUTDIR)/image_output.o: $(SRCDIR)/renderer/Image.h
+
+$(OUTPUTDIR)/renderer/Renderer.o: $(SRCDIR)/renderer/Ray.h $(SRCDIR)/renderer/Image.h
+$(OUTPUTDIR)/renderer/Camera.o: $(SRCDIR)/renderer/Ray.h
 
 $(OUTPUTDIR)/geometry/Object.o: $(SRCDIR)/materials/Material.h
 $(OUTPUTDIR)/geometry/Sphere.o: $(SRCDIR)/geometry/Object.h
 $(OUTPUTDIR)/geometry/Cube.o: $(SRCDIR)/geometry/Object.h
 $(OUTPUTDIR)/geometry/Plane.o: $(SRCDIR)/geometry/Object.h
 
+$(OUTPUTDIR)/lights/Light.o: $(SRCDIR)/renderer/Ray.h $(SRCDIR)/renderer/Color.h
 $(OUTPUTDIR)/lights/AmbientLight.o: $(SRCDIR)/lights/Light.h
-$(OUTPUTDIR)/lights/AreaLight.o: $(SRCDIR)/lights/Light.h
+$(OUTPUTDIR)/lights/AreaLight.o: $(SRCDIR)/renderer/Ray.h $(SRCDIR)/lights/PunctualLight.h $(SRCDIR)/scenes/Scene.h
 $(OUTPUTDIR)/lights/PunctualLight.o: $(SRCDIR)/lights/Light.h
 
 
