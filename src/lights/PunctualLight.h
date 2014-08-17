@@ -17,6 +17,8 @@ public:
                 Color const & c = Light::DEFAULT_COLOR);
 
 protected:
+  virtual float computeAttenuation(Point const & source);
+
   /**
    * A punctual light is either fully visible or fully obstructed.
    * This is not the case for surface lighting.
