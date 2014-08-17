@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "../scenes/Scene.h"
 #include "PunctualLight.h"
 
@@ -11,7 +13,13 @@ float PunctualLight::computeParticipation(Scene const & scene, Ray const & light
 }
 
 float PunctualLight::computeAttenuation(Point const & source) {
-  float distance = (this->position - source).squaredNorm();
-  // TODO
-  return 1;
+  if(this->position == source) {
+    return 1;
+  }
+
+  float d2 = (this->position - source).squaredNorm();
+  float d = std::sqrt(d2);
+  float amount = 1 / (0.1 + 0.035 * d + 0.00001 * d2);
+
+  return std::min(amount, 1.f);
 }
