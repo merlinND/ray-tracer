@@ -17,16 +17,6 @@ Renderer::Renderer(Scene & s, Camera & c)
 }
 
 void Renderer::render(Image & image) {
-  cout << "Rendering scene " << this->scene.title << endl;
-  cout << "> background color " << this->scene.background << endl;
-  cout << "> ambient light of color " << this->scene.ambientLight.getColor() << endl;
-  for(int i = 0; i < scene.lightSources.size(); ++i) {
-    cout << "> light source of color " << scene.lightSources[i]->getColor() << endl;
-  }
-  for(int i = 0; i < scene.objects.size(); ++i) {
-    cout << "> object of color " << scene.objects[i]->getColor() << endl;
-  }
-
   float progress = 0;
   cout << endl << "Casting rays" << flush;
 
