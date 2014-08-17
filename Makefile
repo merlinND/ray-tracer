@@ -17,7 +17,7 @@ EXE=ray-tracer
 
 # Header files that have an implementation to be compiled
 FILES=main.h image_output.h
-FILES+=geometry/Cube.h geometry/Intersection.h geometry/Object.h geometry/Plane.h geometry/Sphere.h
+FILES+=geometry/Cube.h geometry/Intersection.h geometry/Object.h geometry/Parallelepipoid.h geometry/Plane.h geometry/Sphere.h
 FILES+=materials/Material.h
 FILES+=lights/AmbientLight.h lights/AreaLight.h lights/Light.h lights/PunctualLight.h
 FILES+=renderer/Camera.h renderer/Image.h renderer/Ray.h renderer/Renderer.h
@@ -57,7 +57,8 @@ $(OUTPUTDIR)/image_output.o: $(SRCDIR)/renderer/Image.h
 
 $(OUTPUTDIR)/geometry/Object.o: $(SRCDIR)/materials/Material.h
 $(OUTPUTDIR)/geometry/Sphere.o: $(SRCDIR)/geometry/Object.h
-$(OUTPUTDIR)/geometry/Cube.o: $(SRCDIR)/geometry/Object.h
+$(OUTPUTDIR)/geometry/Parallelepipoid.o: $(SRCDIR)/geometry/Object.h
+$(OUTPUTDIR)/geometry/Cube.o: $(SRCDIR)/geometry/Parallelepipoid.h
 $(OUTPUTDIR)/geometry/Plane.o: $(SRCDIR)/geometry/Object.h
 
 $(OUTPUTDIR)/lights/AmbientLight.o: $(SRCDIR)/lights/Light.h
