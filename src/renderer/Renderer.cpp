@@ -91,10 +91,25 @@ Color Renderer::computeColor(Intersection const & intersection,
    * Vector symmetric to the direction of observation
    * relative to the normal at the point of intersection.
    * It corresponds to the "preferred" direction of reflection
-   * according to Descartes' laws
+   * according to Descartes' laws.
    */
   Vec symmetric = (2 * cosTheta * intersection.normal) + ray->direction;
 
+  /**
+   * Determine the ideal direction of transmission
+   * based on the position of the viewer.
+   */
+  bool totalReflection = true;
+  Vec transmissionDirection;
+  float nn = (ray->refractionIndex / mat.refractionIndex);
+  float radical = (1 + nn*nn * (cosTheta * cosTheta - 1));
+  if(radical > 0) {
+    totalReflection = false;
+
+    float tau = nn * cosTheta - sqrt(radical);
+    transmissionDirection = nn * ray->direction
+                + tau * intersection.normal;
+  }
 
   // ----- Ambient light
   Color lightColor = mat.ambientLight
@@ -128,13 +143,19 @@ Color Renderer::computeColor(Intersection const & intersection,
       }
       else {
         // ----- Transmission
-        // TODO: should this fix shadows through glass?
+        // Diffuse transmission
         // TODO: check for correctness
         diffuse *= mat.diffuseTransmission
                   * -toLight.dot(intersection.normal);
 
-        // TODO: support specular transmission (depends on the refractive indices of the mediums)
-
+        // Specular transmission
+        if(!totalReflection) {
+          float cosAlpha = toLight.dot(transmissionDirection);
+          if(cosAlpha > 0) {
+            specular = mat.specularTransmission * Colors::WHITE
+                       * pow(cosAlpha, mat.specularTransmissionExponent);
+          }
+        }
       }
 
       lightColor += participation * (light->getColor().cwiseProduct(diffuse + specular));
@@ -144,14 +165,8 @@ Color Renderer::computeColor(Intersection const & intersection,
   // ----- Ideal transmission (e.g. glass)
   Color transmissionColor(0, 0, 0);
 
-  float nn = (ray->refractionIndex / mat.refractionIndex);
-  float radical = (1 + nn*nn * (cosTheta * cosTheta - 1));
-
-  if(radical > 0) {
-    float tau = nn * cosTheta - sqrt(radical);
-    Vec trans = nn * ray->direction
-                + tau * intersection.normal;
-    Ray transmissionRay(intersection.position, trans, mat.refractionIndex);
+  if(!totalReflection) {
+    Ray transmissionRay(intersection.position, transmissionDirection, mat.refractionIndex);
     // Push the transmission ray to the other side of the medium's frontier
     // so that it doesn't get stuck inside
     transmissionRay.from = transmissionRay.from - (2 * Object::PUSH_BACK * intersection.normal);

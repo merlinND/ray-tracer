@@ -9,7 +9,7 @@ RefractionTestScene::RefractionTestScene()
   : Scene(Colors::WHITE, "Refraction test scene") {
 
   // Lighting
-  PunctualLight * light = new PunctualLight(Point(4, 0, 4),
+  PunctualLight * light = new PunctualLight(Point(0, -2, 0),
                                             0.6,
                                             Colors::WHITE);
   addLightSource(light);
