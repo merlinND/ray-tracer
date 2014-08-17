@@ -6,7 +6,7 @@ using namespace std;
 #include "util/mersenneTwister.h"
 #include "image_output.h"
 
-#include "scenes/ShadowsTestScene.h"
+#include "scenes/LightingTestScene.h"
 
 #include "renderer/Camera.h"
 #include "renderer/Renderer.h"
@@ -21,10 +21,10 @@ int main(int argc, char const *argv[])
   init_genrand(time(0));
 
   // ----- Setup scene
-  ShadowsTestScene world;
+  LightingTestScene world;
 
   // ----- Place camera
-  Camera camera(Point(4, 4, 4), ORIGIN);
+  Camera camera(Point(3, 0, 1.3), Point(-20, 0, 0));
   cout << "Camera view matrix:" << endl;
   cout << camera.viewMatrix << endl << endl;
 
