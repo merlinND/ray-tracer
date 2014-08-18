@@ -15,6 +15,18 @@ using namespace std;
 
 // TODO: rename constructor parameters to use more explicit names
 
+void printInfo(Camera const & camera, Scene const & scene) {
+  cout << "Rendering scene " << scene.title << endl;
+  cout << "> background color " << scene.background << endl;
+  cout << "> ambient light of color " << scene.ambientLight.getColor() << endl;
+  for(int i = 0; i < scene.lightSources.size(); ++i) {
+    cout << "> light source of color " << scene.lightSources[i]->getColor() << endl;
+  }
+  for(int i = 0; i < scene.objects.size(); ++i) {
+    cout << "> object of color " << scene.objects[i]->getColor() << endl;
+  }
+}
+
 int main(int argc, char const *argv[])
 {
   // ----- Init
@@ -24,14 +36,14 @@ int main(int argc, char const *argv[])
   LightingTestScene world;
 
   // ----- Place camera
-  Camera camera(Point(3, 0, 1.3), Point(-20, 0, 0));
-  cout << "Camera view matrix:" << endl;
-  cout << camera.viewMatrix << endl << endl;
+  Camera camera(Point(4, 4, 4), ORIGIN);
 
   Renderer r(world, camera);
   Image image(160, 90);
   // Image image(320, 180);
   // Image image(711, 400);
+
+  printInfo(camera, world);
 
   // ----- Start rendering
   clock_t begin = clock();
