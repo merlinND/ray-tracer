@@ -21,7 +21,7 @@ FILES+=geometry/Cube.h geometry/Intersection.h geometry/Object.h geometry/Parall
 FILES+=materials/Material.h
 FILES+=lights/AmbientLight.h lights/AreaLight.h lights/Light.h lights/PunctualLight.h
 FILES+=renderer/Camera.h renderer/Image.h renderer/Ray.h renderer/Renderer.h
-FILES+=scenes/CoordinatesTestScene.h scenes/LightingTestScene.h scenes/Scene.h scenes/ShadowsTestScene.h scenes/TestScene.h
+FILES+=scenes/CoordinatesTestScene.h scenes/LightingTestScene.h scenes/RefractionTestScene.h scenes/Scene.h scenes/ShadowsTestScene.h scenes/TestScene.h
 FILES+=util/mersenneTwister.h
 
 # Headers that most classes depend on
@@ -52,9 +52,10 @@ $(OUTPUTDIR)/%.o: $(SRCDIR)/%.cpp $(SRCDIR)/%.h
 
 # Explicit dependancies
 $(OUTPUTDIR)/main.o: $(SRCDIR)/image_output.h $(SRCDIR)/renderer/Renderer.h $(SRCDIR)/renderer/Camera.h $(SRCDIR)/scenes/Scene.h
+$(OUTPUTDIR)/image_output.o: $(SRCDIR)/renderer/Image.h
+
 $(OUTPUTDIR)/renderer/Renderer.o: $(SRCDIR)/renderer/Ray.h $(SRCDIR)/renderer/Image.h
 $(OUTPUTDIR)/renderer/Camera.o: $(SRCDIR)/renderer/Ray.h
-$(OUTPUTDIR)/image_output.o: $(SRCDIR)/renderer/Image.h
 
 $(OUTPUTDIR)/geometry/Object.o: $(SRCDIR)/materials/Material.h
 $(OUTPUTDIR)/geometry/Sphere.o: $(SRCDIR)/geometry/Object.h
@@ -62,9 +63,9 @@ $(OUTPUTDIR)/geometry/Parallelepipoid.o: $(SRCDIR)/geometry/Object.h
 $(OUTPUTDIR)/geometry/Cube.o: $(SRCDIR)/geometry/Parallelepipoid.h
 $(OUTPUTDIR)/geometry/Plane.o: $(SRCDIR)/geometry/Object.h
 
-$(OUTPUTDIR)/lights/Light.o: $(SRCDIR)/renderer/Ray.h
+$(OUTPUTDIR)/lights/Light.o: $(SRCDIR)/renderer/Ray.h $(SRCDIR)/renderer/Color.h
 $(OUTPUTDIR)/lights/AmbientLight.o: $(SRCDIR)/lights/Light.h
-$(OUTPUTDIR)/lights/AreaLight.o: $(SRCDIR)/lights/Light.h
+$(OUTPUTDIR)/lights/AreaLight.o: $(SRCDIR)/renderer/Ray.h $(SRCDIR)/lights/PunctualLight.h $(SRCDIR)/scenes/Scene.h
 $(OUTPUTDIR)/lights/PunctualLight.o: $(SRCDIR)/lights/Light.h
 
 
