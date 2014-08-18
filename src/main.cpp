@@ -6,7 +6,7 @@ using namespace std;
 #include "util/mersenneTwister.h"
 #include "image_output.h"
 
-#include "scenes/CoordinatesTestScene.h"
+#include "scenes/TestScene.h"
 
 #include "renderer/Camera.h"
 #include "renderer/Renderer.h"
@@ -15,23 +15,35 @@ using namespace std;
 
 // TODO: rename constructor parameters to use more explicit names
 
+void printInfo(Camera const & camera, Scene const & scene) {
+  cout << "Rendering scene " << scene.title << endl;
+  cout << "> background color " << scene.background << endl;
+  cout << "> ambient light of color " << scene.ambientLight.getColor() << endl;
+  for(int i = 0; i < scene.lightSources.size(); ++i) {
+    cout << "> light source of color " << scene.lightSources[i]->getColor() << endl;
+  }
+  for(int i = 0; i < scene.objects.size(); ++i) {
+    cout << "> object of color " << scene.objects[i]->getColor() << endl;
+  }
+}
+
 int main(int argc, char const *argv[])
 {
   // ----- Init
   init_genrand(time(0));
 
   // ----- Setup scene
-  CoordinatesTestScene world;
+  TestScene world;
 
   // ----- Place camera
   Camera camera(Point(4, 4, 4), ORIGIN);
-  cout << "Camera view matrix:" << endl;
-  cout << camera.viewMatrix << endl << endl;
 
   Renderer r(world, camera);
   Image image(160, 90);
   // Image image(320, 180);
   // Image image(711, 400);
+
+  printInfo(camera, world);
 
   // ----- Start rendering
   clock_t begin = clock();
