@@ -2,10 +2,9 @@
 #define CUBE_H
 
 #include "../types.h"
-#include "Object.h"
+#include "Parallelepipoid.h"
 
-// TODO: generalize to any parallelepipoid
-class Cube : public Object {
+class Cube : public Parallelepipoid {
 public:
   /** Length of a side */
   float side;
@@ -17,10 +16,7 @@ public:
   Cube(Point const & p, float s);
 
 protected:
-  float minBounds[3];
-  float maxBounds[3];
 
-  virtual bool computeIntersection(Ray const & ray, Intersection * intersection);
 };
 
 #endif
