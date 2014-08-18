@@ -9,6 +9,14 @@ Light::Light(float i, Color const & c)
 
 }
 
+float Light::getParticipation(Scene const & scene, Ray const & lightRay) {
+  return this->computeAttenuation(lightRay.from) * this->computeParticipation(scene, lightRay);
+}
+
+float Light::computeAttenuation(Point const & source) {
+  return 1;
+}
+
 Color Light::getColor() const {
   return this->intensity * this->color;
 }

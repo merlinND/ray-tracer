@@ -21,7 +21,7 @@ AreaLight::AreaLight(Point const & p, float s, float i, Color const & c)
   this->corner = (this->position - Vec(halfSide, halfSide, 0));
 }
 
-float AreaLight::getParticipation(Scene const & scene, Ray const & lightRay) {
+float AreaLight::computeParticipation(Scene const & scene, Ray const & lightRay) {
   // This light covers a square surface.
   // Our goal is to determine which portion of this surface
   // is visible from `ray.from`.

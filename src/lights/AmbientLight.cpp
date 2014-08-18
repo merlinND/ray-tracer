@@ -6,6 +6,6 @@ AmbientLight::AmbientLight(float i, Color const & c)
 
 }
 
-float AmbientLight::getParticipation(Scene const & scene, Ray const & lightRay) {
+float AmbientLight::computeParticipation(Scene const & scene, Ray const & lightRay) {
   return 1;
 }

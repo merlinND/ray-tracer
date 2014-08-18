@@ -14,12 +14,13 @@ public:
   /** Constructors */
   AmbientLight(float i = 0.25, Color const & c = Light::DEFAULT_COLOR);
 
-  /**
-   * Ambient light is omnipresent, therefore it intersects with everything
-   */
-  virtual float getParticipation(Scene const & scene, Ray const & lightRay);
 
 protected:
+  /**
+   * Ambient light is omnipresent, therefore it always
+   * participates with the same intensity
+   */
+  virtual float computeParticipation(Scene const & scene, Ray const & lightRay);
 };
 
 #endif

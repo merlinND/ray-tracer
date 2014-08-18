@@ -24,11 +24,6 @@ public:
             float i = 1,
             Color const & c = Light::DEFAULT_COLOR);
 
-  /**
-   * An area light can be partly visible from a point,
-   * which results in soft shadows.
-   */
-  virtual float getParticipation(Scene const & scene, Ray const & lightRay);
 
 protected:
   /**
@@ -49,6 +44,11 @@ protected:
   /** Top-left corner of the lighting area */
   Point corner;
 
+  /**
+   * An area light can be partly visible from a point,
+   * which results in soft shadows.
+   */
+  virtual float computeParticipation(Scene const & scene, Ray const & lightRay);
 };
 
 #endif
