@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
 #include "../geometry/Object.h"
@@ -11,43 +12,42 @@ using namespace std;
 float const Renderer::MIN_INTENSITY = 0.05;
 uint const Renderer::OVERSAMPLING_PERIOD = 2;
 uint const Renderer::OVERSAMPLING_PERIOD2 = Renderer::OVERSAMPLING_PERIOD * Renderer::OVERSAMPLING_PERIOD;
+// Good range for this threshold: between 0.01 and 0.0001
+float const Renderer::OVERSAMPLING_THRESHOLD = 0.005;
 
 Renderer::Renderer(Scene & s, Camera & c)
   : scene(s), camera(c) {
 }
 
+bool Renderer::shouldOversample(Image const & image, int x, int y) {
+  Color primary = image.get(x, y);
+  Color difference;
+  vector<Color *> neighbors = image.getNeighbors(x, y);
+  for(uint i = 0; i < neighbors.size(); ++i) {
+    difference = *(neighbors[i]) - primary;
+    if(difference.squaredNorm() > Renderer::OVERSAMPLING_THRESHOLD) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 void Renderer::render(Image & image) {
-  cout << "Rendering scene " << this->scene.title << endl;
-  cout << "> background color " << this->scene.background << endl;
-  cout << "> ambient light of color " << this->scene.ambientLight.getColor() << endl;
-  for(int i = 0; i < scene.lightSources.size(); ++i) {
-    cout << "> light source of color " << scene.lightSources[i]->getColor() << endl;
-  }
-  for(int i = 0; i < scene.objects.size(); ++i) {
-    cout << "> object of color " << scene.objects[i]->getColor() << endl;
-  }
-
   float progress = 0;
-  cout << endl << "Casting rays" << flush;
+  cout << endl << "Casting primary rays" << flush;
 
-  // TODO: adaptative oversampling
-  float dx = (1 / (float)image.width) / (float)Renderer::OVERSAMPLING_PERIOD,
-        dy = (1 / (float)image.height) / (float)Renderer::OVERSAMPLING_PERIOD;
+  // Ofset from the corner of a pixel to its center (in meters)
+  float ox = (1 / (float)image.width) / 2,
+        oy = (1 / (float)image.height) / 2;
 
   for(int x = 0; x < image.width; ++x) {
     for(int y = 0; y < image.height; ++y) {
-      float ix = (x / (float)image.width),
-            iy = (y / (float)image.height);
-      Color accumulator(0, 0, 0);
-
-      for(int i = 0; i < Renderer::OVERSAMPLING_PERIOD; ++i) {
-        for(int j = 0; j < Renderer::OVERSAMPLING_PERIOD; ++j) {
-          Ray r = this->camera.getRay(ix + i * dx, iy + j * dy);
-          accumulator += castRay(r, 1);
-        }
-      }
-
-      image.set(x, y, accumulator / Renderer::OVERSAMPLING_PERIOD2);
+      // We cast from the center of the pixel, not its corner
+      float ix = (x / (float)image.width) + ox,
+            iy = (y / (float)image.height) + oy;
+      Ray r = this->camera.getRay(ix, iy);
+      image.set(x, y, castRay(r, 1));
     }
 
     float currentProgress = (x / (float)image.width);
@@ -57,6 +57,48 @@ void Renderer::render(Image & image) {
     }
   }
   cout << ".done" << endl;
+
+  oversamplingPass(image);
+}
+
+void Renderer::oversamplingPass(Image & image) {
+  uint oversamplingCount = 0;
+  cout << "Oversampling pass..." << flush;
+
+  // Stride when oversampling around a pixel
+  float dx = (1 / (float)image.width) / (float)Renderer::OVERSAMPLING_PERIOD,
+        dy = (1 / (float)image.height) / (float)Renderer::OVERSAMPLING_PERIOD;
+  int middle = (Renderer::OVERSAMPLING_PERIOD / 2);
+
+  Color accumulator;
+  for(int x = 0; x < image.width; ++x) {
+    for(int y = 0; y < image.height; ++y) {
+      float ix = (x / (float)image.width),
+            iy = (y / (float)image.height);
+      // If any of its neighbors is too different from this pixel,
+      // trigger oversampling
+      if(shouldOversample(image, x, y)) {
+        oversamplingCount++;
+
+        // This color corresponds to the center of the pixel
+        // (as computed during the first pass)
+        accumulator = image.get(x, y);
+
+        for(int i = 0; i < Renderer::OVERSAMPLING_PERIOD; ++i) {
+          for(int j = 0; j < Renderer::OVERSAMPLING_PERIOD; ++j) {
+            // No need to recast the center ray
+            if(i != middle || j != middle) {
+              Ray r = this->camera.getRay(ix + i * dx, iy + j * dy);
+              accumulator += castRay(r, 1);
+            }
+          }
+        }
+        image.set(x, y, accumulator / Renderer::OVERSAMPLING_PERIOD2);
+      }
+    }
+  }
+
+  cout << " oversampled " << oversamplingCount << " pixels" << endl;
 }
 
 Color Renderer::castRay(Ray const & ray, float intensity) const {
