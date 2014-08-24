@@ -141,7 +141,7 @@ Color Renderer::computeColor(Intersection const & intersection,
   // ----- Ambient light
   Color lightColor = mat.ambientLight
                     * this->scene.ambientLight.getColor()
-                      .cwiseProduct(object->getColor());
+                      .cwiseProduct(object->getColor(intersection));
 
   // ----- Light sources
   for(int i = 0; i < this->scene.lightSources.size(); ++i) {
@@ -155,7 +155,7 @@ Color Renderer::computeColor(Intersection const & intersection,
     if(participation > Light::EPSILON) {
       // TODO: support attenuation with distance
       // TODO: support directed lights
-      Color diffuse = object->getColor();
+      Color diffuse = object->getColor(intersection);
       Color specular(0, 0, 0);
 
       float cosPhi = (-ray->direction).dot(toLight);

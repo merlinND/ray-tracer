@@ -52,10 +52,9 @@ public:
   bool intersects(Ray const & ray, Intersection * intersection);
 
   /**
-   * @param s Horizontal coordinate (from 0 to 1)
-   * @param t Vertical coordinate (from 0 to 1)
+   * @param intersection
    */
-  Color getColor(float s = 0, float t = 0) const;
+  Color getColor(Intersection const & intersection) const;
   void setColor(Color const & color);
 
   Texture const & getTexture() const;

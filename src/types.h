@@ -5,6 +5,7 @@
 
 typedef Eigen::Vector4f VecH;
 typedef Eigen::Vector3f Vec;
+typedef Eigen::Vector2f Vec2;
 typedef Vec Point;
 
 #define ORIGIN Point(0, 0, 0)

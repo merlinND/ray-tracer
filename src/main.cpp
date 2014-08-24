@@ -23,7 +23,7 @@ void printInfo(Camera const & camera, Scene const & scene) {
     cout << "> light source of color " << scene.lightSources[i]->getColor() << endl;
   }
   for(int i = 0; i < scene.objects.size(); ++i) {
-    cout << "> object of color " << scene.objects[i]->getColor() << endl;
+    cout << "> object placed at " << scene.objects[i]->position << endl;
   }
 }
 

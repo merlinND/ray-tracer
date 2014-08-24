@@ -103,8 +103,10 @@ bool Object::intersects(Ray const & ray, Intersection * intersection) {
 }
 
 
-Color Object::getColor(float s, float t) const {
-  return this->texture->getColor(s, t);
+Color Object::getColor(Intersection const & intersection) const {
+  // TODO: need to implement in each object
+  Vec2 p = intersection.position.topLeftCorner(2, 1).normalized();
+  return this->texture->getColor(p[0], p[1]);
 }
 void Object::setColor(Color const & color) {
   this->setTexture(new ColorTexture(color));
