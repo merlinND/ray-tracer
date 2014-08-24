@@ -5,6 +5,6 @@ ColorTexture::ColorTexture(Color const & c)
 
 }
 
-Color ColorTexture::getColor(float s, float t) {
+Color ColorTexture::getColor(float s, float t) const {
   return this->color;
 }

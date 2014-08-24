@@ -12,7 +12,7 @@ public:
    * @param s Horizontal coordinate (from 0 to 1)
    * @param t Vertical coordinate (from 0 to 1)
    */
-  virtual Color getColor(float s, float t) = 0;
+  virtual Color getColor(float s, float t) const = 0;
 
 protected:
 

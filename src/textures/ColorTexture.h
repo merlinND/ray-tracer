@@ -10,7 +10,7 @@ class ColorTexture : public Texture {
 public:
   ColorTexture(Color const & c);
 
-  virtual Color getColor(float s, float t);
+  virtual Color getColor(float s, float t) const;
 
 protected:
   Color color;

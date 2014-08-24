@@ -1,6 +1,7 @@
 #include <Eigen/Geometry>
 #include <cmath>
 
+#include "../textures/ColorTexture.h"
 #include "Object.h"
 
 float const Object::EPSILON = 0.0000000001f;
@@ -10,8 +11,22 @@ Color const Object::DEFAULT_COLOR = Colors::WHITE;
 Material const & Object::DEFAULT_MATERIAL = Material::PLASTIC;
 
 Object::Object(Point const & pos, Color const & c, Material const & m)
-  : color(c), material(&m), hasRotation(false) {
+  : material(&m) {
+  this->setColor(c);
+  this->init(pos);
+}
 
+Object::Object(Point const & pos, Texture const & tex, Material const & m)
+  : texture(&tex), material(&m) {
+  this->init(pos);
+}
+
+Object::~Object() {
+  delete this->texture;
+}
+
+void Object::init(Point const & pos) {
+  this->hasRotation = false;
   this->rotationMatrix = Eigen::Matrix3f::Identity();
   this->rotationMatrixT = Eigen::Matrix3f::Identity();
   moveTo(pos);
@@ -88,11 +103,20 @@ bool Object::intersects(Ray const & ray, Intersection * intersection) {
 }
 
 
-Color Object::getColor() const {
-  return this->color;
+Color Object::getColor(float s, float t) const {
+  return this->texture->getColor(s, t);
 }
 void Object::setColor(Color const & color) {
-  this->color = color;
+  ColorTexture * tex = new ColorTexture(color);
+  this->setTexture(*tex);
+}
+
+Texture const & Object::getTexture() const {
+  return *(this->texture);
+}
+void Object::setTexture(Texture const & texture) {
+  delete this->texture;
+  this->texture = (&texture);
 }
 
 Material const & Object::getMaterial() const {
