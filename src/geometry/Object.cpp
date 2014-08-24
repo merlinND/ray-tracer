@@ -11,7 +11,7 @@ Color const Object::DEFAULT_COLOR = Colors::WHITE;
 Material const & Object::DEFAULT_MATERIAL = Material::PLASTIC;
 
 Object::Object(Point const & pos, Color const & c, Material const & m)
-  : material(&m) {
+  : texture(NULL), material(&m) {
   this->setColor(c);
   this->init(pos);
 }
@@ -114,7 +114,9 @@ Texture const & Object::getTexture() const {
   return *(this->texture);
 }
 void Object::setTexture(Texture * texture) {
-  delete this->texture;
+  if(this->texture != NULL) {
+    delete this->texture;
+  }
   this->texture = texture;
 }
 
