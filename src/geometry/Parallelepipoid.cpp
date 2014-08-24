@@ -89,5 +89,10 @@ bool Parallelepipoid::computeIntersection(Ray const & ray, Intersection * inters
   // Push back the intersection point so as to avoid self-intersection
   intersection->position += Object::PUSH_BACK * intersection->normal;
 
+  // Texture coordinates associated with the intersection point
+  // TODO: fix
+  intersection->textureX = std::abs(intersection->position.dot(Vec(1, 0, 0)));
+  intersection->textureY = std::abs(intersection->position.dot(Vec(0, 1, 0)));
+
   return true;
 }
