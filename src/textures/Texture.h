@@ -6,6 +6,9 @@
 
 class Texture {
 public:
+  // TODO: make textures scalable
+  // TODO: allow textures to be rotated
+  // TODO: image-based textures
   Texture();
 
   /**

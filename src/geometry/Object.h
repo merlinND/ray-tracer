@@ -59,7 +59,7 @@ public:
   void setColor(Color const & color);
 
   Texture const & getTexture() const;
-  void setTexture(Texture const & texture);
+  void setTexture(Texture * texture);
 
   Material const & getMaterial() const;
   void setMaterial(Material const & material);

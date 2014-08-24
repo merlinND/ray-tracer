@@ -107,16 +107,15 @@ Color Object::getColor(float s, float t) const {
   return this->texture->getColor(s, t);
 }
 void Object::setColor(Color const & color) {
-  ColorTexture * tex = new ColorTexture(color);
-  this->setTexture(*tex);
+  this->setTexture(new ColorTexture(color));
 }
 
 Texture const & Object::getTexture() const {
   return *(this->texture);
 }
-void Object::setTexture(Texture const & texture) {
+void Object::setTexture(Texture * texture) {
   delete this->texture;
-  this->texture = (&texture);
+  this->texture = texture;
 }
 
 Material const & Object::getMaterial() const {
