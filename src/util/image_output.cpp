@@ -6,7 +6,6 @@ using namespace std;
 #include "image_output.h"
 
 uint const N_CHANNELS = 3;
-uint const BITDEPTH = 8 * N_CHANNELS;
 
 /**
  * Generate a random image and save it to `path` as JPG
