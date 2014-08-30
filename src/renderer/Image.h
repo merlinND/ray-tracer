@@ -25,13 +25,14 @@ public:
 
   /**
    * Convenience method to instanciate an image (made of colors)
-   * @param buffer A buffer of consecutive uint8_t read from a file
+   * @param buffer An array of consecutive uint8_t read from a file
    * @param w Width (in pixels)
    * @param h Height (in pixels)
    *
+   * @note We assume 3 color channels
    * @warning The returned image must be freed after use
    */
-  static Image * fromBuffer(Buffer * buffer, uint w, uint h);
+  static Image * fromArray(uint8_t const * buffer, uint w, uint h);
   /**
    * Convenience method to convert an image (made of colors)
    * to a buffer of consecutive uint8_t to be written as a file

@@ -42,25 +42,20 @@ Image * readImage(char const * path) {
   nChannels = info.num_components;
   data_size = width * height * nChannels;
 
-  cout << width << "x" << height << endl;
-  cout << data_size << endl;
-
   // Our read buffer
-  // TODO: use Buffer
-  unsigned char * jdata = new uint8_t[data_size];
+  uint8_t * jdata = new uint8_t[data_size];
   // Points to an output row in `jdata`
-  unsigned char * row_pointer;
+  uint8_t * row_pointer;
 
   // Read scanlines one by one
   while(info.output_scanline < height) {
     // Point to the next output destination
     row_pointer = &jdata[info.output_scanline * nChannels * width];
-    // Fills our `jdata` array with one more scanline from the image
+    // Fill our `jdata` array with one more scanline from the image
     jpeg_read_scanlines(&info, &row_pointer, 1);
   }
 
-  // TODO: buffer to image
-  Image * result = Image::fromBuffer(NULL, width, height);
+  Image * result = Image::fromArray(jdata, width, height);
 
   // Cleanup
   jpeg_finish_decompress(&info);
