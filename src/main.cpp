@@ -4,7 +4,7 @@ using namespace std;
 
 #include "types.h"
 #include "util/mersenneTwister.h"
-#include "image_output.h"
+#include "util/image_output.h"
 
 #include "scenes/RefractionTestScene.h"
 
