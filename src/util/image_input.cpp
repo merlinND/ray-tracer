@@ -7,8 +7,9 @@ using namespace std;
 
 /**
  * @param path Path to read a jpg image from
- * @see
  * @warning The image must be freed after use
+ *
+ * @see https://github.com/LuaDist/libjpeg/blob/master/example.c
  */
 Image * readImage(char const * path) {
   // Open input file
@@ -59,6 +60,7 @@ Image * readImage(char const * path) {
 
   // Cleanup
   jpeg_finish_decompress(&info);
+  jpeg_destroy_decompress(&info);
   fclose(file);
   delete jdata;
 
