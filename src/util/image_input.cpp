@@ -20,7 +20,7 @@ Image * readImage(char const * path) {
 
   // Length of the file
   unsigned long data_size;
-  uint x, y;
+  uint width, height;
   // Number of color channels per pixel
   uint nChannels;
   // JPEG info data structure
@@ -37,12 +37,12 @@ Image * readImage(char const * path) {
   // Decompress the JPEG file
   jpeg_start_decompress(&info);
 
-  x = info.output_width;
-  y = info.output_height;
+  width = info.output_width;
+  height = info.output_height;
   nChannels = info.num_components;
-  data_size = x * y * nChannels;
+  data_size = width * height * nChannels;
 
-  cout << x << "x" << y << endl;
+  cout << width << "x" << height << endl;
   cout << data_size << endl;
 
   // Our read buffer
@@ -52,20 +52,15 @@ Image * readImage(char const * path) {
   unsigned char * row_pointer;
 
   // Read scanlines one by one
-  while(info.output_scanline < info.output_height) {
+  while(info.output_scanline < height) {
     // Point to the next output destination
-    row_pointer = &jdata[info.output_scanline * nChannels * info.output_width];
+    row_pointer = &jdata[info.output_scanline * nChannels * width];
     // Fills our `jdata` array with one more scanline from the image
     jpeg_read_scanlines(&info, &row_pointer, 1);
   }
 
   // TODO: buffer to image
-  Image * result = new Image(10, 10);
-  for(uint y = 0; y < 10; ++y) {
-    for(uint x = 0; x < 10; ++x) {
-      result->set(x, y, Colors::GREY);
-    }
-  }
+  Image * result = Image::fromBuffer(NULL, width, height);
 
   // Cleanup
   jpeg_finish_decompress(&info);

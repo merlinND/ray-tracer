@@ -24,8 +24,17 @@ public:
   ~Image();
 
   /**
+   * Convenience method to instanciate an image (made of colors)
+   * @param buffer A buffer of consecutive uint8_t read from a file
+   * @param w Width (in pixels)
+   * @param h Height (in pixels)
+   *
+   * @warning The returned image must be freed after use
+   */
+  static Image * fromBuffer(Buffer * buffer, uint w, uint h);
+  /**
    * Convenience method to convert an image (made of colors)
-   * to a buffer of consecutive ints to be written as a file
+   * to a buffer of consecutive uint8_t to be written as a file
    */
   Buffer toBuffer() const;
 

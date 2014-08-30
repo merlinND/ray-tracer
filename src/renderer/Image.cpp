@@ -34,6 +34,19 @@ Image::~Image() {
   delete[] this->colors;
 }
 
+Image * Image::fromBuffer(Buffer * buffer, uint w, uint h) {
+  Image * result = new Image(w, h);
+
+  // TODO
+  for(uint y = 0; y < w; ++y) {
+    for(uint x = 0; x < h; ++x) {
+      result->set(x, y, Colors::GREY);
+    }
+  }
+
+  return result;
+}
+
 Buffer Image::toBuffer() const {
   Buffer b;
   for(uint y = 0; y < this->height; ++y) {
