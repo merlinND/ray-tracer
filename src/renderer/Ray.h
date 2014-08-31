@@ -9,12 +9,17 @@ class Ray {
 public:
   Point from;
   Vec direction;
+  /**
+   * Refraction index of the medium
+   * at the starting point of this ray.
+   */
+  float refractionIndex;
 
   /** Constructor */
-  Ray(Point f, Vec d);
+  Ray(Point f, Vec d, float n = Ray::DEFAULT_REFRACTION_INDEX);
 
 protected:
-
+  static float const DEFAULT_REFRACTION_INDEX;
 };
 
 /**

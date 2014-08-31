@@ -20,6 +20,12 @@ public:
   static Material const & DEFAULT_MATERIAL;
 
   /**
+   * Amount to which by push back intersection points
+   * in the direction of the normal.
+   */
+  static float const PUSH_BACK;
+
+  /**
    * Value that we consider "close enough to zero"
    * when computing intersections
    */
@@ -64,12 +70,6 @@ public:
   void setMaterial(Material const & material);
 
 protected:
-  /**
-   * Amount to which by push back intersection points
-   * in the direction of the normal.
-   */
-  static float const PUSH_BACK;
-
   /**
    * Transformation matrix
    * used to convert world coordinates to object coordinates
