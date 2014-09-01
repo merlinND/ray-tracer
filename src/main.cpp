@@ -6,7 +6,7 @@ using namespace std;
 #include "util/mersenneTwister.h"
 #include "image_output.h"
 
-#include "scenes/RefractionTestScene.h"
+#include "scenes/TestScene.h"
 
 #include "renderer/Camera.h"
 #include "renderer/Renderer.h"
@@ -23,7 +23,7 @@ void printInfo(Camera const & camera, Scene const & scene) {
     cout << "> light source of color " << scene.lightSources[i]->getColor() << endl;
   }
   for(int i = 0; i < scene.objects.size(); ++i) {
-    cout << "> object of color " << scene.objects[i]->getColor() << endl;
+    cout << "> object placed at " << scene.objects[i]->position << endl;
   }
 }
 
@@ -33,7 +33,7 @@ int main(int argc, char const *argv[])
   init_genrand(time(0));
 
   // ----- Setup scene
-  RefractionTestScene world;
+  TestScene world;
 
   // ----- Place camera
   Camera camera(Point(4, 4, 4), ORIGIN);

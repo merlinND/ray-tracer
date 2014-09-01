@@ -37,5 +37,13 @@ bool Plane::computeIntersection(Ray const & ray, Intersection * intersection) {
   // Push back the intersection point so as to avoid self-intersection
   intersection->position += Object::PUSH_BACK * intersection->normal;
 
+  // Texture coordinates associated with the intersection point
+  // Since we're on an infinite plane, the texture must repeat periodically
+  Vec intersectionToCenter = Vec(this->position - intersection->position);
+  int period = 10;
+  // TODO: check
+  intersection->textureX = ((int)intersectionToCenter[0] % period) / (float)period;
+  intersection->textureY = ((int)intersectionToCenter[1] % period) / (float)period;
+
   return true;
 }

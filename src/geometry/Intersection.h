@@ -19,9 +19,14 @@ public:
   Point position;
   /** Normal vector computed at the point of intersection */
   Vec normal;
+  /**
+   * Texture (2D) coordinates corresponding to the point of intersection
+   * ranging from 0 to 1.
+   */
+  float textureX, textureY;
 
   Intersection();
-  Intersection(Object const * object, Ray const * ray);
+  Intersection(Object const * object, Ray const * ray, float s = 0, float t = 0);
 
 protected:
 };

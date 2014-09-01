@@ -4,14 +4,15 @@
 #include "../types.h"
 
 #include "../renderer/Ray.h"
-#include "../renderer/Color.h"
+#include "../textures/Texture.h"
 #include "../materials/Material.h"
 #include "Intersection.h"
 
 class Object {
 public:
   Point position;
-  Color color;
+  // TODO: implement shared texture
+  Texture const * texture;
   Material const * material;
 
   // Default values
@@ -34,6 +35,11 @@ public:
   Object(Point const & pos,
          Color const & c = Object::DEFAULT_COLOR,
          Material const & m = Object::DEFAULT_MATERIAL);
+  Object(Point const & pos,
+         Texture const & tex,
+         Material const & m = Object::DEFAULT_MATERIAL);
+  /** Destructor */
+  ~Object();
 
   /** Positioning */
   void moveTo(Point const & pos);
@@ -51,8 +57,15 @@ public:
    */
   bool intersects(Ray const & ray, Intersection * intersection);
 
-  Color getColor() const;
+  /**
+   * @param intersection
+   */
+  Color getColor(Intersection const & intersection) const;
   void setColor(Color const & color);
+
+  Texture const & getTexture() const;
+  void setTexture(Texture * texture);
+
   Material const & getMaterial() const;
   void setMaterial(Material const & material);
 
@@ -72,6 +85,8 @@ protected:
    * multiplications if there's no rotation applied to this object.
    */
   bool hasRotation;
+
+  void init(Point const & pos);
 
   /**
    * Actual intersection detection algorithm.
