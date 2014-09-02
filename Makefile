@@ -16,14 +16,14 @@ EXE=ray-tracer
 
 
 # Header files that have an implementation to be compiled
-FILES=main.h image_output.h
+FILES=main.h
 FILES+=geometry/Cube.h geometry/Intersection.h geometry/Object.h geometry/Parallelepipoid.h geometry/Plane.h geometry/Sphere.h
 FILES+=materials/Material.h
 FILES+=lights/AmbientLight.h lights/AreaLight.h lights/Light.h lights/PunctualLight.h
 FILES+=renderer/Camera.h renderer/Image.h renderer/Ray.h renderer/Renderer.h
 FILES+=scenes/CoordinatesTestScene.h scenes/LightingTestScene.h scenes/RefractionTestScene.h scenes/Scene.h scenes/ShadowsTestScene.h scenes/TestScene.h scenes/TexturesTestScene.h
 FILES+=textures/GridTexture.h textures/ColorTexture.h textures/Texture.h
-FILES+=util/mersenneTwister.h
+FILES+=util/image_input.h util/image_output.h util/mersenneTwister.h
 
 # Headers that most classes depend on
 COMMONS=$(SRCDIR)/types.h $(SRCDIR)/renderer/Color.h
@@ -52,8 +52,8 @@ $(OUTPUTDIR)/%.o: $(SRCDIR)/%.cpp $(SRCDIR)/%.h
 	$(COMPILER) $(CPPFLAGS) $(INCPATH) -o $@ -c $<
 
 # Explicit dependancies
-$(OUTPUTDIR)/main.o: $(SRCDIR)/image_output.h $(SRCDIR)/renderer/Renderer.h $(SRCDIR)/renderer/Camera.h $(SRCDIR)/scenes/Scene.h
-$(OUTPUTDIR)/image_output.o: $(SRCDIR)/renderer/Image.h
+$(OUTPUTDIR)/main.o: $(SRCDIR)/util/image_output.h $(SRCDIR)/renderer/Renderer.h $(SRCDIR)/renderer/Camera.h $(SRCDIR)/scenes/Scene.h
+$(OUTPUTDIR)/util/image_output.o: $(SRCDIR)/renderer/Image.h
 
 $(OUTPUTDIR)/renderer/Renderer.o: $(SRCDIR)/renderer/Ray.h $(SRCDIR)/renderer/Image.h
 $(OUTPUTDIR)/renderer/Camera.o: $(SRCDIR)/renderer/Ray.h
@@ -68,6 +68,8 @@ $(OUTPUTDIR)/lights/Light.o: $(SRCDIR)/renderer/Ray.h $(SRCDIR)/renderer/Color.h
 $(OUTPUTDIR)/lights/AmbientLight.o: $(SRCDIR)/lights/Light.h
 $(OUTPUTDIR)/lights/AreaLight.o: $(SRCDIR)/renderer/Ray.h $(SRCDIR)/lights/PunctualLight.h $(SRCDIR)/scenes/Scene.h
 $(OUTPUTDIR)/lights/PunctualLight.o: $(SRCDIR)/lights/Light.h
+
+$(OUTPUTDIR)/scenes/Scene.o: $(SRCDIR)/renderer/Ray.h $(SRCDIR)/geometry/Intersection.h
 
 
 run: all
