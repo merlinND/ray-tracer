@@ -21,7 +21,8 @@ FILES+=geometry/Cube.h geometry/Intersection.h geometry/Object.h geometry/Parall
 FILES+=materials/Material.h
 FILES+=lights/AmbientLight.h lights/AreaLight.h lights/Light.h lights/PunctualLight.h
 FILES+=renderer/Camera.h renderer/Image.h renderer/Ray.h renderer/Renderer.h
-FILES+=scenes/CoordinatesTestScene.h scenes/LightingTestScene.h scenes/RefractionTestScene.h scenes/Scene.h scenes/ShadowsTestScene.h scenes/TestScene.h
+FILES+=scenes/CoordinatesTestScene.h scenes/LightingTestScene.h scenes/RefractionTestScene.h scenes/Scene.h scenes/ShadowsTestScene.h scenes/TestScene.h scenes/TexturesTestScene.h
+FILES+=textures/GridTexture.h textures/ColorTexture.h textures/Texture.h
 FILES+=util/image_input.h util/image_output.h util/mersenneTwister.h
 
 # Headers that most classes depend on
