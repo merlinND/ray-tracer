@@ -44,6 +44,14 @@ inline Color getRandomColor() {
   return Color(mt_random(), mt_random(), mt_random());
 }
 
+inline Color colorFromRGB(uint8_t r, uint8_t g, uint8_t b) {
+  return Color(
+      (float)(r / 255.0),
+      (float)(g / 255.0),
+      (float)(b / 255.0)
+    );
+}
+
 /**
  * Turn a color into a displayable pixel
  */

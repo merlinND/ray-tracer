@@ -6,7 +6,6 @@ using namespace std;
 #include "image_output.h"
 
 uint const N_CHANNELS = 3;
-uint const BITDEPTH = 8 * N_CHANNELS;
 
 /**
  * Generate a random image and save it to `path` as JPG
@@ -38,32 +37,32 @@ void writeImage(Image const & image, char const * path) {
   }
 
   // Setup libjpeg objects
-  struct jpeg_compress_struct cinfo;
+  struct jpeg_compress_struct info;
   struct jpeg_error_mgr jerr;
 
-  cinfo.err = jpeg_std_error(&jerr);
-  jpeg_create_compress(&cinfo);
-  jpeg_stdio_dest(&cinfo, file);
+  info.err = jpeg_std_error(&jerr);
+  jpeg_create_compress(&info);
+  jpeg_stdio_dest(&info, file);
 
   // Configure jpeg image
-  cinfo.image_width = image.width;
-  cinfo.image_height = image.height;
-  cinfo.input_components = N_CHANNELS; // RGB channels
-  cinfo.in_color_space = JCS_RGB;
-  jpeg_set_defaults(&cinfo);
-  jpeg_set_quality (&cinfo, 100, (boolean)false);
-  jpeg_start_compress(&cinfo, (boolean)true);
+  info.image_width = image.width;
+  info.image_height = image.height;
+  info.input_components = N_CHANNELS; // RGB channels
+  info.in_color_space = JCS_RGB;
+  jpeg_set_defaults(&info);
+  jpeg_set_quality (&info, 100, (boolean)false);
+  jpeg_start_compress(&info, (boolean)true);
 
   // Points to a row of the image
   JSAMPROW row_pointer;
   Buffer buffer = image.toBuffer();
-  while (cinfo.next_scanline < cinfo.image_height) {
+  while (info.next_scanline < info.image_height) {
     // Point to the first byte of the next line
-    row_pointer = (JSAMPROW) &buffer[cinfo.next_scanline * N_CHANNELS * cinfo.image_width];
-    jpeg_write_scanlines(&cinfo, &row_pointer, 1);
+    row_pointer = (JSAMPROW) &buffer[info.next_scanline * N_CHANNELS * info.image_width];
+    jpeg_write_scanlines(&info, &row_pointer, 1);
   }
 
   // Cleanup
-  jpeg_finish_compress(&cinfo);
+  jpeg_finish_compress(&info);
   fclose(file);
 }

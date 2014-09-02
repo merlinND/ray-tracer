@@ -34,6 +34,22 @@ Image::~Image() {
   delete[] this->colors;
 }
 
+Image * Image::fromArray(uint8_t const * buffer, uint w, uint h) {
+  Image * result = new Image(w, h);
+
+  uint8_t r, g, b;
+  for(uint y = 0; y < h; ++y) {
+    for(uint x = 0; x < w; ++x) {
+      r = *(buffer++);
+      g = *(buffer++);
+      b = *(buffer++);
+      result->set(x, y, colorFromRGB(r, g, b));
+    }
+  }
+
+  return result;
+}
+
 Buffer Image::toBuffer() const {
   Buffer b;
   for(uint y = 0; y < this->height; ++y) {
