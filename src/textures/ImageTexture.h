@@ -1,6 +1,8 @@
 #ifndef IMAGETEXTURE_H
 #define IMAGETEXTURE_H
 
+#include "../renderer/Image.h"
+
 #include "ColorTexture.h"
 
 /**
@@ -8,9 +10,10 @@
  */
 class ImageTexture : public ColorTexture {
 public:
-  ImageTexture(Color const & c = Colors::WHITE);
+  Image * image;
 
-  // TODO: set image
+  ImageTexture(char const * path, Color const & c = Colors::WHITE);
+  ~ImageTexture();
 
   virtual Color getColor(float s, float t) const;
 
