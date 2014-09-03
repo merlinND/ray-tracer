@@ -18,6 +18,8 @@ public:
   virtual Color getColor(float s, float t) const;
 
 protected:
+
+  static Color const MISSING_TEXTURE_COLOR;
 };
 
 #endif
