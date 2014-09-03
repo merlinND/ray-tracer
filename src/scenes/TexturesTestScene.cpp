@@ -32,12 +32,12 @@ TexturesTestScene::TexturesTestScene()
 
   p << 1, -1, 0;
   o = new Cube(p, 1);
-  o->setTexture(new GridTexture(Colors::GREEN));
+  o->setTexture(new ImageTexture("./res/textures/doge.jpg"));
   addObject(o);
 
   p << -1, 1, 0;
   o = new Sphere(p, 0.8);
-  o->setTexture(new ImageTexture("./bin/doge.jpg"));
+  o->setTexture(new ImageTexture("./res/textures/rock.jpg"));
   addObject(o);
 
 }
