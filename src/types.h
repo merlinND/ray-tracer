@@ -10,4 +10,6 @@ typedef Vec Point;
 
 #define ORIGIN Point(0, 0, 0)
 
+#define PI 3.14159265358979323846f
+
 #endif
