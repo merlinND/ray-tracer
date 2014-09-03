@@ -11,6 +11,8 @@
 class ImageTexture : public ColorTexture {
 public:
   Image * image;
+  // TODO: support offset
+  // TODO: support rotation (by PI/2 increments)
 
   ImageTexture(char const * path, Color const & c = Colors::WHITE);
   ~ImageTexture();
