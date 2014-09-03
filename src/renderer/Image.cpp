@@ -64,6 +64,10 @@ Buffer Image::toBuffer() const {
 }
 
 Color Image::get(uint x, uint y) const {
+  x = std::min(x, this->width - 1);
+  x = std::max(x, (uint)0);
+  y = std::min(y, this->height - 1);
+  y = std::max(y, (uint)0);
   return this->colors[x][y];
 }
 vector<Color *> Image::getNeighbors(uint x, uint y) const {
