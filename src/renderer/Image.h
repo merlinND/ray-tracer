@@ -40,7 +40,7 @@ public:
   Buffer toBuffer() const;
 
   Color get(uint x, uint y) const;
-  vector<Color *> getNeighbors(uint x, uint y) const;
+  std::vector<Color *> getNeighbors(uint x, uint y) const;
   void set(uint x, uint y, Color c);
 
 protected:
