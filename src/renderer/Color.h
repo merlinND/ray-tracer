@@ -18,7 +18,8 @@ namespace Colors {
                      LIGHT_GREY = Color(0.75, 0.75, 0.75),
                      RED = Color(1, 0, 0),
                      GREEN = Color(0, 1, 0),
-                     BLUE = Color(0, 0, 1);
+                     BLUE = Color(0, 0, 1),
+                     PURPLE = Color(1, 0, 1);
 
 };
 

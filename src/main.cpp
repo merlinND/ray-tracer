@@ -8,6 +8,7 @@ using namespace std;
 
 #include "scenes/TestScene.h"
 
+#include "textures/ImageTexture.h"
 #include "renderer/Camera.h"
 #include "renderer/Renderer.h"
 
