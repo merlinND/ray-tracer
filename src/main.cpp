@@ -6,7 +6,7 @@ using namespace std;
 #include "util/mersenneTwister.h"
 #include "util/image_output.h"
 
-#include "scenes/TestScene.h"
+#include "scenes/TexturesTestScene.h"
 
 #include "textures/ImageTexture.h"
 #include "renderer/Camera.h"
@@ -34,7 +34,7 @@ int main(int argc, char const *argv[])
   init_genrand(time(0));
 
   // ----- Setup scene
-  TestScene world;
+  TexturesTestScene world;
 
   // ----- Place camera
   Camera camera(Point(4, 4, 4), ORIGIN);
