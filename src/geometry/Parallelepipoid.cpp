@@ -1,6 +1,4 @@
 #include <cfloat>
-#include <iostream>
-using namespace std;
 
 #include "Parallelepipoid.h"
 
@@ -91,10 +89,8 @@ bool Parallelepipoid::computeIntersection(Ray const & ray, Intersection * inters
   // Push back the intersection point so as to avoid self-intersection
   intersection->position = intersectionPosition + Object::PUSH_BACK * intersection->normal;
 
-
   // Texture coordinates associated with the intersection point
-  // Coordinate system local to the side
-  // TODO: check signs
+  // Coordinate system local to the side on which the intersection happened
   uint ui = (axis+1) % 3;
   uint vi = (axis+2) % 3;
   Vec u(0, 0, 0), v(0, 0, 0);
@@ -107,8 +103,8 @@ bool Parallelepipoid::computeIntersection(Ray const & ray, Intersection * inters
   float y = 0.5 - position.dot(v) / (2 * (this->maxBounds[vi] - this->minBounds[vi]));
 
   // Select the correct side in the texture
-  uint faceIndex = 2 * axis;
-  faceIndex += (intersection->normal[axis] > 0 ? 1 : 0);
+  // Numbering rule: adding two opposite face's index gives 5
+  uint faceIndex = (intersection->position[axis] > 0 ? axis : 5 - axis);
   float xOffset = (faceIndex % 3) * (1 / 3.f);
   float yOffset = (faceIndex / 3) * (1 / 2.f);
 
