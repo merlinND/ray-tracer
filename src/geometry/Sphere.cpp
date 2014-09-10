@@ -57,7 +57,7 @@ bool Sphere::computeIntersection(Ray const & ray, Intersection * intersection) {
 
   // Texture coordinates associated with the intersection point
   // See: http://en.wikipedia.org/wiki/UV_mapping
-  Vec toCenter = (this->position - intersection->position).normalized();
+  Vec toCenter = (-intersection->position).normalized();
   intersection->textureX = 0.5 + std::atan2(toCenter[2], toCenter[1]) / (2 * PI);
   intersection->textureY = 0.5 - std::asin(toCenter[1]) / PI;
 
