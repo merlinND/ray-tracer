@@ -31,7 +31,7 @@ TexturesTestScene::TexturesTestScene()
 
   p << 0, -2, 0;
   o = new Cube(p, 1);
-  o->setTexture(new ImageTexture("./res/textures/doge.jpg"));
+  o->setTexture(new ImageTexture("./res/textures/dice.jpg"));
   addObject(o);
 
   p << -2, 0, 0;
@@ -42,7 +42,7 @@ TexturesTestScene::TexturesTestScene()
   p << 0.1, 0.1, 0;
   o = new Sphere(p, 1);
   o->setTexture(new ImageTexture("./res/textures/garden.jpg"));
-  o->rotate(3.141592654f / 5.f, 3.141592654f / 5.f, 3.141592654f / 2.f);
+  o->rotate(- PI / 2.f, 0.1f, 0);
   addObject(o);
 
 }
