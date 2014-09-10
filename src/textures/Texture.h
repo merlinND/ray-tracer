@@ -4,6 +4,12 @@
 #include "../types.h"
 #include "../renderer/Color.h"
 
+/**
+ * @warning Cube textures are expected to be of the form:
+ *  |1|2|3|  (i.e. two rows, three faces each)
+ *  |4|5|6|
+ */
+
 class Texture {
 public:
   // TODO: make textures scalable
