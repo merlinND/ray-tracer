@@ -40,8 +40,8 @@ TexturesTestScene::TexturesTestScene()
   addObject(o);
 
   p << 0.1, 0.1, 0;
-  o = new Sphere(p, 1);
-  o->setTexture(new ImageTexture("./res/textures/garden.jpg"));
+  o = new Cube(p, 1.2);
+  o->setTexture(new ImageTexture("./res/textures/square.jpg"));
   o->rotate(- PI / 2.f, 0.1f, 0);
   addObject(o);
 
