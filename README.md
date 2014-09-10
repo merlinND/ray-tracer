@@ -11,34 +11,33 @@ For now, all computations are done on CPU, but future versions may leverage GPU 
 - JPEG output
 - Camera view matrix
 - Basic scene data structure
-- Basic lights representations
+- Ligthing:
+  - Punctual lights
+  - Area ligths
+  - Diffuse lighting
+  - Specular lighting
+  - Intensity attenuates with distance
+- Perfect refraction
+- Perfect reflection
 - Geometric objects:
   - Cube
   - Sphere
   - Plane
 - Arbitrary rotation of objects
-- Diffuse lighting
 - Materials
-- Basic oversampling
+- Adaptative oversampling
 
 ## TODO
 
-- Specular lighting
+- Textures
 - More geometric figures
-  - Arbitrary parallelepiped
   - Pyramid
   - Cone
   - Cylinder
   - Dome (half-sphere)
   - Polygon
 - Directed lighting
-- Spherical light sources
-- Softer shadows
-- Attenuation of light with distance
-- Refraction (supporting arbitrary indices for all rays)
-- Adaptative oversampling
 - Depth of field
-- Textures
 - Bumpmaps
 
 ## Dependencies
