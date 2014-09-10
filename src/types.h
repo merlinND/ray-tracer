@@ -12,4 +12,12 @@ typedef Vec Point;
 
 #define PI 3.14159265358979323846f
 
+/**
+ * Signum helper function
+ * @see http://stackoverflow.com/questions/1903954/is-there-a-standard-sign-function-signum-sgn-in-c-c
+ */
+inline float signum(float val) {
+  return ((0.f < val) - (val < 0.f));
+}
+
 #endif
