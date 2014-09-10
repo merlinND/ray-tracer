@@ -19,7 +19,7 @@ Color ImageTexture::getColor(float s, float t) const {
     return ImageTexture::MISSING_TEXTURE_COLOR;
   }
 
-  int x = std::floor(s * this->image->width);
-  int y = std::floor(t * this->image->height);
+  int x = std::round(s * this->image->width);
+  int y = std::round(t * this->image->height);
   return this->image->get(x, y);
 }

@@ -97,14 +97,14 @@ bool Parallelepipoid::computeIntersection(Ray const & ray, Intersection * inters
   u[ui] = 1;
   v[vi] = 1;
 
-  Vec position = intersectionPosition;
   // Coordinates in this side
-  float x = 0.5f + position.dot(u);
-  float y = 0.5f - position.dot(v);
+  // TODO: fix misalignment bug
+  float x = 0.5f + intersectionPosition.dot(u);
+  float y = 0.5f - intersectionPosition.dot(v);
 
   // Select the correct side in the texture
   // Numbering rule: adding two opposite face's index gives 5
-  uint faceIndex = (intersection->position[axis] > 0 ? axis : 5 - axis);
+  uint faceIndex = (intersectionPosition[axis] > 0 ? axis : 5 - axis);
   float xOffset = (faceIndex % 3) * (1 / 3.f);
   float yOffset = (faceIndex / 3) * (1 / 2.f);
 

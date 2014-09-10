@@ -31,18 +31,20 @@ TexturesTestScene::TexturesTestScene()
 
   p << 0, -2, 0;
   o = new Sphere(p, 0.8);
-  o->setTexture(new ImageTexture("./res/textures/garden.jpg"));
+  o->setMaterial(Material::MIRROR);
+  // o->setTexture(new ImageTexture("./res/textures/garden.jpg"));
   o->rotate(- PI / 2.f, 0.1f, 0);
   addObject(o);
 
   p << -2, 0, 0;
   o = new Sphere(p, 0.8);
-  o->setTexture(new ImageTexture("./res/textures/rock.jpg"));
+  o->setMaterial(Material::MIRROR);
+  // o->setTexture(new ImageTexture("./res/textures/rock.jpg"));
   addObject(o);
 
   p << 0.1, 0.1, 0;
   o = new Cube(p, 1.2);
-  o->setTexture(new ImageTexture("./res/textures/dice.jpg"));
+  o->setTexture(new ImageTexture("./res/textures/rubiks-cube.jpg"));
   addObject(o);
 
 }
