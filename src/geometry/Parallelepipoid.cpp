@@ -78,7 +78,7 @@ bool Parallelepipoid::computeIntersection(Ray const & ray, Intersection * inters
   }
 
   // Point of intersection
-  intersection->position = ray.from + (t * ray.direction);
+  Vec intersectionPosition = ray.from + (t * ray.direction);
 
   // Normal vector at this point
   intersection->normal = Vec(0, 0, 0);
@@ -89,7 +89,7 @@ bool Parallelepipoid::computeIntersection(Ray const & ray, Intersection * inters
   }
 
   // Push back the intersection point so as to avoid self-intersection
-  intersection->position += Object::PUSH_BACK * intersection->normal;
+  intersection->position = intersectionPosition + Object::PUSH_BACK * intersection->normal;
 
 
   // Texture coordinates associated with the intersection point
@@ -101,8 +101,7 @@ bool Parallelepipoid::computeIntersection(Ray const & ray, Intersection * inters
   u[ui] = 1;
   v[vi] = 1;
 
-  // TODO: do not used the pushed-back version of the intersection
-  Vec position = intersection->position.normalized();
+  Vec position = intersectionPosition.normalized();
   // Coordinates in this side
   float x = 0.5 + position.dot(u) / (2 * (this->maxBounds[ui] - this->minBounds[ui]));
   float y = 0.5 - position.dot(v) / (2 * (this->maxBounds[vi] - this->minBounds[vi]));
