@@ -108,12 +108,13 @@ bool Parallelepipoid::computeIntersection(Ray const & ray, Intersection * inters
   float y = 0.5 - position.dot(v) / (2 * (this->maxBounds[vi] - this->minBounds[vi]));
 
   // Select the correct side in the texture
-  // TODO: support multiple faces
   uint faceIndex = 2 * axis;
   faceIndex += (intersection->normal[axis] > 0 ? 1 : 0);
+  float xOffset = (faceIndex % 3) * (1 / 3.f);
+  float yOffset = (faceIndex / 3) * (1 / 2.f);
 
-  intersection->textureX = x;
-  intersection->textureY = y;
+  intersection->textureX = (x / 3.f) + xOffset;
+  intersection->textureY = (y / 2.f) + yOffset;
 
   return true;
 }

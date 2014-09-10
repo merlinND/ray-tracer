@@ -30,8 +30,9 @@ TexturesTestScene::TexturesTestScene()
   addObject(o);
 
   p << 0, -2, 0;
-  o = new Cube(p, 1);
-  o->setTexture(new ImageTexture("./res/textures/dice.jpg"));
+  o = new Sphere(p, 0.8);
+  o->setTexture(new ImageTexture("./res/textures/garden.jpg"));
+  o->rotate(- PI / 2.f, 0.1f, 0);
   addObject(o);
 
   p << -2, 0, 0;
@@ -41,8 +42,7 @@ TexturesTestScene::TexturesTestScene()
 
   p << 0.1, 0.1, 0;
   o = new Cube(p, 1.2);
-  o->setTexture(new ImageTexture("./res/textures/square.jpg"));
-  o->rotate(- PI / 2.f, 0.1f, 0);
+  o->setTexture(new ImageTexture("./res/textures/dice.jpg"));
   addObject(o);
 
 }
