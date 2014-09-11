@@ -98,7 +98,6 @@ bool Parallelepipoid::computeIntersection(Ray const & ray, Intersection * inters
   v[vi] = 1;
 
   // Coordinates in this side
-  // TODO: fix misalignment bug
   float x = 0.5f + (intersectionPosition.dot(u) / (this->maxBounds[ui] - this->minBounds[ui]));
   float y = 0.5f - (intersectionPosition.dot(v) / (this->maxBounds[vi] - this->minBounds[vi]));
 
