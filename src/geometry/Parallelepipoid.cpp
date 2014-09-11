@@ -76,7 +76,7 @@ bool Parallelepipoid::computeIntersection(Ray const & ray, Intersection * inters
   }
 
   // Point of intersection
-  intersection->position = ray.from + (t * ray.direction);
+  Vec intersectionPosition = ray.from + (t * ray.direction);
 
   // Normal vector at this point
   intersection->normal = Vec(0, 0, 0);
@@ -87,12 +87,28 @@ bool Parallelepipoid::computeIntersection(Ray const & ray, Intersection * inters
   }
 
   // Push back the intersection point so as to avoid self-intersection
-  intersection->position += Object::PUSH_BACK * intersection->normal;
+  intersection->position = intersectionPosition + Object::PUSH_BACK * intersection->normal;
 
   // Texture coordinates associated with the intersection point
-  // TODO: fix
-  intersection->textureX = std::abs(intersection->position.dot(Vec(1, 0, 0)));
-  intersection->textureY = std::abs(intersection->position.dot(Vec(0, 1, 0)));
+  // Coordinate system local to the side on which the intersection happened
+  uint ui = (axis+1) % 3;
+  uint vi = (axis+2) % 3;
+  Vec u(0, 0, 0), v(0, 0, 0);
+  u[ui] = 1;
+  v[vi] = 1;
+
+  // Coordinates in this side
+  float x = 0.5f + (intersectionPosition.dot(u) / (this->maxBounds[ui] - this->minBounds[ui]));
+  float y = 0.5f - (intersectionPosition.dot(v) / (this->maxBounds[vi] - this->minBounds[vi]));
+
+  // Select the correct side in the texture
+  // Numbering rule: adding two opposite face's index gives 5
+  uint faceIndex = (intersectionPosition[axis] > 0 ? axis : 5 - axis);
+  float xOffset = (faceIndex % 3) * (1 / 3.f);
+  float yOffset = (faceIndex / 3) * (1 / 2.f);
+
+  intersection->textureX = (x / 3.f) + xOffset;
+  intersection->textureY = (y / 2.f) + yOffset;
 
   return true;
 }

@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include "../types.h"
 #include "Sphere.h"
 
@@ -54,9 +56,10 @@ bool Sphere::computeIntersection(Ray const & ray, Intersection * intersection) {
   intersection->position += Object::PUSH_BACK * intersection->normal;
 
   // Texture coordinates associated with the intersection point
-  // TODO: check
-  intersection->textureX = std::abs(intersection->position.dot(Vec(1, 0, 0)));
-  intersection->textureY = std::abs(intersection->position.dot(Vec(0, 1, 0)));
+  // See: http://en.wikipedia.org/wiki/UV_mapping
+  Vec toCenter = (-intersection->position).normalized();
+  intersection->textureX = 0.5 + std::atan2(toCenter[2], toCenter[1]) / (2 * PI);
+  intersection->textureY = 0.5 - std::asin(toCenter[1]) / PI;
 
   return true;
 }
