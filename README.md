@@ -26,17 +26,20 @@ For now, all computations are done on CPU, but future versions may leverage GPU 
 - Arbitrary rotation of objects
 - Materials
 - Adaptative oversampling
+- Textures
+  - Algorithmic textures
+  - Image-based textures
 
 ## TODO
 
-- Textures
+- Directed lighting
+- Multithreading
 - More geometric figures
   - Pyramid
   - Cone
   - Cylinder
   - Dome (half-sphere)
   - Polygon
-- Directed lighting
 - Depth of field
 - Bumpmaps
 
