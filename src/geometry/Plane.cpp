@@ -1,8 +1,5 @@
 #include "Plane.h"
 
-#include <iostream>
-using namespace std;
-
 Plane::Plane(Point const & p, Vec const & n)
   : Object(p), normal(n.normalized()) {
 }
