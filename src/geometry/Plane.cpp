@@ -18,9 +18,16 @@ bool Plane::computeIntersection(Ray const & ray, Intersection * intersection) {
     cosSource *= -1;
   }
 
-  float cosDirection = ray.direction.dot(normal);
-  if(cosDirection > -Object::EPSILON) {
-    // The ray is parallel or going away
+  float dot = ray.direction.dot(normal);
+  if(std::abs(dot) < Object::EPSILON) {
+    // The ray is parallel to the plane
+    return false;
+  }
+
+  float t = (- ray.from.dot(normal) / dot);
+
+  if(t < 0) {
+    // The ray is not going away from the plane
     return false;
   }
 
@@ -30,10 +37,8 @@ bool Plane::computeIntersection(Ray const & ray, Intersection * intersection) {
     return true;
   }
 
-  float t = (- ray.from.dot(normal) / cosDirection);
   intersection->position = (ray.from + t * ray.direction);
   intersection->normal = normal;
-
   // Push back the intersection point so as to avoid self-intersection
   intersection->position += Object::PUSH_BACK * intersection->normal;
 
